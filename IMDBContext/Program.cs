@@ -29,23 +29,33 @@ namespace EfEx
             //Console.WriteLine(film.FilmId);
 
             var connectionString = "host=localhost;db=imdb_small;uid=postgres;pwd=@DAc43712";
-            UseAdo(connectionString);
+            UseEntityFrameWork(connectionString);
+            //UseAdo(connectionString);
 
         }
-
-        private static void UseAdo(string connectionString)
+        private static void UseEntityFrameWork(string connectionstring)
         {
-            var connection = new NpgsqlConnection(connectionString);
-            connection.Open();
+            var ctx = new IMDBContext(connectionstring);
+            var result = ctx.SimilarMovies.FromSqlInterpolated($"SELECT * FROM SIMILAR_MOVIES({"tt0372784"})");
 
-            var cmd = new NpgsqlCommand("SELECT * FROM SIMILAR_MOVIES('tt0372784')", connection);
-            var reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            foreach (var similarMovies in result)
             {
-                Console.WriteLine($"{reader.GetString(0)}");
+                Console.WriteLine($"{similarMovies.Title}");
             }
         }
+        //private static void UseAdo(string connectionString)
+        //{
+        //    var connection = new NpgsqlConnection(connectionString);
+        //    connection.Open();
+
+        //    var cmd = new NpgsqlCommand("SELECT * FROM SIMILAR_MOVIES('tt0386676')", connection);
+        //    var reader = cmd.ExecuteReader();
+
+        //    while (reader.Read())
+        //    {
+        //        Console.WriteLine($"{reader.GetString(0)}");
+        //    }
+        //}
     }
 
 

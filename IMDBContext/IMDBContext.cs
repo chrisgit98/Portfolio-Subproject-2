@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using EfEx;
 
-
 namespace EfEx
 {
     public class IMDBContext : DbContext
@@ -26,6 +25,15 @@ namespace EfEx
         public DbSet<BookmarkPeople> BookmarkPeople { get; set; }
         public DbSet<BookmarkTitle> BookmarkTitle { get; set; }
         public DbSet<Wi> Wi { get; set; }
+        public DbSet<SimilarMovies> SimilarMovies { get; set; }
+
+        private readonly string _connectionString;
+
+        public IMDBContext(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -34,7 +42,9 @@ namespace EfEx
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             optionsBuilder.EnableSensitiveDataLogging();
             optionsBuilder.UseNpgsql("host=localhost;db=imdb_small;uid=postgres;pwd=@DAc43712");
+
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -158,6 +168,10 @@ namespace EfEx
             modelBuilder.Entity<Wi>().Property(x => x.Field).HasColumnName("field");
             modelBuilder.Entity<Wi>().Property(x => x.Lexme).HasColumnName("lexme");
             modelBuilder.Entity<Wi>().HasKey(c => new { c.FilmId });
+
+            modelBuilder.Entity<SimilarMovies>().HasNoKey();
+            modelBuilder.Entity<SimilarMovies>().Property(x => x.Title).HasColumnName("movie");
+
         }
     }
 }
