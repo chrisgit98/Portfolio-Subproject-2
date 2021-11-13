@@ -26,6 +26,10 @@ namespace EfEx
         public DbSet<BookmarkTitle> BookmarkTitle { get; set; }
         public DbSet<Wi> Wi { get; set; }
         public DbSet<SimilarMovies> SimilarMovies { get; set; }
+        public DbSet<FindingCoPlayers> FindingCoPlayers { get; set; }
+
+        public DbSet<StringSearch>StringSearch { get; set; }
+
 
         private readonly string _connectionString;
 
@@ -172,6 +176,18 @@ namespace EfEx
             modelBuilder.Entity<SimilarMovies>().HasNoKey();
             modelBuilder.Entity<SimilarMovies>().Property(x => x.Title).HasColumnName("movie");
 
+            modelBuilder.Entity<FindingCoPlayers>().HasNoKey();
+            modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Nconst).HasColumnName("nconst");
+            modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Primary_Name).HasColumnName("primary_name");
+            modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Frequency).HasColumnName("frequency_of_appereance");
+
+            modelBuilder.Entity<StringSearch>().HasNoKey();
+            modelBuilder.Entity<StringSearch>().Property(x => x.Tconst).HasColumnName("tconst");
+            modelBuilder.Entity<StringSearch>().Property(x => x.Title).HasColumnName("originaltitle");
+            
+
+
         }
     }
+
 }
