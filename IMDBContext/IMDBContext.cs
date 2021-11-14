@@ -27,8 +27,8 @@ namespace EfEx
         public DbSet<Wi> Wi { get; set; }
         public DbSet<SimilarMovies> SimilarMovies { get; set; }
         public DbSet<FindingCoPlayers> FindingCoPlayers { get; set; }
-
         public DbSet<StringSearch>StringSearch { get; set; }
+        public DbSet<StructuredStringSearch>StructuredStringSearch { get; set; }
 
 
         private readonly string _connectionString;
@@ -185,6 +185,11 @@ namespace EfEx
             modelBuilder.Entity<StringSearch>().Property(x => x.Tconst).HasColumnName("tconst");
             modelBuilder.Entity<StringSearch>().Property(x => x.Title).HasColumnName("originaltitle");
             
+
+            modelBuilder.Entity<StructuredStringSearch>().HasNoKey();
+            modelBuilder.Entity<StructuredStringSearch>().Property(x => x.Tconst).HasColumnName("tconst");
+            modelBuilder.Entity<StructuredStringSearch>().Property(x => x.Title).HasColumnName("originaltitle");
+
 
 
         }

@@ -33,8 +33,21 @@ namespace EfEx
             // UseAdo(connectionString);
             //FindingCoPlayers(connectionString);
             StringSearch(connectionString);
-
+            StructuredStringSearch(connectionString);
         }
+        private static void StructuredStringSearch(string connectionString)
+        {
+            Console.WriteLine("Structured String Search");
+            var ctx = new IMDBContext(connectionString);
+            var result = ctx.StructuredStringSearch.FromSqlInterpolated($"SELECT * FROM structured_string_search('STAR WARS','VADER' ,'REY', 'ridley')");
+
+            foreach (var structuredstringsearch in result)
+            {
+                Console.WriteLine($"{structuredstringsearch.Title}");
+            }
+        }
+
+
         private static void SimilarMovies(string connectionstring)
         {
             Console.WriteLine("Similar Movies");
