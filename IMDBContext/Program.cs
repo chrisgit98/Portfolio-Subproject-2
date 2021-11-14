@@ -11,7 +11,7 @@ namespace EfEx
 {
     public class Program
     {
-        
+
 
         public static void Main()
         {
@@ -34,6 +34,22 @@ namespace EfEx
             //FindingCoPlayers(connectionString);
             StringSearch(connectionString);
             StructuredStringSearch(connectionString);
+            PopularActors(connectionString);
+
+        }
+
+        private static void PopularActors(string connectionString)
+        {
+            Console.WriteLine("Popular Actors");
+            var ctx = new IMDBContext(connectionString);
+            var result = ctx.PopularActors.FromSqlInterpolated($"SELECT * from ppl_actor('captain phillips')");
+
+            foreach (var pplactors in result)
+            {
+                Console.WriteLine($"{pplactors.Name},{pplactors.Popularity}");
+            }
+
+
         }
         private static void StructuredStringSearch(string connectionString)
         {

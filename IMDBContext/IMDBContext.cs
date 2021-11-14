@@ -29,6 +29,8 @@ namespace EfEx
         public DbSet<FindingCoPlayers> FindingCoPlayers { get; set; }
         public DbSet<StringSearch>StringSearch { get; set; }
         public DbSet<StructuredStringSearch>StructuredStringSearch { get; set; }
+        
+        public DbSet<PopularActors>PopularActors { get; set; } 
 
 
         private readonly string _connectionString;
@@ -190,7 +192,9 @@ namespace EfEx
             modelBuilder.Entity<StructuredStringSearch>().Property(x => x.Tconst).HasColumnName("tconst");
             modelBuilder.Entity<StructuredStringSearch>().Property(x => x.Title).HasColumnName("originaltitle");
 
-
+            modelBuilder.Entity<PopularActors>().HasNoKey();
+            modelBuilder.Entity<PopularActors>().Property(x => x.Name).HasColumnName("starring");
+            modelBuilder.Entity<PopularActors>().Property(x => x.Popularity).HasColumnName("popularity_num");
 
         }
     }
