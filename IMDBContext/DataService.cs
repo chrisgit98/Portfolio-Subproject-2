@@ -20,11 +20,26 @@ namespace EfEx
         public TitleBasics CreateTitleBasics(string id, string originaltitle);
         public bool UpdateTitleBasics(TitleBasics titleBasics);
         public bool DeleteTitleBasics(string titleId);
-    }
 
+        //Search History CRUD
+        public SearchHistory GetSearchHistory(string userId);
+        //public bool CreateSearchHIstory(SearchHistory searchHistory);
+
+        //public SearchHistory CreateSearchHistory()
+    }
+      
 
     public class DataService : IDataService
     {
+        public SearchHistory GetSearchHistory(string userId)
+        {
+            var ctx = new IMDBContext();
+            SearchHistory result = ctx.SearchHistory.FirstOrDefault(x => x.UserId == userId);
+            return result;
+        }
+
+
+
 
         public IList<NameBasics> GetNames()
         {
