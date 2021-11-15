@@ -31,7 +31,7 @@ namespace EfEx
             var connectionString = "host=localhost;db=imdb_small;uid=postgres;pwd=@DAc43712";
             SimilarMovies(connectionString);
             // UseAdo(connectionString);
-            //FindingCoPlayers(connectionString);
+            FindingCoPlayers(connectionString);
             StringSearch(connectionString);
             StructuredStringSearch(connectionString);
             PopularActors(connectionString);
@@ -80,7 +80,7 @@ namespace EfEx
         {
             Console.WriteLine("This is the Finding CoPlayers Function");
             var ctx = new IMDBContext(connectionstring);
-            var result = ctx.FindingCoPlayers.FromSqlInterpolated($"SELECT * finding_coplayer('Nicolas Cage')");
+            var result = ctx.FindingCoPlayers.FromSqlInterpolated($"SELECT * FROM finding_coplayer('Nicolas Cage')");
            // var result = ctx.FindingCoPlayers.FromSqlRaw("select * from finding_coplayer({1})", "Nicolas Cage");
            // Console.WriteLine($"this the first {result}");
             
