@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using EfEx;
-using EfEx.Domain
+using EfEx.Domain;
 
 namespace WebService.ViewModels.Profiles
 {

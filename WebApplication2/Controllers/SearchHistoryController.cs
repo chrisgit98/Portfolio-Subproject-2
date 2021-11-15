@@ -28,13 +28,31 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public IActionResult GetSearchHistory()
+        [HttpGet("getsearchhistory/{userId}")]
+        public IActionResult GetSearchHistory(string userId)
         {
-            var searchHistory = _dataService.GetSearchHistory();
-            var model = searchHistory.Select(CreateSearchHistoryViewModel);
+            if (userId == null)
+            {
+                return NotFound();
+            }
+            SearchHistory searchHistory = new SearchHistory()
+            {
+                UserId = userId,
+                
+            };
+
+            SearchHistoryViewModel model = GetSearchHistoryViewModel(searchHistory);
+
             return Ok(model);
         }
+
+        //[HttpGet]
+        //public IActionResult GetSearchHistory()
+        //{
+        //    var searchHistory = _dataService.GetSearchHistory();
+        //    var model = searchHistory.Select(CreateSearchHistoryViewModel);
+        //    return Ok(model);
+        //}
 
         //[HttpGet("{id}", Name = nameof(GetSearchHistory))]
         //public IActionResult GetSearchHistory(int id)
@@ -87,7 +105,7 @@ namespace WebService.Controllers
         //}
 
 
-        private SearchHistoryViewModel CreateSearchHistoryViewModel(SearchHistory searchHistory)
+        private SearchHistoryViewModel GetSearchHistoryViewModel(SearchHistory searchHistory)
         {
             var model = _mapper.Map<SearchHistoryViewModel>(searchHistory);
             model.Url = GetUrl(searchHistory);
