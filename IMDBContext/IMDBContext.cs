@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using EfEx;
 
-
 namespace EfEx
 {
     public class IMDBContext : DbContext
@@ -26,6 +25,21 @@ namespace EfEx
         public DbSet<BookmarkPeople> BookmarkPeople { get; set; }
         public DbSet<BookmarkTitle> BookmarkTitle { get; set; }
         public DbSet<Wi> Wi { get; set; }
+        public DbSet<SimilarMovies> SimilarMovies { get; set; }
+        public DbSet<FindingCoPlayers> FindingCoPlayers { get; set; }
+        public DbSet<StringSearch>StringSearch { get; set; }
+        public DbSet<StructuredStringSearch>StructuredStringSearch { get; set; }
+        
+        public DbSet<PopularActors>PopularActors { get; set; } 
+
+
+        private readonly string _connectionString;
+
+        public IMDBContext(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,8 +47,10 @@ namespace EfEx
 
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             optionsBuilder.EnableSensitiveDataLogging();
-            optionsBuilder.UseNpgsql("host=localhost;db=imdb_small;uid=postgres;pwd=@DAc43712");
+            optionsBuilder.UseNpgsql(_connectionString);
+
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -158,6 +174,29 @@ namespace EfEx
             modelBuilder.Entity<Wi>().Property(x => x.Field).HasColumnName("field");
             modelBuilder.Entity<Wi>().Property(x => x.Lexme).HasColumnName("lexme");
             modelBuilder.Entity<Wi>().HasKey(c => new { c.FilmId });
+
+            modelBuilder.Entity<SimilarMovies>().HasNoKey();
+            modelBuilder.Entity<SimilarMovies>().Property(x => x.Title).HasColumnName("movie");
+
+            modelBuilder.Entity<FindingCoPlayers>().HasNoKey();
+            modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Nconst).HasColumnName("nconst");
+            modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Primary_Name).HasColumnName("primary_name");
+            modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Frequency).HasColumnName("frequency_of_appereance");
+
+            modelBuilder.Entity<StringSearch>().HasNoKey();
+            modelBuilder.Entity<StringSearch>().Property(x => x.Tconst).HasColumnName("tconst");
+            modelBuilder.Entity<StringSearch>().Property(x => x.Title).HasColumnName("originaltitle");
+            
+
+            modelBuilder.Entity<StructuredStringSearch>().HasNoKey();
+            modelBuilder.Entity<StructuredStringSearch>().Property(x => x.Tconst).HasColumnName("tconst");
+            modelBuilder.Entity<StructuredStringSearch>().Property(x => x.Title).HasColumnName("originaltitle");
+
+            modelBuilder.Entity<PopularActors>().HasNoKey();
+            modelBuilder.Entity<PopularActors>().Property(x => x.Name).HasColumnName("starring");
+            modelBuilder.Entity<PopularActors>().Property(x => x.Popularity).HasColumnName("popularity_num");
+
         }
     }
+
 }
