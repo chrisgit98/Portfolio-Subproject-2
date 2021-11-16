@@ -11,4 +11,12 @@
     <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WebService\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
 </Project>

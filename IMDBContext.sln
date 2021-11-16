@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDB", "IMDBContext\IMDB.csproj", "{33B731F4-D277-4E42-BD1D-1FF513582DF4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{91E72A16-FB4E-4954-853C-3367F690A852}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{07F38E0D-A8D7-4701-9F22-CB9350CCC1DA}"
 EndProject
 Global
