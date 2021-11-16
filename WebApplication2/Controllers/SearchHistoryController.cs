@@ -28,7 +28,7 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("getsearchhistory/{userId}")]
+        [HttpGet("{userId}",Name =nameof(GetSearchHistory))]
         public IActionResult GetSearchHistory(string userId)
         {
             if (userId == null)
