@@ -33,7 +33,7 @@ namespace EfEx
 
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             optionsBuilder.EnableSensitiveDataLogging();
-            optionsBuilder.UseNpgsql("host=localhost;db=imdb;uid=postgres;pwd=Trade01c3c4.");
+            optionsBuilder.UseNpgsql("host=localhost;db=imdb_small;uid=postgres;pwd=@DAc43712");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
