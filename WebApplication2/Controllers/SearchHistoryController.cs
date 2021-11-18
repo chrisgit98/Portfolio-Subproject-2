@@ -9,6 +9,9 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+
+
 
 namespace WebService.Controllers
 {
@@ -17,9 +20,13 @@ namespace WebService.Controllers
     public class SearchHistoryController : Controller
     {
 
+
+
         private readonly IDataService _dataService;
         private readonly LinkGenerator _linkGenerator;
         private readonly IMapper _mapper;
+
+
 
         public SearchHistoryController(IDataService dataService, LinkGenerator linkGenerator, IMapper mapper)
         {
@@ -28,93 +35,72 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{userId}",Name =nameof(GetSearchHistory))]
-        public IActionResult GetSearchHistory(string userId)
+
+
+        [HttpGet("{userId}")]
+        public IActionResult GetSearchHistoryByUserId(int userId)
         {
-            if (userId == null)
+            var searchHistory = _dataService.GetSearchHistoryByUserId(userId);
+            if (searchHistory == null)
             {
                 return NotFound();
             }
-            SearchHistory searchHistory = new SearchHistory()
-            {
-                UserId = userId,
-                
-            };
-
-            SearchHistoryViewModel model = GetSearchHistoryViewModel(searchHistory);
-
-            return Ok(model);
+            return Ok(_mapper.Map<SearchHistoryViewModel>(searchHistory));
         }
 
-        //[HttpGet]
-        //public IActionResult GetSearchHistory()
-        //{
-        //    var searchHistory = _dataService.GetSearchHistory();
-        //    var model = searchHistory.Select(CreateSearchHistoryViewModel);
-        //    return Ok(model);
-        //}
-
-        //[HttpGet("{id}", Name = nameof(GetSearchHistory))]
-        //public IActionResult GetSearchHistory(int id)
-        //{
-        //    var category = _dataService.GetCategory(id);
-
-        //    if (category == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var model = CreateCategoryViewModel(category);
-
-        //    return Ok(model);
-        //}
-
-        //[HttpPost]
-        //public IActionResult CreateCategory(CreateCategoryViewModel model)
-        //{
-        //    var category = _mapper.Map<Category>(model);
-
-        //    _dataService.CreateCategory(category);
-
-        //    return Created(GetUrl(category), CreateCategoryViewModel(category));
-        //}
-
-        //[HttpDelete("{id}")]
-        //public IActionResult DeleteCategory(int id)
-        //{
-        //    if (!_dataService.DeleteCategory(id))
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //[HttpPut("{id}")]
-        //public IActionResult UpdateCategory(int id, CreateCategoryViewModel model)
-        //{
-        //    var category = _mapper.Map<Category>(model);
-        //    category.Id = id;
-
-        //    if (!_dataService.UpdateCategory(category))
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return NoContent();
-        //}
 
 
-        private SearchHistoryViewModel GetSearchHistoryViewModel(SearchHistory searchHistory)
+
+        [HttpPost]
+
+
+
+        public IActionResult CreateSearchHistory(CreateSearchHistoryViewModel model)
+
+
+
+        {
+            var searchHistory = _mapper.Map<SearchHistory>(model);
+            _dataService.CreateSearchHistory(searchHistory);
+            return Created("", searchHistory);
+        }
+
+
+
+        [HttpDelete("{userId}")]
+        public IActionResult DeleteSearchHistory(int userId)
+        {
+            if (!_dataService.DeleteSearchHistory(userId))
+            {
+                return NotFound();
+            }
+
+
+
+            return NoContent();
+
+
+
+        }
+
+
+
+
+        private SearchHistoryViewModel SearchHistoryViewModel(SearchHistory searchHistory)
         {
             var model = _mapper.Map<SearchHistoryViewModel>(searchHistory);
             model.Url = GetUrl(searchHistory);
             return model;
         }
 
+
+
         private string GetUrl(SearchHistory searchHistory)
         {
-            return _linkGenerator.GetUriByName(HttpContext, nameof(GetSearchHistory), new { searchHistory.UserId });
+            return _linkGenerator.GetUriByName(HttpContext, nameof(SearchHistory), new { searchHistory.UserId });
         }
+
+
+
     }
 }

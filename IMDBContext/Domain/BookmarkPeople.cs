@@ -10,8 +10,8 @@ namespace EfEx.Domain
     
     public class BookmarkPeople
     {
-        public char UserId { get; set; }
-        public char PersonId { get; set; }
+        public string UserId { get; set; }
+        public string PersonId { get; set; }
    
 
     }

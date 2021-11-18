@@ -28,20 +28,20 @@ namespace EfEx
             //var film = dataService.GetTitleBasics();
             //Console.WriteLine(film.FilmId);
 
-            var connectionString = "host=localhost;db=imdb_small;uid=postgres;pwd=@DAc43712";
-            SimilarMovies(connectionString);
+           // var connectionString = "host=localhost;db=imdb_small;uid=postgres;pwd=@DAc43712";
+            SimilarMovies();
             // UseAdo(connectionString);
-            FindingCoPlayers(connectionString);
-            StringSearch(connectionString);
-            StructuredStringSearch(connectionString);
-            PopularActors(connectionString);
+            FindingCoPlayers();
+            StringSearch();
+            StructuredStringSearch();
+            PopularActors();
 
         }
 
-        private static void PopularActors(string connectionString)
+        private static void PopularActors()
         {
             Console.WriteLine("Popular Actors");
-            var ctx = new IMDBContext(connectionString);
+            var ctx = new IMDBContext();
             var result = ctx.PopularActors.FromSqlInterpolated($"SELECT * from ppl_actor('captain phillips')");
 
             foreach (var pplactors in result)
@@ -51,10 +51,10 @@ namespace EfEx
 
 
         }
-        private static void StructuredStringSearch(string connectionString)
+        private static void StructuredStringSearch()
         {
             Console.WriteLine("Structured String Search");
-            var ctx = new IMDBContext(connectionString);
+            var ctx = new IMDBContext();
             var result = ctx.StructuredStringSearch.FromSqlInterpolated($"SELECT * FROM structured_string_search('STAR WARS','VADER' ,'REY', 'ridley')");
 
             foreach (var structuredstringsearch in result)
@@ -64,10 +64,10 @@ namespace EfEx
         }
 
 
-        private static void SimilarMovies(string connectionstring)
+        private static void SimilarMovies()
         {
             Console.WriteLine("Similar Movies");
-            var ctx = new IMDBContext(connectionstring);
+            var ctx = new IMDBContext();
             var result = ctx.SimilarMovies.FromSqlInterpolated($"SELECT * FROM SIMILAR_MOVIES ('tt0372784')");
 
             foreach (var similarMovies in result)
@@ -76,13 +76,12 @@ namespace EfEx
             }
 
         }
-        private static void FindingCoPlayers(string connectionstring)
+        private static void FindingCoPlayers()
         {
             Console.WriteLine("This is the Finding CoPlayers Function");
-            var ctx = new IMDBContext(connectionstring);
+            var ctx = new IMDBContext();
             var result = ctx.FindingCoPlayers.FromSqlInterpolated($"SELECT * FROM finding_coplayer('Nicolas Cage')");
-           // var result = ctx.FindingCoPlayers.FromSqlRaw("select * from finding_coplayer({1})", "Nicolas Cage");
-           // Console.WriteLine($"this the first {result}");
+          
             
             foreach (var findingCoPlayers in result)
             {
@@ -91,11 +90,11 @@ namespace EfEx
 
         }
 
-        private static void StringSearch(string connectionstring)
+        private static void StringSearch()
         {
             Console.WriteLine("String Search");
 
-            var ctx = new IMDBContext(connectionstring);
+            var ctx = new IMDBContext();
             var result = ctx.StringSearch.FromSqlInterpolated($"SELECT * FROM string_search('star WARS')");
 
             foreach(var stringSearch in result)
@@ -107,21 +106,21 @@ namespace EfEx
 
 
 
-        private static void UseAdo(string connectionString)
-        {
-            Console.WriteLine("This is Ado Framework");
+        //private static void UseAdo(string connectionString)
+        //{
+        //    Console.WriteLine("This is Ado Framework");
 
-            var connection = new NpgsqlConnection(connectionString);
-            connection.Open();
+        //    var connection = new NpgsqlConnection(connectionString);
+        //    connection.Open();
 
-            var cmd = new NpgsqlCommand("SELECT * FROM SIMILAR_MOVIES('tt0386676')", connection);
-            var reader = cmd.ExecuteReader();
+        //    var cmd = new NpgsqlCommand("SELECT * FROM SIMILAR_MOVIES('tt0386676')", connection);
+        //    var reader = cmd.ExecuteReader();
 
-            while (reader.Read())
-            {
-                Console.WriteLine($"{reader.GetString(0)}");
-            }
-        }
+        //    while (reader.Read())
+        //    {
+        //        Console.WriteLine($"{reader.GetString(0)}");
+        //    }
+        //}
     }
 
 

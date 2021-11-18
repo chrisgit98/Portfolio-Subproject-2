@@ -20,7 +20,7 @@ namespace EfEx
         public DbSet<TitleRating> TitleRating { get; set; }
         public DbSet<OmdbData> OmdbData { get; set; }
         public DbSet<AppUser> AppUser { get; set; }
-        public DbSet<SearchHistory> SearchHistory { get; set; }
+        public DbSet<SearchHistory> SearchHistories { get; set; }
         public DbSet<UserRating> UserRating { get; set; }
         public DbSet<BookmarkPeople> BookmarkPeople { get; set; }
         public DbSet<BookmarkTitle> BookmarkTitle { get; set; }
@@ -33,12 +33,13 @@ namespace EfEx
         public DbSet<PopularActors>PopularActors { get; set; } 
 
 
-        private readonly string _connectionString;
 
-        public IMDBContext(string connectionString)
-        {
-            _connectionString = connectionString;
-        }
+        //private readonly string _connectionString;
+
+        //public IMDBContext(string connectionString)
+        //{
+        //    _connectionString = connectionString;
+        //}
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -47,7 +48,7 @@ namespace EfEx
 
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             optionsBuilder.EnableSensitiveDataLogging();
-            optionsBuilder.UseNpgsql(_connectionString);
+            optionsBuilder.UseNpgsql("host = localhost; db = imdb_small; uid = postgres; pwd = @DAc43712");
 
         }
 
@@ -148,7 +149,7 @@ namespace EfEx
             modelBuilder.Entity<SearchHistory>().ToTable("search_history");
             modelBuilder.Entity<SearchHistory>().Property(x => x.UserId).HasColumnName("u_id");
             modelBuilder.Entity<SearchHistory>().Property(x => x.FilmId).HasColumnName("tconst");
-            modelBuilder.Entity<SearchHistory>().Property(x => x.Date).HasColumnName("date");
+            modelBuilder.Entity<SearchHistory>().Property(x => x.Date).HasColumnName("time");
             modelBuilder.Entity<SearchHistory>().HasKey(c => new { c.FilmId, c.UserId });
 
             modelBuilder.Entity<UserRating>().ToTable("user_rating");
