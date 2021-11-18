@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-
+using EfEx.Domain;
 
 namespace WebService.ViewModels.Profiles
 {
@@ -12,8 +12,8 @@ namespace WebService.ViewModels.Profiles
     {
         public BookmarkPeopleProfile()
         {
-            CreateMap<BookmarkPeopleProfile,BookmarkPeopleViewModel> ();
-            CreateMap<CreateBookmarkPeopleViewModel, BookmarkPeopleProfile>();
+            CreateMap<BookmarkPeople,BookmarkPeopleViewModel> ();
+            CreateMap<CreateBookmarkPeopleViewModel, BookmarkPeople>();
         }
     }
 }

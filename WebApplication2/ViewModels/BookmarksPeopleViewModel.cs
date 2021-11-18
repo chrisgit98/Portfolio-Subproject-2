@@ -8,7 +8,7 @@ namespace WebService.ViewModels
     public class BookmarkPeopleViewModel
     {
         public string URL { get; set; }
-        public string Nconst { get; set; }
+        public string PersonId { get; set; }
         
         public string UserId { get; set; }
 

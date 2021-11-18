@@ -159,7 +159,7 @@ namespace EfEx
             modelBuilder.Entity<UserRating>().Property(x => x.Comment).HasColumnName("comment");
             modelBuilder.Entity<UserRating>().HasKey(c => new { c.FilmId, c.UserId });
 
-            modelBuilder.Entity<BookmarkPeople>().ToTable("bookmark_people");
+            modelBuilder.Entity<BookmarkPeople>().ToTable("bookmarks_people");
             modelBuilder.Entity<BookmarkPeople>().Property(x => x.UserId).HasColumnName("u_id");
             modelBuilder.Entity<BookmarkPeople>().Property(x => x.PersonId).HasColumnName("nconst");
             modelBuilder.Entity<BookmarkPeople>().HasKey(c => new { c.PersonId, c.UserId });
