@@ -29,27 +29,16 @@ namespace WebService.Controllers
             _linkGenerator = linkGenerator;
             _mapper = mapper;
         }
-        [HttpGet("{userId}/{personId}", Name = nameof(GetBookmarkPeopleByUserId))]
-        public IActionResult GetBookmarkPeopleByUserId(int userId,string personId)
+        [HttpGet("{userId}", Name = nameof(GetBookmarkPeopleByUserId))]
+        public IActionResult GetBookmarkPeopleByUserId(int userId)
         {
-            //if (userId == null)
-            //{
-            //    return NotFound();
-            //}
-            //BookmarkPeople bookmarkPeople = new BookmarkPeople()
-            //{
-            //    UserId = userId
-            //};
-            //BookmarkPeopleViewModel model = GetBookmarkPeopleViewModel(bookmarkPeople);
-
-            //return Ok(model);
-
-            var bookmarkPeople = _dataService.GetBookmarkPeopleByUserId(userId,personId);
+           
+            var bookmarkPeople = _dataService.GetBookmarkPeopleByUserId(userId);
             if (bookmarkPeople == null)
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<BookmarkPeopleViewModel>(bookmarkPeople));
+            return Ok(bookmarkPeople);
         }
 
 
