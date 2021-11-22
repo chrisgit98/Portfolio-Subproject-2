@@ -10,10 +10,10 @@ namespace WebService.ViewModels
 {
 	public class CreateSearchStringViewModel
 	{
-		public string Url { get; set; }
+		//public string Url { get; set; }
 
-		public string UserId { get; set; }
-		public string FilmId { get; set; }
-		public DateTime Date { get; set; }
+		public string Tconst { get; set; }
+		public string Title { get; set; }
 	}
+	
 }

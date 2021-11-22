@@ -22,9 +22,10 @@ namespace EfEx
         public DbSet<AppUser> AppUser { get; set; }
         public DbSet<SearchHistory> SearchHistories { get; set; }
         public DbSet<UserRating> UserRating { get; set; }
-        public DbSet<BookmarkPeople> BookmarkPeople { get; set; }
-        public DbSet<BookmarkTitle> BookmarkTitle { get; set; }
+        public DbSet<BookmarkPeople> BookmarkPeoples { get; set; }
+        public DbSet<BookmarkTitle> BookmarkTitles { get; set; }
         public DbSet<Wi> Wi { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<SimilarMovies> SimilarMovies { get; set; }
         public DbSet<FindingCoPlayers> FindingCoPlayers { get; set; }
         public DbSet<StringSearch>StringSearch { get; set; }
@@ -34,13 +35,6 @@ namespace EfEx
 
 
 
-        //private readonly string _connectionString;
-
-        //public IMDBContext(string connectionString)
-        //{
-        //    _connectionString = connectionString;
-        //}
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -48,7 +42,7 @@ namespace EfEx
 
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             optionsBuilder.EnableSensitiveDataLogging();
-            optionsBuilder.UseNpgsql("host = localhost; db = imdb_small; uid = postgres; pwd = @DAc43712");
+            optionsBuilder.UseNpgsql("host = localhost; db = imdb; uid = postgres; pwd = Trade01c3c4.");
 
         }
 
@@ -138,13 +132,20 @@ namespace EfEx
 
 
 
-            modelBuilder.Entity<AppUser>().ToTable("app_user");
-            modelBuilder.Entity<AppUser>().Property(x => x.UserId).HasColumnName("u_id");
-            modelBuilder.Entity<AppUser>().Property(x => x.UserName).HasColumnName("u_name");
-            modelBuilder.Entity<AppUser>().Property(x => x.Password).HasColumnName("password");
-            modelBuilder.Entity<AppUser>().Property(x => x.Age).HasColumnName("age");
-            modelBuilder.Entity<AppUser>().Property(x => x.Region).HasColumnName("region");
-            modelBuilder.Entity<AppUser>().HasKey(c => new { c.UserId });
+            //modelBuilder.Entity<AppUser>().ToTable("app_user");
+            //modelBuilder.Entity<AppUser>().Property(x => x.UserId).HasColumnName("u_id");
+            //modelBuilder.Entity<AppUser>().Property(x => x.UserName).HasColumnName("u_name");
+            //modelBuilder.Entity<AppUser>().Property(x => x.Password).HasColumnName("password");
+            //modelBuilder.Entity<AppUser>().Property(x => x.Age).HasColumnName("age");
+            //modelBuilder.Entity<AppUser>().Property(x => x.Region).HasColumnName("region");
+            //modelBuilder.Entity<AppUser>().HasKey(c => new { c.UserId });
+
+            modelBuilder.Entity<User>().ToTable("users");
+            modelBuilder.Entity<User>().Property(x => x.Username).HasColumnName("u_name");
+            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
+            modelBuilder.Entity<User>().Property(x => x.UserId).HasColumnName("u_id");
+            modelBuilder.Entity<User>().Property(x => x.Salt).HasColumnName("salt");
+            modelBuilder.Entity<User>().HasKey(c => new { c.UserId });
 
             modelBuilder.Entity<SearchHistory>().ToTable("search_history");
             modelBuilder.Entity<SearchHistory>().Property(x => x.UserId).HasColumnName("u_id");

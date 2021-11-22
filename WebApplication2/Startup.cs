@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EfEx;
+using WebServiceToken.Middleware;
 
 namespace WebApplication2
 {
@@ -48,7 +49,7 @@ namespace WebApplication2
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseJwtAuth();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
             
                 

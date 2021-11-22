@@ -7,10 +7,10 @@ namespace WebService.ViewModels
 {
     public class BookmarkPeopleViewModel
     {
-        public string URL { get; set; }
+        public string Url { get; set; }
         public string PersonId { get; set; }
         
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
         
     }

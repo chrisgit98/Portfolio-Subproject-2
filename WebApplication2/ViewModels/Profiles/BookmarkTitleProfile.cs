@@ -7,12 +7,12 @@ using EfEx.Domain;
 
 namespace WebService.ViewModels.Profiles
 {
-    public class BookmarkPeopleProfile : Profile
+    public class BookmarkTitleProfile : Profile
 
     {
-        public BookmarkPeopleProfile()
+        public BookmarkTitleProfile()
         {
-            CreateMap<BookmarkPeople,BookmarkPeopleViewModel> ();
+            CreateMap<BookmarkTitle, BookmarkTitleViewModel>();
             //CreateMap<CreateBookmarkPeopleViewModel, BookmarkPeople>();
         }
     }

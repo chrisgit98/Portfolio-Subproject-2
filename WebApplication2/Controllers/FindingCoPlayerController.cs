@@ -15,34 +15,33 @@ using System.Collections.Generic;
 namespace WebService.Controllers
 {
     [ApiController]
-    [Route("api/StringSearch")]
-    public class StringSearchController : Controller
+    [Route("api/FindingCoPlayer")]
+    public class FindingCoPlayerController : Controller
 
-    { 
+    {
         private readonly IDataService _dataService;
         private readonly LinkGenerator _linkGenerator;
         private readonly IMapper _mapper;
 
 
-        public StringSearchController(IDataService dataService, LinkGenerator linkGenerator, IMapper mapper)
+        public FindingCoPlayerController(IDataService dataService, LinkGenerator linkGenerator, IMapper mapper)
         {
             _dataService = dataService;
             _linkGenerator = linkGenerator;
             _mapper = mapper;
         }
 
-        [HttpGet("{String}")]
+        [HttpGet("{s}")]
 
 
-
-        public IActionResult StringSearch(string s)
+        public IActionResult FindingCoPlayers(string s)
         {
-            var stringSearch = _dataService.StringSearch(s);
-            if (stringSearch == null)
+            var findingCoPlayers = _dataService.FindingCoPlayers(s);
+            if (findingCoPlayers == null)
             {
                 return NotFound();
             }
-            return Ok(stringSearch);
+            return Ok(findingCoPlayers);
         }
     }
 }

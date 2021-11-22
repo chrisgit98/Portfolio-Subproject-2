@@ -1,4 +1,4 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -9,22 +9,19 @@
   },
   "profiles": {
     "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
+      "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "WebApplication2": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
       "launchBrowser": true,
-      "applicationUrl": "api/searchhistory",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-
-    
+      },
+      "dotnetRunMessages": "true",
+      "applicationUrl": "api/searchhistory"
     }
   }
 }

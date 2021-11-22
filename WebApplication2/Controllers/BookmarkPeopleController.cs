@@ -38,17 +38,29 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-            return Ok(bookmarkPeople);
+            return Ok(bookmarkPeople.Select(GetBookmarkPeopleViewModel));
         }
 
 
-        [HttpPost]
+        [HttpDelete("{userId}/{personId}")]
+        public IActionResult DeleteBookmarkPeople(int userId, string personId)
+        {
+           _dataService.DeleteBookmarkPeople(userId, personId);
+            
+            
+            return NoContent();
 
-        public IActionResult CreateBookmarkPeople(CreateBookmarkPeopleViewModel model)
+        }
+
+        [HttpPost("{post}")]
+
+        public IActionResult CreateBookmarkPeople(BookmarkPeopleViewModel model)
         {
             var bookmarkPeople = _mapper.Map<BookmarkPeople>(model);
+
             _dataService.CreateBookmarkPeople(bookmarkPeople);
-            return Created("", bookmarkPeople);
+
+            return Created(GetUrl(bookmarkPeople), GetBookmarkPeopleViewModel(bookmarkPeople));
         }
 
 
@@ -56,12 +68,15 @@ namespace WebService.Controllers
         private BookmarkPeopleViewModel GetBookmarkPeopleViewModel(BookmarkPeople bookmarkPeople)
         {
             var model = _mapper.Map<BookmarkPeopleViewModel>(bookmarkPeople);
-            model.URL = GetUrl(bookmarkPeople);
+            model.Url = GetUrl(bookmarkPeople);
+            model.PersonId = bookmarkPeople.PersonId;
+            model.UserId = bookmarkPeople.UserId;
             return model;
         }
         private string GetUrl(BookmarkPeople bookmarkPeople)
         {
-            return _linkGenerator.GetUriByName(HttpContext, nameof(BookmarkPeople), new { bookmarkPeople.UserId });
+            return _linkGenerator.GetUriByName(HttpContext, nameof(BookmarkPeople), new { bookmarkPeople.PersonId });
         }
     }
+
 }
