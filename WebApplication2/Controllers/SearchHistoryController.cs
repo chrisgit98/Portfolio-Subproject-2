@@ -36,7 +36,7 @@ namespace WebService.Controllers
         }
 
 
-
+        
         [HttpGet("{userId}")]
         public IActionResult GetSearchHistoryByUserId(int userId)
         {
@@ -45,24 +45,7 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<SearchHistoryViewModel>(searchHistory));
-        }
-
-
-
-
-        [HttpPost]
-
-
-
-        public IActionResult CreateSearchHistory(CreateSearchHistoryViewModel model)
-
-
-
-        {
-            var searchHistory = _mapper.Map<SearchHistory>(model);
-            _dataService.CreateSearchHistory(searchHistory);
-            return Created("", searchHistory);
+            return Ok(searchHistory.Select(CreateSearchHistoryViewModel));
         }
 
 
@@ -75,24 +58,21 @@ namespace WebService.Controllers
                 return NotFound();
             }
 
-
-
             return NoContent();
 
-
-
         }
 
-
-
-
-        private SearchHistoryViewModel SearchHistoryViewModel(SearchHistory searchHistory)
+        private SearchHistoryViewModel CreateSearchHistoryViewModel(SearchHistory searchHistory)
         {
-            var model = _mapper.Map<SearchHistoryViewModel>(searchHistory);
-            model.Url = GetUrl(searchHistory);
-            return model;
-        }
+            return new SearchHistoryViewModel
+            {
+                Url = Url.Link(nameof(GetSearchHistoryByUserId), new { filmId = searchHistory.FilmId }),
+                FilmId = searchHistory.FilmId,
+                Date = searchHistory.Date
+            };
 
+        }   
+        
 
 
         private string GetUrl(SearchHistory searchHistory)

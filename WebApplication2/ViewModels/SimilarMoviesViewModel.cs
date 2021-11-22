@@ -5,13 +5,10 @@ using System.Threading.Tasks;
 
 namespace WebService.ViewModels
 {
-    public class BookmarkPeopleViewModel
+    public class SimilarMoviesViewModel
     {
         public string Url { get; set; }
-        public string PersonId { get; set; }
-        
-        public int UserId { get; set; }
 
-        
+        public string Title { get; set; }
     }
 }
