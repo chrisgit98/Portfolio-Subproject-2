@@ -36,12 +36,26 @@ namespace WebService.Controllers
 
         public IActionResult StructuredStringSearch(string s,string s1,string s2, string s3)
         {
-            var structuredString = _dataService.StructuredStringSearches(s,s1,s2,s3);
+            var structuredString = _dataService.StructuredStringSearches(s, s1, s2, s3).Select(CreateStructuredStringViewModel);
             if (structuredString == null)
             {
                 return NotFound();
             }
-            return Ok(structuredString);
+
+            var result = new
+            {
+                items = structuredString
+            };
+
+            return Ok(result);
+
+        }
+
+        private StructuresStringSearchViewModel CreateStructuredStringViewModel(StructuredStringSearch structuredStringSearch)
+        {
+            var model = _mapper.Map<StructuresStringSearchViewModel>(structuredStringSearch);
+            model.Url = _linkGenerator.GetUriByName(HttpContext, nameof(StructuredStringSearch), new { structuredStringSearch.Tconst });
+            return model;
         }
     }
 }

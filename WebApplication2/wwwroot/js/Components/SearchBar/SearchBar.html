@@ -1,0 +1,9 @@
+﻿<h2>Find Movies</h2>
+<input data-bind="textInput: structuredString" />
+<div data-bind="foreach: structuredString">
+    <div class="movie-results">
+        <div>
+            Title: <span data-bind="text: title"></span>
+        </div>
+    </div>
+</div>
