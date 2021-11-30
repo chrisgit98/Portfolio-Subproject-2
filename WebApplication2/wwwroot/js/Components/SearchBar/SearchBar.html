@@ -1,5 +1,7 @@
 ﻿<h2>Find Movies</h2>
-<input data-bind="textInput: structuredString" />
+<label class="form-label">Search here</label>
+<input type="search" class="form-control" data-bind="value: Search here" required/>
+<button type="submit" class="btn btn-primary" data-bind="click: getMovies">Search</button>
 <div data-bind="foreach: structuredString">
     <div class="movie-results">
         <div>
