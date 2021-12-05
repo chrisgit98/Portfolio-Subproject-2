@@ -6,7 +6,7 @@
 </head>
 <body class="container-fluid">
     <h1>IMDB 2.0</h1>
-    <div data-bind="component: currentView"></div>
+    <div data-bind="component: {name: currentView, params: { currentView }}"></div>
     <script data-main="js/main.js" src="js/lib/require.js/require.min.js"></script>
 </body>
 </html>

@@ -1,11 +1,16 @@
 ﻿<h2>Find Movies</h2>
-<label class="form-label">Search here</label>
-<input type="search" class="form-control" data-bind="value: Search here" required/>
-<button type="submit" class="btn btn-primary" data-bind="click: getMovies">Search</button>
-<div data-bind="foreach: structuredString">
-    <div class="movie-results">
-        <div>
-            Title: <span data-bind="text: title"></span>
-        </div>
-    </div>
+
+<div class="col-6">
+    Search here: <input type="search" class="form-control" data-bind="textInput: Search" required />
+    <button type="submit" data-bind="click: createSearch" class="btn btn-primary">Search</button>
 </div>
+<table class="table">
+    <thead>
+        <tr><th>Title</th><th></th></tr>
+    </thead>
+    <tbody data-bind="foreach: stringSearch">
+        <tr>
+            <td data-bind="text: title"></td>
+        </tr>
+    </tbody>
+</table>

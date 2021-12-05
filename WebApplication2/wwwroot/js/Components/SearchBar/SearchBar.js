@@ -1,12 +1,20 @@
-﻿define(['knockout', 'dataservice'], (ko, dataservice) => {
+﻿define(['knockout', 'dataservice'], function (ko, dataservice) {
     return function (params) {
-        let structuredString = ko.observableArray();
+        let stringSearch = ko.observableArray([]);
+        let Search = ko.observable();
+        //let currentView = params.currentView
+
         
 
+        let createSearch = () => dataservice.getMovies(Search(), data => {         
+            stringSearch(data);
+        });
+
         return {
-            
-            structuredString
-      
+
+            stringSearch,
+            Search,
+            createSearch
 
         };
 

@@ -1,0 +1,17 @@
+﻿<h1>BookmarkPeople</h1>
+
+<!--<button class="btn btn-primary" data-bind="click: addCategoryView">Add Category</button>-->
+
+
+<table class="table">
+    <thead>
+        <tr><th>Url</th><th>PersonId</th><th></th></tr>
+    </thead>
+    <tbody data-bind="foreach: bookmarkPeople">
+        <tr>
+            <td data-bind="text: url"></td>
+            <td data-bind="text: personId"></td>
+            <td><button class="btn btn-danger btn-sm" data-bind="click: $parent.deleteBookmarkPeople">Del</button></td>
+        </tr>
+    </tbody>
+</table>

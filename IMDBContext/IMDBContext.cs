@@ -19,7 +19,7 @@ namespace EfEx
         public DbSet<Genre> Genre { get; set; }
         public DbSet<TitleRating> TitleRating { get; set; }
         public DbSet<OmdbData> OmdbData { get; set; }
-        public DbSet<AppUser> AppUser { get; set; }
+        //public DbSet<AppUser> AppUser { get; set; }
         public DbSet<SearchHistory> SearchHistories { get; set; }
         public DbSet<UserRating> UserRating { get; set; }
         public DbSet<BookmarkPeople> BookmarkPeoples { get; set; }
@@ -163,7 +163,7 @@ namespace EfEx
             modelBuilder.Entity<BookmarkPeople>().ToTable("bookmarks_people");
             modelBuilder.Entity<BookmarkPeople>().Property(x => x.UserId).HasColumnName("u_id");
             modelBuilder.Entity<BookmarkPeople>().Property(x => x.PersonId).HasColumnName("nconst");
-            modelBuilder.Entity<BookmarkPeople>().HasKey(c => new { c.PersonId, c.UserId });
+            modelBuilder.Entity<BookmarkPeople>().HasKey(c => new {  c.UserId, c.PersonId, });
 
             modelBuilder.Entity<BookmarkTitle>().ToTable("bookmark_title");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.UserId).HasColumnName("u_id");

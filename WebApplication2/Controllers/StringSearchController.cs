@@ -31,7 +31,7 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{s}")]
+        [HttpGet("{s}", Name = nameof(StringSearch))]
 
         public IActionResult StringSearch(string s)
         {
@@ -40,24 +40,21 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-            return Ok(stringSearch.Select(CreateSearchStringViewModel));
+            return Ok(stringSearch.Select(CreateStringSearchViewModel));
         }
 
-        private StringSearchViewModel CreateSearchStringViewModel(StringSearch stringSearch)
+        private StringSearchViewModel CreateStringSearchViewModel(StringSearch stringSearch)
         {
-            return new StringSearchViewModel
-            {
-                Url = Url.Link(nameof(StringSearch), new {s = stringSearch.Tconst }),
-                
-                Tconst = stringSearch.Tconst,
-                Title = stringSearch.Title,
-            };
+            var model = _mapper.Map<StringSearchViewModel>(stringSearch);
+            model.Url = GetUrl(stringSearch);
+            model.Tconst = stringSearch.Tconst;
+            model.Title = stringSearch.Title;
+            return model;
         }
-
-        //private string GetUrl(StringSearch stringSearch)
-        //{
-        //    return _linkGenerator.GetUriByName(HttpContext, nameof(StringSearch), new { stringSearch.Tconst });
-        //}
+        private string GetUrl(StringSearch stringSearch)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(StringSearch), new { stringSearch.Tconst });
+        }
     }
 
 

@@ -1,9 +1,11 @@
-﻿define(['knockout'], (ko) => {
-
+﻿define(["knockout"], function (ko) {
     let currentView = ko.observable("Search-for-movies");
 
-    return {
-        currentView
-    };
+    
 
+    return {
+
+        currentView
+        
+    }
 });

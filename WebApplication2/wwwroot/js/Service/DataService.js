@@ -1,20 +1,16 @@
 ﻿define([], () => {
-    const moviesApiUrl = "api/sss";
 
-    let getJson = (url, callback) => {
-        fetch(url).then(response => response.json()).then(callback);
-    };
-
-    let getMovies = (url, callback) => {
-        if (url === undefined) {
-            url = moviesApiUrl;
-        }
-        getJson(url, callback)
+    let getMovies = (searchString, callback) => {
+        console.log(searchString)
+        fetch("api/StringSearch/" + searchString)
+            .then(response => response.json())
+            .then(json => callback(json));
 
     };
+
     return {
-        getMovies,
-        getMovie: getJson
+        getMovies
+
     };
 
 });

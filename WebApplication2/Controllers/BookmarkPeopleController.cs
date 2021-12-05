@@ -29,6 +29,14 @@ namespace WebService.Controllers
             _linkGenerator = linkGenerator;
             _mapper = mapper;
         }
+        [HttpGet]
+        public IActionResult GetBookmarksPeople()
+        {
+            var bookmarkPeople = _dataService.GetBookmarksPeople();
+            var model = bookmarkPeople.Select(CreateBookmarkPeopleViewModel);
+            return Ok(model);
+        }
+
         [HttpGet("{userId}", Name = nameof(GetBookmarkPeopleByUserId))]
         public IActionResult GetBookmarkPeopleByUserId(int userId)
         {
@@ -38,15 +46,16 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-            return Ok(bookmarkPeople.Select(GetBookmarkPeopleViewModel));
+            return Ok(bookmarkPeople.Select(CreateBookmarkPeopleViewModel));
         }
 
 
         [HttpDelete("{userId}/{personId}")]
         public IActionResult DeleteBookmarkPeople(int userId, string personId)
         {
-           _dataService.DeleteBookmarkPeople(userId, personId);
-            
+           //_dataService.DeleteBookmarkPeople(userId, personId);
+
+            if (!_dataService.DeleteBookmarkPeople(userId, personId)) return NotFound() ;
             
             return NoContent();
 
@@ -60,22 +69,22 @@ namespace WebService.Controllers
 
             _dataService.CreateBookmarkPeople(bookmarkPeople);
 
-            return Created(GetUrl(bookmarkPeople), GetBookmarkPeopleViewModel(bookmarkPeople));
+            return Created(GetUrl(bookmarkPeople), CreateBookmarkPeopleViewModel(bookmarkPeople));
         }
 
 
 
-        private BookmarkPeopleViewModel GetBookmarkPeopleViewModel(BookmarkPeople bookmarkPeople)
+        private BookmarkPeopleViewModel CreateBookmarkPeopleViewModel(BookmarkPeople bookmarkPeople)
         {
             var model = _mapper.Map<BookmarkPeopleViewModel>(bookmarkPeople);
             model.Url = GetUrl(bookmarkPeople);
-            model.PersonId = bookmarkPeople.PersonId;
-            model.UserId = bookmarkPeople.UserId;
+            //model.PersonId = bookmarkPeople.PersonId;
+            //model.UserId = bookmarkPeople.UserId;
             return model;
         }
         private string GetUrl(BookmarkPeople bookmarkPeople)
         {
-            return _linkGenerator.GetUriByName(HttpContext, nameof(BookmarkPeople), new { bookmarkPeople.PersonId });
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetBookmarkPeopleByUserId),  new {  bookmarkPeople.UserId } );
         }
     }
 

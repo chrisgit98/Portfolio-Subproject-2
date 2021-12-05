@@ -20,6 +20,7 @@ namespace EfEx
         public bool DeleteSearchHistory(int userId);
 
         //BookmarksPeople CRUD
+        IList<BookmarkPeople> GetBookmarksPeople();
         public BookmarkPeople GetBookmarkPeopleByUserId(int userId,string personID);
         public bool CreateBookmarkPeople(BookmarkPeople bookmarkPeople);
         public BookmarkPeople CreateBookmarkPeople(int userId, string PersonId);
@@ -57,6 +58,15 @@ namespace EfEx
     public class DataService : IDataService
     {
         //BookmarkPeople
+        
+
+        public IList<BookmarkPeople> GetBookmarksPeople()
+        {
+            var ctx = new IMDBContext();
+            var result = ctx.BookmarkPeoples.AsEnumerable();
+            return result.ToList();
+
+        }
 
         public IList<BookmarkPeople> GetBookmarkPeopleByUserId(int userId)
         {
@@ -100,6 +110,8 @@ namespace EfEx
         public bool DeleteBookmarkPeople(int userId, string personId)
         {
             var ctx = new IMDBContext();
+            var dbp = ctx.BookmarkPeoples.Find(userId, personId);
+            if (dbp == null) return false;
             try
             {
                 ctx.BookmarkPeoples.Remove(ctx.BookmarkPeoples.Find(userId, personId));
