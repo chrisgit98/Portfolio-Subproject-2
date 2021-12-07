@@ -7,7 +7,9 @@
         text: "lib/require-text/text",
         dataservice: "Service/DataService",
         bookmarkPeopleService: "Service/bookmarkPeopleService",
-        similarMoviesService: "Service/similarMoviesService"
+        similarMoviesService: "Service/similarMoviesService",
+        searchHistoryService: "Service/searchHistoryService",
+        popularActorsService: "Service/popularActorsService"
     }
 });
 
@@ -25,6 +27,14 @@ require(['knockout'], (ko) => {
     ko.components.register("similarMovies", {
         viewModel: { require: "Components/SimilarMovies/similarMovies" },
         template: { require: "text!Components/SimilarMovies/similarMovies.html" }
+    });
+    ko.components.register("searchHistory", {
+        viewModel: { require: "Components/SearchHistory/searchHistory" },
+        template: { require: "text!Components/SearchHistory/searchHistory.html" }
+    });
+    ko.components.register("popularActors", {
+        viewModel: { require: "Components/PopularActors/popularActors" },
+        template: { require: "text!Components/PopularActors/popularActors.html" }
     });
 
 });

@@ -13,7 +13,7 @@ namespace WebService.ViewModels.Profiles
     {
         public SearchHistoryProfile()
         {
-            CreateMap<SearchHistory, StringSearchViewModel>();
+            CreateMap<SearchHistory, SearchHistoryViewModel>();
             CreateMap<CreateSearchHistoryViewModel, SearchHistory>();
         }
     }

@@ -8,7 +8,7 @@
 
     let deleteBookmarkPeople = bookmarkPeople => {
         console.log(bookmarkPeople.url);
-        fetch(bookmarkPeople.url, { method: "DELETE" })
+        fetch(bookmarkPeople.url +"/"+ bookmarkPeople.personId, { method: "DELETE" })
             .then(response => console.log(response.status))
     };
 

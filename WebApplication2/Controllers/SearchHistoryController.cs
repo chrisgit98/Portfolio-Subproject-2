@@ -34,10 +34,15 @@ namespace WebService.Controllers
             _linkGenerator = linkGenerator;
             _mapper = mapper;
         }
+        [HttpGet]
+        public IActionResult GetSearchHistory()
+        {
+            var searchHistory = _dataService.GetSearchHistory();
+            var model = searchHistory.Select(CreateSearchHistoryViewModel);
+            return Ok(model);
+        }
 
-
-        
-        [HttpGet("{userId}")]
+        [HttpGet("{userId}", Name = nameof(GetSearchHistoryByUserId))]
         public IActionResult GetSearchHistoryByUserId(int userId)
         {
             var searchHistory = _dataService.GetSearchHistoryByUserId(userId);
@@ -50,10 +55,10 @@ namespace WebService.Controllers
 
 
 
-        [HttpDelete("{userId}")]
-        public IActionResult DeleteSearchHistory(int userId)
+        [HttpDelete("{userId}/{filmId}")]
+        public IActionResult DeleteSearchHistory(int userId, string filmId)
         {
-            if (!_dataService.DeleteSearchHistory(userId))
+            if (!_dataService.DeleteSearchHistory(userId, filmId))
             {
                 return NotFound();
             }
@@ -64,20 +69,15 @@ namespace WebService.Controllers
 
         private SearchHistoryViewModel CreateSearchHistoryViewModel(SearchHistory searchHistory)
         {
-            return new SearchHistoryViewModel
-            {
-                Url = Url.Link(nameof(GetSearchHistoryByUserId), new { filmId = searchHistory.FilmId }),
-                FilmId = searchHistory.FilmId,
-                Date = searchHistory.Date
-            };
+            var model = _mapper.Map<SearchHistoryViewModel>(searchHistory);
+            model.Url = GetUrl(searchHistory);          
+            return model;
 
         }   
         
-
-
         private string GetUrl(SearchHistory searchHistory)
         {
-            return _linkGenerator.GetUriByName(HttpContext, nameof(SearchHistory), new { searchHistory.UserId });
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetSearchHistoryByUserId), new { searchHistory.UserId });
         }
 
 

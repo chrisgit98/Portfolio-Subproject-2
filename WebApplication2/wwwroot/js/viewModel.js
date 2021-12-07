@@ -1,5 +1,5 @@
 ﻿define(["knockout"], function (ko) {
-    let currentView = ko.observable("Search-for-movies");
+    let currentView = ko.observable("popularActors");
 
     
 

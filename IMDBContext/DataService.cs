@@ -16,8 +16,9 @@ namespace EfEx
 
         //SearchHistory CRUD
     {
+        IList<SearchHistory> GetSearchHistory();
         public IList<SearchHistory> GetSearchHistoryByUserId(int userId);
-        public bool DeleteSearchHistory(int userId);
+        public bool DeleteSearchHistory(int userId, string filmId);
 
         //BookmarksPeople CRUD
         IList<BookmarkPeople> GetBookmarksPeople();
@@ -179,6 +180,14 @@ namespace EfEx
 
         //Search History
 
+        public IList<SearchHistory> GetSearchHistory()
+        {
+            var ctx = new IMDBContext();
+            var result = ctx.SearchHistories.AsEnumerable();
+            return result.ToList();
+
+        }
+
         public IList<SearchHistory> GetSearchHistoryByUserId(int userId)
         {
             var ctx = new IMDBContext();
@@ -187,12 +196,14 @@ namespace EfEx
         }
 
 
-        public bool DeleteSearchHistory(int userId)
+        public bool DeleteSearchHistory(int userId, string filmId)
         {
             var ctx = new IMDBContext();
+            var dbp = ctx.SearchHistories.Find(userId, filmId);
+            if (dbp == null) return false;
             try
             {
-                ctx.SearchHistories.Remove(ctx.SearchHistories.Find(userId));
+                ctx.SearchHistories.Remove(ctx.SearchHistories.Find(userId, filmId));
             }
             catch (Exception)
             { }
@@ -200,7 +211,8 @@ namespace EfEx
         }
 
 
-           //Functions
+
+        //Functions
 
         public IList<StringSearch> StringSearch(string s)
         {

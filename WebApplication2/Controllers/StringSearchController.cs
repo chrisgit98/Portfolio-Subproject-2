@@ -47,10 +47,9 @@ namespace WebService.Controllers
         {
             var model = _mapper.Map<StringSearchViewModel>(stringSearch);
             model.Url = GetUrl(stringSearch);
-            model.Tconst = stringSearch.Tconst;
-            model.Title = stringSearch.Title;
             return model;
         }
+
         private string GetUrl(StringSearch stringSearch)
         {
             return _linkGenerator.GetUriByName(HttpContext, nameof(StringSearch), new { stringSearch.Tconst });
