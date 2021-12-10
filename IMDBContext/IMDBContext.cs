@@ -151,7 +151,7 @@ namespace EfEx
             modelBuilder.Entity<SearchHistory>().Property(x => x.UserId).HasColumnName("u_id");
             modelBuilder.Entity<SearchHistory>().Property(x => x.FilmId).HasColumnName("tconst");
             modelBuilder.Entity<SearchHistory>().Property(x => x.Date).HasColumnName("time");
-            modelBuilder.Entity<SearchHistory>().HasKey(c => new { c.UserId, c.Date});
+            modelBuilder.Entity<SearchHistory>().HasKey(c => new { c.UserId, c.FilmId});
 
             modelBuilder.Entity<UserRating>().ToTable("user_rating");
             modelBuilder.Entity<UserRating>().Property(x => x.UserId).HasColumnName("u_id");

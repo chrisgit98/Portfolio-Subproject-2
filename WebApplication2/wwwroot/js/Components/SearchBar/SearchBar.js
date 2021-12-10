@@ -1,35 +1,82 @@
-﻿define(['knockout', 'dataservice'], function (ko, dataservice) {
+﻿
+
+define(['knockout', 'dataservice', 'postman'], function (ko, dataservice, postman) {
     return function (params) {
         let stringSearch = ko.observableArray([]);
-        let Search = ko.observable();
-        let titleBasics = ko.observableArray([]);
-        let tconst = ko.observable();
-        tconst(params)
+        let searchInput = ko.observable();
+        let prev = ko.observable();
+        let next = ko.observable();
+
         //let currentView = params.currentView
 
-        
+        //let createSearch = () => {
+        //    dataservice.getMovies(searchInput(), data => {
+        //        prev(data.prev || undefined);
+        //        next(data.next || undefined);
+        //        stringSearch(data.movies);
+        //    });
+        //}
 
-        let createSearch = () => dataservice.getMovies(Search(), data => {         
-            stringSearch(data.movies);
-        });
+        //let showPreviousPage = () => {
+        //    console.log(prev());
+        //    createSearch(prev());
+        //}
 
-        let getM = () => dataservice.getSpecificMovies(tconst(), data => {
-            console.log(data);
-            titleBasics(data);
-        });
+        //let enablePreviousPage = ko.observable(() => prev() !== undefined);
 
+        //let showNextPage = () => {
+        //    console.log(next());
+        //    createSearch(next());
+        //}
+
+        //let enableNextPage = ko.observable(() => next() !== undefined);
+
+        let createSearch = () => {
+            dataservice.getMovies(searchInput(), data => {
+                prev(data.prev || undefined);
+                next(data.next || undefined);
+                stringSearch(data.movies);
+            });
+        }
+
+        let showPreviousPage = () => {
+            console.log(prev());
+            dataservice.getStringSearchUrl(prev(), data => {
+                console.log(data);
+                prev(data.prev || undefined);
+                next(data.next || undefined);
+                stringSearch(data);
+            });
+            
+        }
+
+        let enablePreviousPage = ko.observable(() => prev() !== undefined);
+
+        let showNextPage = () => {
+            console.log(next());
+            dataservice.getStringSearchUrl(next(), data => {
+                console.log(data);
+                prev(data.prev || undefined);
+                next(data.next || undefined);
+                stringSearch(data);
+            });
+        }
+
+        let enableNextPage = ko.observable(() => next() !== undefined);
+
+        let SeeDetails = () => postman.publish("changeView", "displayMovie")
        
 
         return {
-
+           
             stringSearch,
-            Search,
-            createSearch,           
-            getM,
-            tconst,
-            titleBasics
-            
-
+            searchInput,
+            showPreviousPage,
+            enablePreviousPage,
+            showNextPage,
+            enableNextPage,
+            createSearch,
+            SeeDetails
         };
 
     }

@@ -1,9 +1,9 @@
-﻿define(['knockout', 'displayMovieService'], function (ko, dms) {
+﻿define(['knockout', 'displayMovieService', 'postman'], function (ko, dms, postman) {
     return function (params) {
         let titleBasics = ko.observableArray([]);
-        let chosenMovie = ko.observable();
+        let tconst = ko.observable();
 
-        dms.getSpecificMovies(data => {
+        let getMovie = () => dms.getSpecificMovies(tconst(), data => {
             console.log(data);
             titleBasics(data);
         });
@@ -11,7 +11,8 @@
         return {
 
             titleBasics,
-            getSpecificMovies
+            tconst,
+            getMovie
         };
     };
 });

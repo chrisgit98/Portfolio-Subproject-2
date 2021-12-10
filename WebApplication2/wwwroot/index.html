@@ -5,7 +5,25 @@
     <link href="js/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body class="container-fluid">
-    <h1>IMDB 2.0</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">IMDB 2.0</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto" data-bind="foreach: menuItems">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bind="click: $parent.changeContent, css: $parent.isActive($data)">
+                        <span data-bind="text: title"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+
     <div data-bind="component: {name: currentView, params: { currentView }}"></div>
     <script data-main="js/main.js" src="js/lib/require.js/require.min.js"></script>
 </body>

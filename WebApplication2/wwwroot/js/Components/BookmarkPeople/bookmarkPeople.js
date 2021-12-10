@@ -1,10 +1,6 @@
-﻿define(['knockout', 'bookmarkPeopleService'], function (ko, bps) {
+﻿define(['knockout', 'bookmarkPeopleService', 'postman'], function (ko, bps, postman) {
     return function (params) {
         let bookmarkPeople = ko.observableArray([]);
-        /* let userId = ko.observable < number > ();*/
-        let personId = ko.observable();
-        let currentView = params.currentView
-
 
         let deleteBookmarkPeople = bookmarkPeople => {
             console.log(bookmarkPeople);

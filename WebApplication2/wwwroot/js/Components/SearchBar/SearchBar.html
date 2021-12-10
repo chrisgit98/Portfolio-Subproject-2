@@ -1,22 +1,26 @@
 ﻿<h2>Find Movies</h2>
 
 <div class="col-6">
-    Search here: <input type="search" class="form-control" data-bind="textInput: Search" required />
+    Search here: <input type="search" class="form-control" data-bind="textInput: searchInput" required />
     <button type="submit" data-bind="click: createSearch" class="btn btn-primary">Search</button>
 </div>
 <div>
-<table class="table">
-    <thead>
-        <tr><th>Tconst</th><th>Title</th></tr>
-    </thead>
-    <tbody data-bind="foreach: stringSearch">
-        <tr>
-            <td>
-                <span data-bind="text: tconst"></span>
-                <span data-bind="text: title"></span>
-                <button data-bind="click: $parent.getM.bind(tconst)">See details</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+    <table class="table">
+        <thead>
+            <tr><th>Tconst</th><th>Title</th></tr>
+        </thead>
+        <tbody data-bind="foreach: stringSearch">
+            <tr>
+                <td>
+                    <span data-bind="text: tconst"></span>
+                    <span data-bind="text: title"></span>
+                    <button class="btn btn-info btn-sm" data-bind="click: $parent.SeeDetails">See details</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="navigation-buttons">
+        <button data-bind="click: showPreviousPage, enable: enablePreviousPage">Prev</button>
+        <button data-bind="click: showNextPage, enable: enableNextPage">Next</button>
+    </div>
 </div>

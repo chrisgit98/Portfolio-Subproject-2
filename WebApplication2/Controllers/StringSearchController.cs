@@ -31,18 +31,6 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        //[HttpGet("{id}", Name = nameof(GetMovie))]
-        //public IActionResult GetMovie(string id)
-        //{
-        //    var movie = _dataService.GetMovie(id);
-
-        //    if (movie == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(TitleBasicsViewModel(movie));
-        //}
 
         [HttpGet("{s}", Name = nameof(StringSearch1))]
 

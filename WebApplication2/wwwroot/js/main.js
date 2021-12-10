@@ -7,10 +7,11 @@
         text: "lib/require-text/text",
         dataservice: "Service/DataService",
         bookmarkPeopleService: "Service/bookmarkPeopleService",
-        similarMoviesService: "Service/similarMoviesService",
+        similarMovieService: "Service/similarMoviesService",
         searchHistoryService: "Service/searchHistoryService",
         popularActorsService: "Service/popularActorsService",
-        displayMovieService: "Service/displayMoviesService"
+        displayMovieService: "Service/displayMovieService",
+        postman: "Service/postman"
     }
 });
 
@@ -39,7 +40,7 @@ require(['knockout'], (ko) => {
     });
     ko.components.register("displayMovie", {
         viewModel: { require: "Components/DisplayMovie/displayMovie" },
-        template: { require: "text!Components/DisplayMovie/displayMovie.html" }
+        template: { require: "text!Components/DisplayMovie/displayMovies.html" }
     });
 
 });
