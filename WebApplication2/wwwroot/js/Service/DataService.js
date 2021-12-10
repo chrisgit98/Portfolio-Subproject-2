@@ -8,8 +8,16 @@
 
     };
 
+    let getSpecificMovies = (tconst, callback) => {
+        console.log(tconst)
+        fetch("api/titlebasics/" + tconst)
+            .then(response => response.json())
+            .then(json => callback(json));
+    };
+
     return {
-        getMovies
+        getMovies,
+        getSpecificMovies
 
     };
 

@@ -31,28 +31,102 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{s}", Name = nameof(StringSearch))]
+        //[HttpGet("{id}", Name = nameof(GetMovie))]
+        //public IActionResult GetMovie(string id)
+        //{
+        //    var movie = _dataService.GetMovie(id);
 
-        public IActionResult StringSearch(string s)
+        //    if (movie == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(TitleBasicsViewModel(movie));
+        //}
+
+        [HttpGet("{s}", Name = nameof(StringSearch1))]
+
+        public IActionResult StringSearch1(string s, [FromQuery] QueryString queryString)
         {
             var stringSearch = _dataService.StringSearch(s);
+            //var searchHisttory = new SearchHistory(12345678, s, DateTime.Now);
+            //_dataService.CreateSearchHistory(searchHisttory);
+
+            var movies = stringSearch.Select(CreateStringSearchListViewModel);
+
+
             if (stringSearch == null)
             {
                 return NotFound();
             }
-            return Ok(stringSearch.Select(CreateStringSearchViewModel));
+            return Ok(CreateResultModel(queryString, _dataService.StringSearchCount(s), movies, s));
+        }
+
+        private object CreateResultModel(QueryString queryString, int total, IEnumerable<StringSearchViewModel> model, string s)
+        {
+            return new
+            {
+                total,
+                prev = CreateNextPageLink(queryString, s),
+                cur = CreateCurrentPageLink(queryString, s),
+                next = CreateNextPageLink(queryString, total, s),
+                movies = model
+            };
+        }
+
+        private string CreateNextPageLink(QueryString queryString, int total, string s)
+        {
+            var lastPage = GetLastPage(queryString.PageSize, total);
+            return queryString.Page >= lastPage ? null : GetStringSearchUrl(queryString.Page + 1, queryString.PageSize, queryString.OrderBy,  s);
+        }
+
+
+        private string CreateCurrentPageLink(QueryString queryString, string s)
+        {
+            return GetStringSearchUrl(queryString.Page, queryString.PageSize, queryString.OrderBy, s);
+        }
+
+        private string CreateNextPageLink(QueryString queryString, string s)
+        {
+            return queryString.Page <= 0 ? null : GetStringSearchUrl(queryString.Page - 1, queryString.PageSize, queryString.OrderBy,  s);
+        }
+
+        private string GetStringSearchUrl(int page, int pageSize, string orderBy, string s)
+        {
+            return "http://localhost:5000/api/StringSearch/" + s +"?page=" + page + "&pageSize=" +pageSize;
+            //return _linkGenerator.GetUriByName(
+            //    HttpContext,
+            //    nameof(StringSearch1),
+            //    new { page, pageSize, orderBy });
+        }
+
+        private static int GetLastPage(int pageSize, int total)
+        {
+            return (int)Math.Ceiling(total / (double)pageSize) - 1;
         }
 
         private StringSearchViewModel CreateStringSearchViewModel(StringSearch stringSearch)
         {
             var model = _mapper.Map<StringSearchViewModel>(stringSearch);
-            model.Url = GetUrl(stringSearch);
+            model.Url = GetStringSearchUrl(stringSearch);
             return model;
         }
 
-        private string GetUrl(StringSearch stringSearch)
+
+
+
+        private StringSearchViewModel CreateStringSearchListViewModel( StringSearch stringSearch)
         {
-            return _linkGenerator.GetUriByName(HttpContext, nameof(StringSearch), new { stringSearch.Tconst });
+            var model = _mapper.Map<StringSearchViewModel>(stringSearch);
+            model.Url = GetStringSearchUrl(stringSearch);
+            return model;
+        }
+
+        private string GetStringSearchUrl(StringSearch stringSearch)
+        {
+        
+            //var test = _linkGenerator.GetUriByName(HttpContext, nameof(TitleBasicsController.GetMovie), new { stringSearch.Tconst });
+            return "http://localhost:5000/api/titlebasics/" +stringSearch.Tconst;
         }
     }
 

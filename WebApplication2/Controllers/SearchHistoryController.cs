@@ -64,8 +64,14 @@ namespace WebService.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpPost]
+        public void CreateSearchHistory(SearchHistory searchHistory)
+        {
 
         }
+
 
         private SearchHistoryViewModel CreateSearchHistoryViewModel(SearchHistory searchHistory)
         {

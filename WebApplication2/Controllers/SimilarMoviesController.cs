@@ -31,7 +31,7 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{s}")]
+        [HttpGet("{s}", Name = nameof(SimilarMovies))]
 
 
         public IActionResult SimilarMovies(string s)
@@ -41,7 +41,18 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-            return Ok(similarMovies);
+            return Ok(similarMovies.Select(CreateSimilarMoviesViewModel));
+        }
+
+        private SimilarMoviesViewModel CreateSimilarMoviesViewModel(SimilarMovies similarMovies)
+        {
+            var model = _mapper.Map<SimilarMoviesViewModel>(similarMovies);
+            model.Url = GetUrl(similarMovies); ;
+            return model;
+        }
+        private string GetUrl(SimilarMovies similarMovies)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(SimilarMovies), new { similarMovies.Title });
         }
     }
 }

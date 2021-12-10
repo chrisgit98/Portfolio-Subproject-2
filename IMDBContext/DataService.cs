@@ -14,11 +14,16 @@ namespace EfEx
 
     public interface IDataService
 
+
+
         //SearchHistory CRUD
     {
+        public TitleBasics GetMovie(string filmId);
+
         IList<SearchHistory> GetSearchHistory();
         public IList<SearchHistory> GetSearchHistoryByUserId(int userId);
         public bool DeleteSearchHistory(int userId, string filmId);
+        public void CreateSearchHistory(SearchHistory searchHistory);
 
         //BookmarksPeople CRUD
         IList<BookmarkPeople> GetBookmarksPeople();
@@ -45,7 +50,7 @@ namespace EfEx
 
         //Seach Function
         public IList<StringSearch> StringSearch(string s);
-
+        public int StringSearchCount(string s);
         public IList<FindingCoPlayers> FindingCoPlayers(string s);
 
         public IList<SimilarMovies> SimilarMovies(string s);
@@ -58,8 +63,17 @@ namespace EfEx
 
     public class DataService : IDataService
     {
+
+        public TitleBasics GetMovie(string filmId)
+        {
+            var ctx = new IMDBContext();
+            return ctx.TitleBasics.FirstOrDefault(x => x.FilmId == filmId);
+        }
+
+
+
         //BookmarkPeople
-        
+
 
         public IList<BookmarkPeople> GetBookmarksPeople()
         {
@@ -195,6 +209,12 @@ namespace EfEx
             return ctx.SearchHistories.Where(x => x.UserId == userId).ToList();
         }
 
+        public void CreateSearchHistory(SearchHistory searchHistory)
+        {
+            var ctx = new IMDBContext();
+            ctx.Add(searchHistory);
+            ctx.SaveChanges();
+        }
 
         public bool DeleteSearchHistory(int userId, string filmId)
         {
@@ -214,7 +234,7 @@ namespace EfEx
 
         //Functions
 
-        public IList<StringSearch> StringSearch(string s)
+        public IList<StringSearch> StringSearch(string s )
         {
             Console.WriteLine(s);
 
@@ -224,6 +244,12 @@ namespace EfEx
             return result;
             
 
+        }
+
+        public int StringSearchCount(string s)
+        {
+            var ctx = new IMDBContext();
+            return ctx.StringSearch.FromSqlInterpolated($"SELECT * FROM string_search({s})").ToList().Count();
         }
 
         public IList<StructuredStringSearch> StructuredStringSearches(string s, string s1, string s2, string s3)

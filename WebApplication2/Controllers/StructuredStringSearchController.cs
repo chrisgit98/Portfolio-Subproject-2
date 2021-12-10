@@ -31,7 +31,7 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{s}/{s1}/{s2}/{s3}")]
+        [HttpGet("{s}/{s1}/{s2}/{s3}", Name = nameof(StructuredStringSearch))]
 
 
         public IActionResult StructuredStringSearch(string s,string s1,string s2, string s3)
@@ -54,8 +54,12 @@ namespace WebService.Controllers
         private StructuresStringSearchViewModel CreateStructuredStringViewModel(StructuredStringSearch structuredStringSearch)
         {
             var model = _mapper.Map<StructuresStringSearchViewModel>(structuredStringSearch);
-            model.Url = _linkGenerator.GetUriByName(HttpContext, nameof(StructuredStringSearch), new { structuredStringSearch.Tconst });
+            model.Url = GetUrl(structuredStringSearch); ;
             return model;
+        }
+        private string GetUrl(StructuredStringSearch structuredStringSearch)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(StructuredStringSearch), new { structuredStringSearch.Title });
         }
     }
 }

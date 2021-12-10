@@ -9,7 +9,8 @@
         bookmarkPeopleService: "Service/bookmarkPeopleService",
         similarMoviesService: "Service/similarMoviesService",
         searchHistoryService: "Service/searchHistoryService",
-        popularActorsService: "Service/popularActorsService"
+        popularActorsService: "Service/popularActorsService",
+        displayMovieService: "Service/displayMoviesService"
     }
 });
 
@@ -35,6 +36,10 @@ require(['knockout'], (ko) => {
     ko.components.register("popularActors", {
         viewModel: { require: "Components/PopularActors/popularActors" },
         template: { require: "text!Components/PopularActors/popularActors.html" }
+    });
+    ko.components.register("displayMovie", {
+        viewModel: { require: "Components/DisplayMovie/displayMovie" },
+        template: { require: "text!Components/DisplayMovie/displayMovie.html" }
     });
 
 });

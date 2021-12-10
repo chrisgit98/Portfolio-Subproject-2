@@ -4,13 +4,19 @@
     Search here: <input type="search" class="form-control" data-bind="textInput: Search" required />
     <button type="submit" data-bind="click: createSearch" class="btn btn-primary">Search</button>
 </div>
+<div>
 <table class="table">
     <thead>
-        <tr><th>Title</th><th></th></tr>
+        <tr><th>Tconst</th><th>Title</th></tr>
     </thead>
     <tbody data-bind="foreach: stringSearch">
         <tr>
-            <td data-bind="text: title"></td>
+            <td>
+                <span data-bind="text: tconst"></span>
+                <span data-bind="text: title"></span>
+                <button data-bind="click: $parent.getM.bind(tconst)">See details</button>
+            </td>
         </tr>
     </tbody>
 </table>
+</div>

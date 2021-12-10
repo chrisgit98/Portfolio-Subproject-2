@@ -1,0 +1,16 @@
+﻿<h1>Movie Details</h1>
+
+
+<table class="movie-table" data-bind="chosenMovie">
+    <thead>
+        <tr><th>Title</th><th><th>TitleType</th><th>Released</th><th>Lenght(in minutes)</th></tr>
+    </thead>
+    <tbody data-bind="foreach: titleBasics">
+        <tr>
+            <td data-bind="text: OriginalTitle"></td>
+            <td data-bind="text: TitleType"></td>
+            <td data-bind="text: YearRelease"></td>
+            <td data-bind="text: RuntimeMinutes"></td>
+        </tr>
+    </tbody>
+</table>
