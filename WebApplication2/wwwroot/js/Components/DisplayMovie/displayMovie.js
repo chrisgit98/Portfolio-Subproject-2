@@ -6,7 +6,8 @@
         let tconst = ko.observable();
 
         let similarMovies = ko.observableArray([]);
-        let SimilarSearch = ko.observable();
+
+        let popularActors = ko.observableArray([]);
 
         let getMovie = () => {
             dms.getSpecificMovie(tconst(), data => {
@@ -24,9 +25,17 @@
         tconst.subscribe(getMovie);
 
         /*SimilarMoviess*/
-        dms.getSimilarMovies(SimilarSearch(), data => {
+        dms.getSimilarMovies(tconst(), data => {
+            console.log(data);
             similarMovies(data);
         });
+
+        /*PopularActors*/
+        dms.getPopularActors(tconst(), data => {
+            console.log(data);
+            popularActors(data);
+        });
+
 
         return {
             currentComponent,
@@ -36,7 +45,7 @@
             getMovie,
             Back,
             similarMovies,
-            SimilarSearch
+            popularActors
         };
     };
 });

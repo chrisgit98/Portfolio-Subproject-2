@@ -30,9 +30,11 @@ namespace EfEx
         public DbSet<FindingCoPlayers> FindingCoPlayers { get; set; }
         public DbSet<StringSearch>StringSearch { get; set; }
         public DbSet<StructuredStringSearch>StructuredStringSearch { get; set; }
-        
-        public DbSet<PopularActors>PopularActors { get; set; } 
-
+        public DbSet<TitleOtherview> TitleOtherviews { get; set; }
+        public DbSet<PopularActors>PopularActors { get; set; }
+        public DbSet<NameSearch> NameSearches { get; set; }
+        public DbSet<BestMatchSearch> BestMatchSearches { get; set; }
+        public DbSet<NameOtherview> NameOtherviews { get; set; }
 
 
 
@@ -42,7 +44,7 @@ namespace EfEx
 
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             optionsBuilder.EnableSensitiveDataLogging();
-            optionsBuilder.UseNpgsql("host = localhost; db = imdb; uid = postgres; pwd = Trade01c3c4.");
+            optionsBuilder.UseNpgsql("host = localhost; db = Imdb; uid = postgres; pwd = Trade01c3c4.");
             //optionsBuilder.UseNpgsql("host = rawdata.ruc.dk; db = raw13; uid = raw13; pwd = e0OqApIG.");
         }
 
@@ -198,6 +200,35 @@ namespace EfEx
             modelBuilder.Entity<PopularActors>().Property(x => x.Name).HasColumnName("starring");
             modelBuilder.Entity<PopularActors>().Property(x => x.Popularity).HasColumnName("popularity_num");
 
+            modelBuilder.Entity<TitleOtherview>().HasNoKey();
+            //modelBuilder.Entity<TitleOtherview>().Property(x => x.FilmId).HasColumnName("tconst");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Title).HasColumnName("originaltitle");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.TitleType).HasColumnName("titletype");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.StartYear).HasColumnName("startyear");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.EndYear).HasColumnName("endyear");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Lenght).HasColumnName("runtimeminutes");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Poster).HasColumnName("poster");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Plot).HasColumnName("plot");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Awards).HasColumnName("awards");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Rating).HasColumnName("averagerating");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Genre).HasColumnName("genre_name");
+
+            modelBuilder.Entity<NameSearch>().HasNoKey();
+            modelBuilder.Entity<NameSearch>().Property(x => x.PersonId).HasColumnName("nconst");
+            modelBuilder.Entity<NameSearch>().Property(x => x.Name).HasColumnName("nameactor");
+            modelBuilder.Entity<NameSearch>().Property(x => x.Rate).HasColumnName("rate");
+
+            modelBuilder.Entity<BestMatchSearch>().HasNoKey();
+            modelBuilder.Entity<BestMatchSearch>().Property(x => x.FilmId).HasColumnName("tconst");
+            modelBuilder.Entity<BestMatchSearch>().Property(x => x.Ranking).HasColumnName("ranking");
+            modelBuilder.Entity<BestMatchSearch>().Property(x => x.Title).HasColumnName("title");
+
+            modelBuilder.Entity<NameOtherview>().HasNoKey();
+            modelBuilder.Entity<NameOtherview>().Property(x => x.PersonId).HasColumnName("nconst");
+            modelBuilder.Entity<NameOtherview>().Property(x => x.Name).HasColumnName("nameactor");
+            modelBuilder.Entity<NameOtherview>().Property(x => x.BirthYear).HasColumnName("birthyear");
+            modelBuilder.Entity<NameOtherview>().Property(x => x.DeathYear).HasColumnName("deathyear");
+            modelBuilder.Entity<NameOtherview>().Property(x => x.KnownForTitles).HasColumnName("knownfortitles");
         }
     }
 

@@ -50,6 +50,10 @@ namespace EfEx
 
 
         //Seach Function
+        public IList<NameSearch> NameSearch(string s);
+        public int NameSearchCount(string s);
+        public IList<NameOtherview> GetNameOtherview(string personId);
+
         public IList<StringSearch> StringSearch(string s);
         public int StringSearchCount(string s);
         public IList<FindingCoPlayers> FindingCoPlayers(string s);
@@ -59,6 +63,12 @@ namespace EfEx
         public IList<PopularActors> PopularActors(string s);
 
         public IList<StructuredStringSearch> StructuredStringSearches(string s, string s1, string s2, string s3);
+
+        public IList<TitleOtherview> GetTitleOtherview(string filmId);
+
+        public IList<BestMatchSearch> BestMatchSearch(string s);
+
+        public int BestMatchSearchCount(string s);
     }
 
 
@@ -252,7 +262,6 @@ namespace EfEx
 
             return result;
             
-
         }
 
         public int StringSearchCount(string s)
@@ -288,7 +297,50 @@ namespace EfEx
             return result;
         }
 
+        public  IList<TitleOtherview> GetTitleOtherview(string s)
+        {
+            var ctx = new IMDBContext();
+            var result  = ctx.TitleOtherviews.FromSqlInterpolated($"SELECT * FROM title_otherview({s})");
+            return result.ToList();
+        }
 
+        public IList<NameSearch> NameSearch(string s)
+        {
+            Console.WriteLine(s);
+
+            var ctx = new IMDBContext();
+            var result = ctx.NameSearches.FromSqlInterpolated($"SELECT * FROM name_search({s})").ToList();
+            return result;
+        }
+        public int NameSearchCount(string s)
+        {
+            var ctx = new IMDBContext();
+            return ctx.NameSearches.FromSqlInterpolated($"SELECT * FROM name_search({s})").ToList().Count();
+        }
+
+
+        public IList<NameOtherview> GetNameOtherview(string personId)
+        {
+            var ctx = new IMDBContext();
+            var result = ctx.NameOtherviews.FromSqlInterpolated($"SELECT * FROM name_otherview({personId})");
+            return result.ToList();
+        }
+
+
+        public IList<BestMatchSearch> BestMatchSearch(string s)
+        {
+            Console.WriteLine(s);
+
+            var ctx = new IMDBContext();
+            var result = ctx.BestMatchSearches.FromSqlInterpolated($"SELECT * FROM bestmatch({s})").ToList();
+            return result;
+        }
+
+        public int BestMatchSearchCount(string s)
+        {
+            var ctx = new IMDBContext();
+            return ctx.BestMatchSearches.FromSqlInterpolated($"SELECT * FROM bestmatch({s})").ToList().Count();
+        }
 
         //Users
 

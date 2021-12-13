@@ -5,15 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using EfEx;
 using EfEx.Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace EfEx.Domain
 {
-    
-    public class Genre
+    public class BestMatchSearch
     {
-        public char FilmId { get; set; }
-        public string GenreName { get; set; }
+        public string FilmId { get; set; }
+        public float? Ranking { get; set; }
+        public string Title { get; set; }
     }
-
 }

@@ -7,13 +7,16 @@ using EfEx;
 using EfEx.Domain;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace EfEx.Domain
 {
-    
-    public class Genre
+
+    public class NameSearch
     {
-        public char FilmId { get; set; }
-        public string GenreName { get; set; }
+        public string PersonId { get; set; }
+        public string Name { get; set; }
+        public float? Rate { get; set; }
     }
 
 }
+
