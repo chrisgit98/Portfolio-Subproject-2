@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using System.Text;
+using EfEx;
+using EfEx.Domain;
 namespace WebService.ViewModels
 {
     public class TitleBasicsViewModel
@@ -13,5 +15,7 @@ namespace WebService.ViewModels
         public string OriginalTitle { get; set; }
         public string YearRelease { get; set; }
         public int RuntimeMinutes { get; set; }
+        public ICollection<OmdbData> OmdbDatas { get; set; }
+        
     }
 }

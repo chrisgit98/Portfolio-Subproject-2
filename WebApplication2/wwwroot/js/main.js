@@ -11,6 +11,7 @@
         searchHistoryService: "Service/searchHistoryService",
         popularActorsService: "Service/popularActorsService",
         displayMovieService: "Service/displayMovieService",
+        bookmarkTitleService: "Service/bookmarkTitleService",
         postman: "Service/postman"
     }
 });
@@ -25,6 +26,10 @@ require(['knockout'], (ko) => {
     ko.components.register("list-bookmarkPeople", {
         viewModel: { require: "Components/BookmarkPeople/bookmarkPeople" },
         template: { require: "text!Components/BookmarkPeople/bookmarkPeople.html" }
+    });
+    ko.components.register("list-bookmarkTitle", {
+        viewModel: { require: "Components/BookmarkTitle/bookmarkTitle" },
+        template: { require: "text!Components/BookmarkTitle/bookmarkTitle.html" }
     });
     ko.components.register("similarMovies", {
         viewModel: { require: "Components/SimilarMovies/similarMovies" },

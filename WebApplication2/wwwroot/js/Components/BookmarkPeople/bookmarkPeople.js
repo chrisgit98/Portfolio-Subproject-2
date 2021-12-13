@@ -7,7 +7,6 @@
             bps.deleteBookmarkPeople(bookmarkPeople);
         }
 
-        let addBookmarkPeopleView = () => currentView("add-bookmarkPeople");
 
         bps.getBookmarkPeople(data => {
             console.log(data);
@@ -17,8 +16,7 @@
         return {
             
             bookmarkPeople,     
-            deleteBookmarkPeople,
-            addBookmarkPeopleView
+            deleteBookmarkPeople
         };
     };
 });

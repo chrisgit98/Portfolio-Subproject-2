@@ -18,7 +18,8 @@ namespace EfEx.Domain
         public string OriginalTitle { get; set; }
         public string YearRelease { get; set; }
         public int RuntimeMinutes { get; set; }
-
+        public ICollection<OmdbData> OmdbDatas { get; set; }
+        
 
 
     }

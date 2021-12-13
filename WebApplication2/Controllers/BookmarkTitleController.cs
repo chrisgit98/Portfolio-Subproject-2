@@ -29,6 +29,15 @@ namespace WebService.Controllers
             _linkGenerator = linkGenerator;
             _mapper = mapper;
         }
+
+        [HttpGet]
+        public IActionResult GetBookmarksTitle()
+        {
+            var bookmarkTitle = _dataService.GetBookmarksTitle();
+            var model = bookmarkTitle.Select(CreateBookmarkTitleViewModel);
+            return Ok(model);
+        }
+
         [HttpGet("{userId}", Name = nameof(GetBookmarkTitleByUserId))]
         public IActionResult GetBookmarkTitleByUserId(int userId)
         {
@@ -38,7 +47,7 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-            return Ok(bookmarkTitle.Select(GetBookmarkTitleViewModel));
+            return Ok(bookmarkTitle.Select(CreateBookmarkTitleViewModel));
         }
 
 
@@ -60,12 +69,12 @@ namespace WebService.Controllers
 
             _dataService.CreateBookmarkTitle(bookmarkTitle);
 
-            return Created(GetUrl(bookmarkTitle), GetBookmarkTitleViewModel(bookmarkTitle));
+            return Created(GetUrl(bookmarkTitle), CreateBookmarkTitleViewModel(bookmarkTitle));
         }
 
 
 
-        private BookmarkTitleViewModel GetBookmarkTitleViewModel(BookmarkTitle bookmarkTitle)
+        private BookmarkTitleViewModel CreateBookmarkTitleViewModel(BookmarkTitle bookmarkTitle)
         {
             var model = _mapper.Map<BookmarkTitleViewModel>(bookmarkTitle);
             model.Url = GetUrl(bookmarkTitle);
@@ -75,7 +84,7 @@ namespace WebService.Controllers
         }
         private string GetUrl(BookmarkTitle bookmarkTitle)
         {
-            return _linkGenerator.GetUriByName(HttpContext, nameof(BookmarkTitle), new { bookmarkTitle.FilmId });
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetBookmarkTitleByUserId), new { bookmarkTitle.UserId });
         }
     }
 

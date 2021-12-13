@@ -1,14 +1,24 @@
 ﻿define([], () => {
 
-    let getSpecificMovies = (tconst, callback) => {
+    let getSpecificMovie = (tconst, callback) => {
         console.log(tconst)
-        fetch("api/titlebasics/" + "tt9460980 ")
+        fetch("api/titlebasics/" + "tt8305218 ")
             .then(response => response.json())
             .then(json => callback(json));
     };
 
+    /*SimilarMoviess*/
+    let getSimilarMovies = (similarMovies, callback) => {
+        console.log(similarMovies)
+        fetch("api/SimilarMovies/" + "The Office")
+            .then(response => response.json())
+            .then(json => callback(json));
+
+    };
+
     return {
-        getSpecificMovies
+        getSpecificMovie,
+        getSimilarMovies
 
     };
 

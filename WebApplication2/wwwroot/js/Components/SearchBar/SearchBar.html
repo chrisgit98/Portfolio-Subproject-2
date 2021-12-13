@@ -12,9 +12,9 @@
         <tbody data-bind="foreach: stringSearch">
             <tr>
                 <td>
-                    <span data-bind="text: tconst"></span>
+                    <button data-bind="text: tconst, click: $parent.SeeDetails, value: $parent.getMovie">See Details</button>
                     <span data-bind="text: title"></span>
-                    <button class="btn btn-info btn-sm" data-bind="click: $parent.SeeDetails">See details</button>
+                    <!--<button class="btn btn-info btn-sm" data-bind="click: $parent.SeeDetails">See details</button>-->
                 </td>
             </tr>
         </tbody>

@@ -35,6 +35,7 @@ namespace EfEx
 
 
         //BookmarkTitle CRUD
+        public IList<BookmarkTitle> GetBookmarksTitle();
         public BookmarkTitle GetBookmarkTitleByUserId(int userId, string filmId);
         public bool CreateBookmarkTitle(BookmarkTitle bookmarkTitle);
         public BookmarkTitle CreateBookmarkTitle(int userId, string filmId);
@@ -138,6 +139,14 @@ namespace EfEx
 
 
         //Bookmark Title
+
+        public IList<BookmarkTitle> GetBookmarksTitle()
+        {
+            var ctx = new IMDBContext();
+            var result = ctx.BookmarkTitles.AsEnumerable();
+            return result.ToList();
+
+        }
 
         public IList<BookmarkTitle> GetBookmarkTitleByUserId(int userId)
         {

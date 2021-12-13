@@ -18,7 +18,7 @@ namespace EfEx
         public DbSet<TvSeries> TvSeries { get; set; }
         public DbSet<Genre> Genre { get; set; }
         public DbSet<TitleRating> TitleRating { get; set; }
-        public DbSet<OmdbData> OmdbData { get; set; }
+        public DbSet<OmdbData> OmdbDatas { get; set; }
         //public DbSet<AppUser> AppUser { get; set; }
         public DbSet<SearchHistory> SearchHistories { get; set; }
         public DbSet<UserRating> UserRating { get; set; }
@@ -43,7 +43,7 @@ namespace EfEx
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             optionsBuilder.EnableSensitiveDataLogging();
             optionsBuilder.UseNpgsql("host = localhost; db = imdb; uid = postgres; pwd = Trade01c3c4.");
-
+            //optionsBuilder.UseNpgsql("host = rawdata.ruc.dk; db = raw13; uid = raw13; pwd = e0OqApIG.");
         }
 
 
@@ -165,7 +165,7 @@ namespace EfEx
             modelBuilder.Entity<BookmarkPeople>().Property(x => x.PersonId).HasColumnName("nconst");
             modelBuilder.Entity<BookmarkPeople>().HasKey(c => new {  c.UserId, c.PersonId, });
 
-            modelBuilder.Entity<BookmarkTitle>().ToTable("bookmark_title");
+            modelBuilder.Entity<BookmarkTitle>().ToTable("bookmarks_titles");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.UserId).HasColumnName("u_id");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.FilmId).HasColumnName("tconst");
             modelBuilder.Entity<BookmarkTitle>().HasKey(c => new { c.FilmId, c.UserId });

@@ -4,6 +4,9 @@ define(['knockout', 'dataservice', 'postman'], function (ko, dataservice, postma
     return function (params) {
         let stringSearch = ko.observableArray([]);
         let searchInput = ko.observable();
+        let currentComponent = ko.observable("list")
+        let currentView = ko.observable("Search-for-movies");
+        let tconst = ko.observable();
         let prev = ko.observable();
         let next = ko.observable();
 
@@ -33,6 +36,7 @@ define(['knockout', 'dataservice', 'postman'], function (ko, dataservice, postma
 
         let createSearch = () => {
             dataservice.getMovies(searchInput(), data => {
+                console.log(data);
                 prev(data.prev || undefined);
                 next(data.next || undefined);
                 stringSearch(data.movies);
@@ -65,17 +69,21 @@ define(['knockout', 'dataservice', 'postman'], function (ko, dataservice, postma
         let enableNextPage = ko.observable(() => next() !== undefined);
 
         let SeeDetails = () => postman.publish("changeView", "displayMovie")
-       
+
+
 
         return {
            
             stringSearch,
             searchInput,
+            currentComponent,
+            currentView,
             showPreviousPage,
             enablePreviousPage,
             showNextPage,
             enableNextPage,
             createSearch,
+            tconst,
             SeeDetails
         };
 

@@ -1,10 +1,17 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+﻿<h1>BookmarkTitles</h1>
 
-</body>
-</html>
+<!--<button class="btn btn-primary" data-bind="click: addCategoryView">Add Category</button>-->
+
+
+<table class="table">
+    <thead>
+        <tr><th>Url</th><th>FilmId</th><th></th></tr>
+    </thead>
+    <tbody data-bind="foreach: bookmarkTitle">
+        <tr>
+            <td data-bind="text: url"></td>
+            <td data-bind="text: filmId"></td>
+            <td><button class="btn btn-danger btn-sm" data-bind="click: $parent.deleteBookmarkTitle">Delete</button></td>
+        </tr>
+    </tbody>
+</table>
