@@ -5,12 +5,14 @@
         bootstrap: "lib/bootstrap/js/bootstrap",
         knockout: "lib/knockout/knockout-latest",
         text: "lib/require-text/text",
-        dataservice: "Service/DataService",
+        movieservice: "Service/movieService",
+        personservice: "Service/personService",
         bookmarkPeopleService: "Service/bookmarkPeopleService",
-        similarMovieService: "Service/similarMoviesService",
+        /*similarMovieService: "Service/similarMoviesService",*/
         searchHistoryService: "Service/searchHistoryService",
-        popularActorsService: "Service/popularActorsService",
+        /*popularActorsService: "Service/popularActorsService",*/
         displayMovieService: "Service/displayMovieService",
+        displayPersonService: "Service/displayPersonService",
         bookmarkTitleService: "Service/bookmarkTitleService",
         postman: "Service/postman"
     }
@@ -20,8 +22,12 @@
 require(['knockout'], (ko) => {
 
     ko.components.register("Search-for-movies", {
-        viewModel: { require: "Components/SearchBar/SearchBar" },
-        template: { require: "text!Components/SearchBar/SearchBar.html" }
+        viewModel: { require: "Components/MovieSearchBar/movieSearchBar" },
+        template: { require: "text!Components/MovieSearchBar/movieSearchBar.html" }
+    });
+    ko.components.register("displayMovie", {
+        viewModel: { require: "Components/DisplayMovie/displayMovie" },
+        template: { require: "text!Components/DisplayMovie/displayMovies.html" }
     });
     ko.components.register("list-bookmarkPeople", {
         viewModel: { require: "Components/BookmarkPeople/bookmarkPeople" },
@@ -31,21 +37,25 @@ require(['knockout'], (ko) => {
         viewModel: { require: "Components/BookmarkTitle/bookmarkTitle" },
         template: { require: "text!Components/BookmarkTitle/bookmarkTitle.html" }
     });
-    ko.components.register("similarMovies", {
-        viewModel: { require: "Components/SimilarMovies/similarMovies" },
-        template: { require: "text!Components/SimilarMovies/similarMovies.html" }
-    });
+    //ko.components.register("similarMovies", {
+    //    viewModel: { require: "Components/SimilarMovies/similarMovies" },
+    //    template: { require: "text!Components/SimilarMovies/similarMovies.html" }
+    /*});*/
     ko.components.register("searchHistory", {
         viewModel: { require: "Components/SearchHistory/searchHistory" },
         template: { require: "text!Components/SearchHistory/searchHistory.html" }
     });
-    ko.components.register("popularActors", {
-        viewModel: { require: "Components/PopularActors/popularActors" },
-        template: { require: "text!Components/PopularActors/popularActors.html" }
+    //ko.components.register("popularActors", {
+    //    viewModel: { require: "Components/PopularActors/popularActors" },
+    //    template: { require: "text!Components/PopularActors/popularActors.html" }
+    //});
+    ko.components.register("Search-for-persons", {
+        viewModel: { require: "Components/PersonSearchBar/personSearchBar" },
+        template: { require: "text!Components/PersonSearchBar/personSearchBar.html" }
     });
-    ko.components.register("displayMovie", {
-        viewModel: { require: "Components/DisplayMovie/displayMovie" },
-        template: { require: "text!Components/DisplayMovie/displayMovies.html" }
+    ko.components.register("displayPerson", {
+        viewModel: { require: "Components/DisplayPerson/displayPerson" },
+        template: { require: "text!Components/DisplayPerson/displayPerson.html" }
     });
 
 });

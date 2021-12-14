@@ -1,11 +1,7 @@
-﻿
-
-define(['knockout', 'dataservice', 'postman'], function (ko, dataservice, postman) {
+﻿define(['knockout', 'movieservice', 'postman'], function (ko, ms, postman) {
     return function (params) {
         let stringSearch = ko.observableArray([]);
         let searchInput = ko.observable();
-        let currentComponent = ko.observable("list")
-        let currentView = ko.observable("Search-for-movies");
         let tconst = ko.observable();
         let prev = ko.observable();
         let next = ko.observable();
@@ -35,7 +31,7 @@ define(['knockout', 'dataservice', 'postman'], function (ko, dataservice, postma
         //let enableNextPage = ko.observable(() => next() !== undefined);
 
         let createSearch = () => {
-            dataservice.getMovies(searchInput(), data => {
+            ms.getMovies(searchInput(), data => {
                 console.log(data);
                 prev(data.prev || undefined);
                 next(data.next || undefined);
@@ -45,7 +41,7 @@ define(['knockout', 'dataservice', 'postman'], function (ko, dataservice, postma
 
         let showPreviousPage = () => {
             console.log(prev());
-            dataservice.getStringSearchUrl(prev(), data => {
+            ms.getStringSearchUrl(prev(), data => {
                 console.log(data);
                 prev(data.prev || undefined);
                 next(data.next || undefined);
@@ -58,7 +54,7 @@ define(['knockout', 'dataservice', 'postman'], function (ko, dataservice, postma
 
         let showNextPage = () => {
             console.log(next());
-            dataservice.getStringSearchUrl(next(), data => {
+            ms.getStringSearchUrl(next(), data => {
                 console.log(data);
                 prev(data.prev || undefined);
                 next(data.next || undefined);
@@ -76,8 +72,6 @@ define(['knockout', 'dataservice', 'postman'], function (ko, dataservice, postma
            
             stringSearch,
             searchInput,
-            currentComponent,
-            currentView,
             showPreviousPage,
             enablePreviousPage,
             showNextPage,

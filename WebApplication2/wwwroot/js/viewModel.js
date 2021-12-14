@@ -3,9 +3,9 @@
 
     let menuItems = [
         { title: "Find Movies", component: "Search-for-movies" },
+        { title: "Find Persons", component: "Search-for-persons" },
         { title: "People Bookmarks", component: "list-bookmarkPeople" },
         { title: "Title Bookmarks", component: "list-bookmarkTitle" },
-        { title: "Display", component: "displayMovie" },
         { title: "Search History", component: "searchHistory" }
     ];
 
