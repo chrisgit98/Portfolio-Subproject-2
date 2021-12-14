@@ -52,7 +52,7 @@ namespace EfEx
         //Seach Function
         public IList<NameSearch> NameSearch(string s);
         public int NameSearchCount(string s);
-        public IList<NameOtherview> GetNameOtherview(string personId);
+        public NameOtherview GetNameOtherview(string personId);
 
         public IList<StringSearch> StringSearch(string s);
         public int StringSearchCount(string s);
@@ -64,7 +64,7 @@ namespace EfEx
 
         public IList<StructuredStringSearch> StructuredStringSearches(string s, string s1, string s2, string s3);
 
-        public IList<TitleOtherview> GetTitleOtherview(string filmId);
+        public TitleOtherview GetTitleOtherview(string s);
 
         public IList<BestMatchSearch> BestMatchSearch(string s);
 
@@ -297,11 +297,11 @@ namespace EfEx
             return result;
         }
 
-        public  IList<TitleOtherview> GetTitleOtherview(string s)
+        public  TitleOtherview GetTitleOtherview(string s)
         {
             var ctx = new IMDBContext();
             var result  = ctx.TitleOtherviews.FromSqlInterpolated($"SELECT * FROM title_otherview({s})");
-            return result.ToList();
+            return result.FirstOrDefault();
         }
 
         public IList<NameSearch> NameSearch(string s)
@@ -319,11 +319,11 @@ namespace EfEx
         }
 
 
-        public IList<NameOtherview> GetNameOtherview(string personId)
+        public NameOtherview GetNameOtherview(string personId)
         {
             var ctx = new IMDBContext();
             var result = ctx.NameOtherviews.FromSqlInterpolated($"SELECT * FROM name_otherview({personId})");
-            return result.ToList();
+            return result.FirstOrDefault();
         }
 
 

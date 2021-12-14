@@ -8,10 +8,7 @@
         movieservice: "Service/movieService",
         personservice: "Service/personService",
         bookmarkPeopleService: "Service/bookmarkPeopleService",
-        /*similarMovieService: "Service/similarMoviesService",*/
         searchHistoryService: "Service/searchHistoryService",
-        /*popularActorsService: "Service/popularActorsService",*/
-        displayMovieService: "Service/displayMovieService",
         displayPersonService: "Service/displayPersonService",
         bookmarkTitleService: "Service/bookmarkTitleService",
         postman: "Service/postman"
@@ -37,18 +34,10 @@ require(['knockout'], (ko) => {
         viewModel: { require: "Components/BookmarkTitle/bookmarkTitle" },
         template: { require: "text!Components/BookmarkTitle/bookmarkTitle.html" }
     });
-    //ko.components.register("similarMovies", {
-    //    viewModel: { require: "Components/SimilarMovies/similarMovies" },
-    //    template: { require: "text!Components/SimilarMovies/similarMovies.html" }
-    /*});*/
     ko.components.register("searchHistory", {
         viewModel: { require: "Components/SearchHistory/searchHistory" },
         template: { require: "text!Components/SearchHistory/searchHistory.html" }
     });
-    //ko.components.register("popularActors", {
-    //    viewModel: { require: "Components/PopularActors/popularActors" },
-    //    template: { require: "text!Components/PopularActors/popularActors.html" }
-    //});
     ko.components.register("Search-for-persons", {
         viewModel: { require: "Components/PersonSearchBar/personSearchBar" },
         template: { require: "text!Components/PersonSearchBar/personSearchBar.html" }

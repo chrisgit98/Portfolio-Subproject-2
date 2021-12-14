@@ -15,9 +15,9 @@ namespace EfEx.Domain
     {
         //public string FilmId { get; set; }
         public string Title { get; set; }
-        public string TitleType { get; set; }
-        public int? StartYear { get; set; }
-        public int? EndYear { get; set; }
+        public char TitleType { get; set; }
+        public char? StartYear { get; set; }
+        public char? EndYear { get; set; }
         public int? Lenght { get; set; }
         public string Poster { get; set; }
         public string Plot { get; set; }

@@ -31,7 +31,7 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{filmId}", Name = nameof(GetMovieDetails))]
+        [HttpGet("{s}", Name = nameof(GetMovieDetails))]
         public IActionResult GetMovieDetails(string s)
         {
             var titleOtherview = _dataService.GetTitleOtherview(s);
@@ -41,7 +41,7 @@ namespace WebService.Controllers
                 return NotFound();
             }
 
-            return Ok(titleOtherview.Select(CreateTitleOtherviewModel));
+            return Ok(titleOtherview);
         }
 
         private TitleOtherViewViewModel CreateTitleOtherviewModel(TitleOtherview titleOtherview)
