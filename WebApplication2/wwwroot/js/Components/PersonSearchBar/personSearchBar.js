@@ -64,7 +64,7 @@
 
         let enableNextPage = ko.observable(() => next() !== undefined);
 
-        let SeeDetails = () => postman.publish("changeView", "displayPerson")
+        let SeeDetails = () => postman.publish("changeView", "personDetails")
 
 
 

@@ -61,9 +61,9 @@ namespace WebService.Controllers
 
         }
 
-        [HttpPost("{post}")]
+        [HttpPost]
 
-        public IActionResult CreateBookmarkPeople(BookmarkPeopleViewModel model)
+        public IActionResult CreateBookmarkPeople(CreateBookmarkPeopleViewModel model)
         {
             var bookmarkPeople = _mapper.Map<BookmarkPeople>(model);
 

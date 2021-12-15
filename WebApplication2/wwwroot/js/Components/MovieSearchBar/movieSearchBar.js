@@ -46,9 +46,11 @@
 
         let enableNextPage = ko.observable(() => next() !== undefined);
 
-        let SeeDetails = () => postman.publish("changeView", "displayMovie")
-
-
+        let SeeDetails = (data) => {
+            postman.publish("showmovie", data.tconst)
+            postman.publish("changeView", "movieDetails")
+            
+        }
 
 
 

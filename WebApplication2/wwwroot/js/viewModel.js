@@ -11,7 +11,7 @@
 
     let currentView = ko.observable(menuItems[0].component);
 
-    let tconst = ko.observable("tt8305218");
+    let tconst = ko.observable();
 
     let changeContent = menuItem => {
         console.log(menuItem);

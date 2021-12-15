@@ -114,7 +114,7 @@ namespace WebService.Controllers
         {
 
             //var test = _linkGenerator.GetUriByName(HttpContext, nameof(TitleBasicsController.GetMovie), new { stringSearch.Tconst });
-            return "http://localhost:5000/api/titlebasics/" + nameSearch.PersonId;
+            return "http://localhost:5000/api/namedetails/" + nameSearch.PersonId;
         }
     }
 

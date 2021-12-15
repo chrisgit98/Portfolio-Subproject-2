@@ -44,15 +44,5 @@ namespace WebService.Controllers
             return Ok(titleOtherview);
         }
 
-        private TitleOtherViewViewModel CreateTitleOtherviewModel(TitleOtherview titleOtherview)
-        {
-            var model = _mapper.Map<TitleOtherViewViewModel>(titleOtherview);
-            model.Url = GetUrl(titleOtherview); ;
-            return model;
-        }
-        private string GetUrl(TitleOtherview titleOtherview)
-        {
-            return _linkGenerator.GetUriByName(HttpContext, nameof(GetMovieDetails), new { titleOtherview.Title });
-        }
     }
 }

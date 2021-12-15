@@ -28,8 +28,8 @@ namespace EfEx
         //BookmarksPeople CRUD
         IList<BookmarkPeople> GetBookmarksPeople();
         public BookmarkPeople GetBookmarkPeopleByUserId(int userId,string personID);
-        public bool CreateBookmarkPeople(BookmarkPeople bookmarkPeople);
-        public BookmarkPeople CreateBookmarkPeople(int userId, string PersonId);
+        //public bool CreateBookmarkPeople(BookmarkPeople bookmarkPeople);
+        public BookmarkPeople CreateBookmarkPeople(BookmarkPeople bookmarkPeople);
         public IList<BookmarkPeople> GetBookmarkPeopleByUserId(int userId);
         public bool DeleteBookmarkPeople(int userId, string personId);
 
@@ -37,8 +37,7 @@ namespace EfEx
         //BookmarkTitle CRUD
         public IList<BookmarkTitle> GetBookmarksTitle();
         public BookmarkTitle GetBookmarkTitleByUserId(int userId, string filmId);
-        public bool CreateBookmarkTitle(BookmarkTitle bookmarkTitle);
-        public BookmarkTitle CreateBookmarkTitle(int userId, string filmId);
+        public BookmarkTitle CreateBookmarkTitle(BookmarkTitle bookmarkTitle);
         public IList<BookmarkTitle> GetBookmarkTitleByUserId(int userId);
         public bool DeleteBookmarkTitle(int userId, string filmId);
 
@@ -112,21 +111,10 @@ namespace EfEx
             return result;
         }
 
-        public bool CreateBookmarkPeople(BookmarkPeople bookmarkPeople)
+
+        public BookmarkPeople CreateBookmarkPeople(BookmarkPeople bookmarkPeople)
         {
             var ctx = new IMDBContext();
-            bookmarkPeople.UserId = ctx.BookmarkPeoples.Max(x => x.UserId) + 1;
-            ctx.Add(bookmarkPeople);
-            return ctx.SaveChanges() > 0;
-
-        }
-
-        public BookmarkPeople CreateBookmarkPeople(int userId, string PersonId)
-        {
-            var ctx = new IMDBContext();
-            BookmarkPeople bookmarkPeople = new BookmarkPeople();
-            bookmarkPeople.UserId = userId;
-            bookmarkPeople.PersonId = PersonId;
 
             ctx.Add(bookmarkPeople);
             ctx.SaveChanges();
@@ -176,21 +164,9 @@ namespace EfEx
             return result;
         }
 
-        public bool CreateBookmarkTitle(BookmarkTitle bookmarkTitle)
+        public BookmarkTitle CreateBookmarkTitle(BookmarkTitle bookmarkTitle)
         {
             var ctx = new IMDBContext();
-            bookmarkTitle.UserId = ctx.BookmarkTitles.Max(x => x.UserId) + 1;
-            ctx.Add(bookmarkTitle);
-            return ctx.SaveChanges() > 0;
-
-        }
-
-        public BookmarkTitle CreateBookmarkTitle(int userId, string filmId)
-        {
-            var ctx = new IMDBContext();
-            BookmarkTitle bookmarkTitle = new BookmarkTitle();
-            bookmarkTitle.UserId = userId;
-            bookmarkTitle.FilmId = filmId;
 
             ctx.Add(bookmarkTitle);
             ctx.SaveChanges();

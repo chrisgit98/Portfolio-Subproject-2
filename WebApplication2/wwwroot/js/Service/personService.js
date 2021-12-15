@@ -2,20 +2,6 @@
 
     const nameSearchApiUrl = "api/namesearch/";
 
-    //let getJson = (searchInput, callback) => {
-    //    fetch(stringSearchApiUrl + searchInput)
-    //        .then(response => response.json())
-    //        .then(callback);
-    //};
-
-    //let getMovies = (stringSearchApiUrl, callback) => {
-    //    if (stringSearchApiUrl === undefined) {
-    //        stringSearchApiUrl;
-    //    }
-    //    getJson(stringSearchApiUrl, callback)
-
-    //};
-
     let getPersons = (searchInput, callback) => {
         console.log(searchInput)
         fetch("api/namesearch/" + searchInput)
@@ -30,12 +16,34 @@
             .then(json => callback(json));
     };
 
+    /*Person Details*/
+
+    let getSpecificPerson = (personId, callback) => {
+        console.log(personId)
+        fetch("api/namedetails/" + "nm0000158")
+            .then(response => response.json())
+            .then(json => callback(json));
+    };
+
+    /*FindingCoPlayers*/
+    let getCoPlayers = (personId, callback) => {
+        console.log(personId)
+        fetch("api/FindingCoPlayer/" + "nm0000158")
+            .then(response => response.json())
+            .then(json => callback(json));
+
+    };
 
     return {
         nameSearchApiUrl,
         getPersons,
-        getNameSearchUrl
+        getNameSearchUrl,
+        getSpecificPerson,
+        getCoPlayers
 
     };
+
+
+
 
 });

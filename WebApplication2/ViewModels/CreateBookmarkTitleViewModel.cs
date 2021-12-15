@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebService.ViewModels
 {
-    public class CreateBookmarkPeopleViewModel
+    public class CreateBookmarkTitleViewModel
     {
-        public string PersonId { get; set; }
+        public string FilmId { get; set; }
         public int UserId { get; set; }
     }
 }

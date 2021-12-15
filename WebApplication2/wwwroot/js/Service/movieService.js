@@ -26,17 +26,17 @@
     };
 
     /*SimilarMoviess*/
-    let getSimilarMovies = (similarMovies, callback) => {
-        console.log(similarMovies)
-        fetch("api/SimilarMovies/" + "tt8305218")
+    let getSimilarMovies = (tconst, callback) => {
+        console.log(tconst)
+        fetch("api/SimilarMovies/" + tconst)
             .then(response => response.json())
             .then(json => callback(json));
 
     };
 
-    let getPopularActors = (popularActors, callback) => {
-        console.log(popularActors)
-        fetch("api/PopularActors/" + "tt8305218")
+    let getPopularActors = (tconst, callback) => {
+        console.log(tconst)
+        fetch("api/PopularActors/" + tconst)
             .then(response => response.json())
             .then(json => callback(json));
 

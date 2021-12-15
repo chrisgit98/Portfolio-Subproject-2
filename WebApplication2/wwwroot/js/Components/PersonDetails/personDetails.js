@@ -1,4 +1,4 @@
-﻿define(['knockout', 'displayPersonService', 'postman'], function (ko, dps, postman) {
+﻿define(['knockout', 'personService', 'postman'], function (ko, ps, postman) {
     return function (params) {
         let nameOtherview = ko.observableArray([]);
         let personId = ko.observable();
@@ -6,7 +6,7 @@
         let findingCoPlayers = ko.observableArray([]);
 
         let getPerson = () => {
-            dps.getSpecificPerson(personId(), data => {
+            ps.getSpecificPerson(personId(), data => {
                 console.log(data);
                 nameOtherview(data);
             });
@@ -18,7 +18,7 @@
 
 
         /*CoPlayers*/
-        dps.getCoPlayers(personId(), data => {
+        ps.getCoPlayers(personId(), data => {
             console.log(data);
             findingCoPlayers(data);
         });

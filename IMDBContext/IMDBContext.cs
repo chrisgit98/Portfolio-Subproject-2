@@ -165,7 +165,7 @@ namespace EfEx
             modelBuilder.Entity<BookmarkPeople>().ToTable("bookmarks_people");
             modelBuilder.Entity<BookmarkPeople>().Property(x => x.UserId).HasColumnName("u_id");
             modelBuilder.Entity<BookmarkPeople>().Property(x => x.PersonId).HasColumnName("nconst");
-            modelBuilder.Entity<BookmarkPeople>().HasKey(c => new {  c.UserId, c.PersonId, });
+            modelBuilder.Entity<BookmarkPeople>().HasKey(c => new {  c.PersonId, c.UserId });
 
             modelBuilder.Entity<BookmarkTitle>().ToTable("bookmarks_titles");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.UserId).HasColumnName("u_id");

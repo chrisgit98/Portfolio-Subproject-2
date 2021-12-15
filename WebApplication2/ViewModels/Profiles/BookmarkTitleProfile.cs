@@ -13,7 +13,7 @@ namespace WebService.ViewModels.Profiles
         public BookmarkTitleProfile()
         {
             CreateMap<BookmarkTitle, BookmarkTitleViewModel>();
-            //CreateMap<CreateBookmarkPeopleViewModel, BookmarkPeople>();
+            CreateMap<CreateBookmarkTitleViewModel, BookmarkTitle>();
         }
     }
 }

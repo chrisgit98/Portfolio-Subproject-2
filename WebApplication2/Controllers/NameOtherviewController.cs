@@ -41,18 +41,9 @@ namespace WebService.Controllers
                 return NotFound();
             }
 
-            return Ok(nameOtherview.Select(CreateNameOtherviewModel));
+            return Ok(nameOtherview);
         }
 
-        private NameOtherviewViewModel CreateNameOtherviewModel(NameOtherview nameOtherview)
-        {
-            var model = _mapper.Map<NameOtherviewViewModel>(nameOtherview);
-            model.Url = GetUrl(nameOtherview); ;
-            return model;
-        }
-        private string GetUrl(NameOtherview nameOtherview)
-        {
-            return _linkGenerator.GetUriByName(HttpContext, nameof(GetNameDetails), new { nameOtherview.PersonId });
-        }
+       
     }
 }
