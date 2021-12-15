@@ -20,7 +20,7 @@
 
     let getSpecificMovie = (tconst, callback) => {
         console.log(tconst)
-        fetch("api/titlebasics/" + tconst)
+        fetch("api/moviedetails/" + tconst)
             .then(response => response.json())
             .then(json => callback(json));
     };

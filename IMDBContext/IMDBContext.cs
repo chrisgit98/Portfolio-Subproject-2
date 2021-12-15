@@ -143,9 +143,10 @@ namespace EfEx
             //modelBuilder.Entity<AppUser>().HasKey(c => new { c.UserId });
 
             modelBuilder.Entity<User>().ToTable("users");
-            modelBuilder.Entity<User>().Property(x => x.Username).HasColumnName("u_name");
-            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
             modelBuilder.Entity<User>().Property(x => x.UserId).HasColumnName("u_id");
+            modelBuilder.Entity<User>().Property(x => x.Name).HasColumnName("name");
+            modelBuilder.Entity<User>().Property(x => x.Username).HasColumnName("username");
+            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");           
             modelBuilder.Entity<User>().Property(x => x.Salt).HasColumnName("salt");
             modelBuilder.Entity<User>().HasKey(c => new { c.UserId });
 

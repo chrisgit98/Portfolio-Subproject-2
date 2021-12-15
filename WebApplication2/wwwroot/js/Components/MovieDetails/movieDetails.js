@@ -1,7 +1,7 @@
 ﻿define(['knockout', 'movieservice', 'postman'], function (ko, ms, postman) {
     return function (params) {
 
-        let titleBasics = ko.observableArray([]);
+        let titleOtherview = ko.observableArray([]);
         let similarMovies = ko.observableArray([]);
         let popularActors = ko.observableArray([]);
 
@@ -10,7 +10,7 @@
         let getMovieDetails = (tconst) => {
             ms.getSpecificMovie(tconst, data => {
                 console.log(data);
-                titleBasics(data);
+                titleOtherview(data);
             });
         }
 
@@ -40,7 +40,7 @@
         let Back = () => postman.publish("changeView", "Search-for-movies");
 
         return {
-            titleBasics,
+            titleOtherview,
             similarMovies,
             popularActors,
             Back
