@@ -8,7 +8,7 @@ namespace EfEx.Domain
 {
     public class FindingCoPlayers
     {
-        public string Nconst { get; set; }
+        public string PersonId { get; set; }
         public string Primary_Name { get; set; }
         public int Frequency { get; set; }
 

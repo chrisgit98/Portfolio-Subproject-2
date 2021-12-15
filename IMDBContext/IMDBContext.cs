@@ -183,7 +183,7 @@ namespace EfEx
             modelBuilder.Entity<SimilarMovies>().Property(x => x.Title).HasColumnName("movie");
 
             modelBuilder.Entity<FindingCoPlayers>().HasNoKey();
-            modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Nconst).HasColumnName("nconst");
+            modelBuilder.Entity<FindingCoPlayers>().Property(x => x.PersonId).HasColumnName("nconst");
             modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Primary_Name).HasColumnName("primary_name");
             modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Frequency).HasColumnName("frequency_of_appereance");
 

@@ -41,9 +41,9 @@
 
         return {
             titleBasics,
-            Back,
             similarMovies,
-            popularActors
+            popularActors,
+            Back
         };
     };
 });

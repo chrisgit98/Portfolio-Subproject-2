@@ -31,7 +31,7 @@ require(['knockout'], (ko) => {
     });
     ko.components.register("personDetails", {
         viewModel: { require: "Components/PersonDetails/personDetails" },
-        template: { require: "text!Components/DisplayPerson/displayPerson.html" }
+        template: { require: "text!Components/PersonDetails/personDetails.html" }
     });
     ko.components.register("list-bookmarkPeople", {
         viewModel: { require: "Components/BookmarkPeople/bookmarkPeople" },

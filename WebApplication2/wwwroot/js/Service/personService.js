@@ -20,7 +20,7 @@
 
     let getSpecificPerson = (personId, callback) => {
         console.log(personId)
-        fetch("api/namedetails/" + "nm0000158")
+        fetch("api/namedetails/" + personId)
             .then(response => response.json())
             .then(json => callback(json));
     };
@@ -28,7 +28,7 @@
     /*FindingCoPlayers*/
     let getCoPlayers = (personId, callback) => {
         console.log(personId)
-        fetch("api/FindingCoPlayer/" + "nm0000158")
+        fetch("api/FindingCoPlayer/" + personId)
             .then(response => response.json())
             .then(json => callback(json));
 
