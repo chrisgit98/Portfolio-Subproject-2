@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-
+using WebService.Attributes;
 
 
 namespace WebService.Controllers
@@ -50,26 +50,46 @@ namespace WebService.Controllers
             return Ok(bookmarkTitle.Select(CreateBookmarkTitleViewModel));
         }
 
-
-        [HttpDelete("{userId}/{filmId}")]
-        public IActionResult DeleteBookmarkTitle(int userId, string filmId)
+        [Authorization]
+        [HttpDelete("{filmId}")]
+        public IActionResult DeleteBookmarkTitle(string filmId)
         {
-            _dataService.DeleteBookmarkTitle(userId, filmId);
+            try
+            {
+                var user = Request.HttpContext.Items["User"] as User;
+                _dataService.DeleteBookmarkTitle(user.UserId, filmId.Trim());
 
 
-            return NoContent();
+                return NoContent();
+            }
+            catch(Exception)
+            {
+                return Unauthorized();
+            }
 
         }
 
-        [HttpPost("{post}")]
+        [Authorization]
+        [HttpPost]
 
-        public IActionResult CreateBookmarkTitle(BookmarkTitleViewModel model)
+        public IActionResult CreateBookmarkTitle(CreateBookmarkTitleViewModel model)
         {
-            var bookmarkTitle = _mapper.Map<BookmarkTitle>(model);
+            try
+            {
+                var user = Request.HttpContext.Items["User"] as User;
+                model.UserId = user.UserId;
+                var bookmarkTitle = _mapper.Map<BookmarkTitle>(model);
+                Console.WriteLine("here" + bookmarkTitle);
+                _dataService.CreateBookmarkTitle(bookmarkTitle);
 
-            _dataService.CreateBookmarkTitle(bookmarkTitle);
+                return Created(GetUrl(bookmarkTitle), CreateBookmarkTitleViewModel(bookmarkTitle));
 
-            return Created(GetUrl(bookmarkTitle), CreateBookmarkTitleViewModel(bookmarkTitle));
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                return Unauthorized();
+            }
         }
 
 

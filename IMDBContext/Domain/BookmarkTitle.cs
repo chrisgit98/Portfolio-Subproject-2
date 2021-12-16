@@ -12,7 +12,7 @@ namespace EfEx.Domain
     {
         public int UserId { get; set; }
         public string FilmId { get; set; }
-
+        public string Title { get; set; }
     }
 
 }

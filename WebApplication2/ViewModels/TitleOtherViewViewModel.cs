@@ -11,7 +11,7 @@ namespace WebService.ViewModels
     public class TitleOtherViewViewModel
     {
         public string Url { get; set; }
-        //public string FilmId { get; set; }
+        public string FilmId { get; set; }
         public string Title { get; set; }
         public string TitleType { get; set; }
         public string StartYear { get; set; }

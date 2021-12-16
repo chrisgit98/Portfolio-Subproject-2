@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-
+using WebService.Attributes;
 
 
 namespace WebService.Controllers
@@ -29,24 +29,42 @@ namespace WebService.Controllers
             _linkGenerator = linkGenerator;
             _mapper = mapper;
         }
+        [Authorization]
         [HttpGet]
         public IActionResult GetBookmarksPeople()
         {
-            var bookmarkPeople = _dataService.GetBookmarksPeople();
-            var model = bookmarkPeople.Select(CreateBookmarkPeopleViewModel);
-            return Ok(model);
+            try
+            {
+                var user = Request.HttpContext.Items["User"] as User;
+
+                var bookmarkPeople = _dataService.GetBookmarkPeopleByUserId(user.UserId);
+                var model = bookmarkPeople.Select(CreateBookmarkPeopleViewModel);
+                return Ok(model);
+
+            }
+            catch(Exception)
+            {
+                return Unauthorized();
+            }
         }
 
+        [Authorization]
         [HttpGet("{userId}", Name = nameof(GetBookmarkPeopleByUserId))]
         public IActionResult GetBookmarkPeopleByUserId(int userId)
         {
-           
-            var bookmarkPeople = _dataService.GetBookmarkPeopleByUserId(userId);
-            if (bookmarkPeople == null)
-            {
-                return NotFound();
+            try {
+                var user = Request.HttpContext.Items["User"] as User;
+                var bookmarkPeople = _dataService.GetBookmarkPeopleByUserId(userId);
+                if (bookmarkPeople == null)
+                {
+                    return NotFound();
+                }
+                return Ok(bookmarkPeople.Select(CreateBookmarkPeopleViewModel));
             }
-            return Ok(bookmarkPeople.Select(CreateBookmarkPeopleViewModel));
+            catch(Exception)
+            {
+                return Unauthorized();
+            }
         }
 
 
@@ -60,16 +78,26 @@ namespace WebService.Controllers
             return NoContent();
 
         }
-
+        [Authorization]
         [HttpPost]
 
         public IActionResult CreateBookmarkPeople(CreateBookmarkPeopleViewModel model)
         {
-            var bookmarkPeople = _mapper.Map<BookmarkPeople>(model);
+            try
+            {
+                var user = Request.HttpContext.Items["User"] as User;
+                model.UserId = user.UserId;
+                var bookmarkPeople = _mapper.Map<BookmarkPeople>(model);
 
-            _dataService.CreateBookmarkPeople(bookmarkPeople);
+                _dataService.CreateBookmarkPeople(bookmarkPeople);
 
-            return Created(GetUrl(bookmarkPeople), CreateBookmarkPeopleViewModel(bookmarkPeople));
+                return Created(GetUrl(bookmarkPeople), CreateBookmarkPeopleViewModel(bookmarkPeople));
+
+            }
+            catch(Exception)
+            {
+                return Unauthorized();
+            }
         }
 
 

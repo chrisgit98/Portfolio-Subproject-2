@@ -7,7 +7,9 @@ namespace WebService.ViewModels
 {
     public class CreateBookmarkTitleViewModel
     {
-        public string FilmId { get; set; }
         public int UserId { get; set; }
+        public string FilmId { get; set; }
+        public string Title { get; set; }
+
     }
 }

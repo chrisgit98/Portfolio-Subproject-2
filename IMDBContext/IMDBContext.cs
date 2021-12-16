@@ -166,12 +166,14 @@ namespace EfEx
             modelBuilder.Entity<BookmarkPeople>().ToTable("bookmarks_people");
             modelBuilder.Entity<BookmarkPeople>().Property(x => x.UserId).HasColumnName("u_id");
             modelBuilder.Entity<BookmarkPeople>().Property(x => x.PersonId).HasColumnName("nconst");
-            modelBuilder.Entity<BookmarkPeople>().HasKey(c => new {  c.PersonId, c.UserId });
+            modelBuilder.Entity<BookmarkPeople>().Property(x => x.Name).HasColumnName("name");
+            modelBuilder.Entity<BookmarkPeople>().HasKey(c => new { c.UserId, c.PersonId });
 
             modelBuilder.Entity<BookmarkTitle>().ToTable("bookmarks_titles");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.UserId).HasColumnName("u_id");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.FilmId).HasColumnName("tconst");
-            modelBuilder.Entity<BookmarkTitle>().HasKey(c => new { c.FilmId, c.UserId });
+            modelBuilder.Entity<BookmarkTitle>().Property(x => x.Title).HasColumnName("title");
+            modelBuilder.Entity<BookmarkTitle>().HasKey(c => new { c.UserId, c.FilmId });
 
             modelBuilder.Entity<Wi>().ToTable("wi");
             modelBuilder.Entity<Wi>().Property(x => x.FilmId).HasColumnName("tconst");
@@ -202,7 +204,7 @@ namespace EfEx
             modelBuilder.Entity<PopularActors>().Property(x => x.Popularity).HasColumnName("popularity_num");
 
             modelBuilder.Entity<TitleOtherview>().HasNoKey();
-            //modelBuilder.Entity<TitleOtherview>().Property(x => x.FilmId).HasColumnName("tconst");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.FilmId).HasColumnName("tconst");
             modelBuilder.Entity<TitleOtherview>().Property(x => x.Title).HasColumnName("originaltitle");
             modelBuilder.Entity<TitleOtherview>().Property(x => x.TitleType).HasColumnName("titletype");
             modelBuilder.Entity<TitleOtherview>().Property(x => x.StartYear).HasColumnName("startyear");

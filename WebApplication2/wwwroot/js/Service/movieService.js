@@ -3,12 +3,21 @@
     /*Search Page*/
 
     let getMovies = (searchInput, callback) => {
-        console.log(searchInput)
-        fetch("api/StringSearch/" + searchInput)
-            .then(response => response.json())
-            .then(json => callback(json));
-
-    };
+        let params = {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        };
+        console.log(searchInput, localStorage.getItem("token"))
+        fetch("api/StringSearch/" + searchInput, params)
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response.json();
+            }).then(json => callback(json));
+    }
 
     let getStringSearchUrl = (url, callback) => {
         fetch(url)

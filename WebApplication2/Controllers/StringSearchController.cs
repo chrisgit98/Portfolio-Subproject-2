@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-
+using WebService.Attributes;
 
 namespace WebService.Controllers
 {
@@ -31,23 +31,32 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-
+        //[Authorization]
         [HttpGet("{s}", Name = nameof(StringSearch1))]
 
         public IActionResult StringSearch1(string s, [FromQuery] QueryString queryString)
         {
-            var stringSearch = _dataService.StringSearch(s);
-            //var searchHisttory = new SearchHistory(12345678, s, DateTime.Now);
-            //_dataService.CreateSearchHistory(searchHisttory);
-
-            var movies = stringSearch.Select(CreateStringSearchListViewModel);
-
-
-            if (stringSearch == null)
+            try
             {
-                return NotFound();
+                var user = Request.HttpContext.Items["User"] as User;
+                var stringSearch = _dataService.StringSearch(s);
+                var searchHisttory = new SearchHistory(user.UserId, s, DateTime.Now);
+                _dataService.CreateSearchHistory(searchHisttory);
+
+                var movies = stringSearch.Select(CreateStringSearchListViewModel);
+
+
+                if (stringSearch == null)
+                {
+                    return NotFound();
+                }
+                return Ok(CreateResultModel(queryString, _dataService.StringSearchCount(s), movies, s));
+
             }
-            return Ok(CreateResultModel(queryString, _dataService.StringSearchCount(s), movies, s));
+            catch(Exception)
+            {
+                return Unauthorized();
+            }
         }
 
         private object CreateResultModel(QueryString queryString, int total, IEnumerable<StringSearchViewModel> model, string s)

@@ -52,14 +52,14 @@ namespace WebService.Middleware
                 }, out var validatedToken);
 
                 var jwtToken = validatedToken as JwtSecurityToken;
-                var claim = jwtToken.Claims.FirstOrDefault(x => x.Type == "id");
+                var claim = jwtToken.Claims.FirstOrDefault(x => x.Type == "u_id");
                 if (claim != null)
                 {
                     int.TryParse(claim.Value.ToString(), out var id);
                     context.Items["User"] = _dataService.GetUser(id);
                 }
             }
-            catch { }
+            catch (Exception e) { Console.WriteLine(    e.ToString()); }
 
             await _next(context);
         }

@@ -9,7 +9,7 @@ namespace WebService.ViewModels
     {
         public string Url { get; set; }
         public string PersonId { get; set; }
-        
+        public string Name { get; set; }
         public int UserId { get; set; }
 
         

@@ -7,9 +7,9 @@
         text: "lib/require-text/text",
         movieservice: "Service/movieService",
         personservice: "Service/personService",
-        bookmarkPeopleService: "Service/bookmarkPeopleService",
+        bookmarkService: "Service/bookmarkService",
         searchHistoryService: "Service/searchHistoryService",
-        bookmarkTitleService: "Service/bookmarkTitleService",
+        securityService: "Service/securityService",
         postman: "Service/postman"
     }
 });
@@ -44,6 +44,14 @@ require(['knockout'], (ko) => {
     ko.components.register("searchHistory", {
         viewModel: { require: "Components/SearchHistory/searchHistory" },
         template: { require: "text!Components/SearchHistory/searchHistory.html" }
+    });
+    ko.components.register("logIn", {
+        viewModel: { require: "Components/Security/userLogin" },
+        template: { require: "text!Components/Security/userLogin.html" }
+    });
+    ko.components.register("register", {
+        viewModel: { require: "Components/Security/userRegister" },
+        template: { require: "text!Components/Security/userRegister.html" }
     });
     
 

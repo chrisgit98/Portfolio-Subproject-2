@@ -95,9 +95,12 @@ namespace EfEx
 
         public IList<BookmarkPeople> GetBookmarkPeopleByUserId(int userId)
         {
-            var ctx = new IMDBContext();
+           
+                var ctx = new IMDBContext();
+                //if (ctx.Users.FirstOrDefault(x => x.UserId == userId) == null)
+                //    throw new ArgumentException("User not found");
 
-            return ctx.BookmarkPeoples.Where(x => x.UserId == userId).ToList();
+                return ctx.BookmarkPeoples.Where(x => x.UserId == userId).ToList();
 
         }
 
@@ -114,6 +117,7 @@ namespace EfEx
 
         public BookmarkPeople CreateBookmarkPeople(BookmarkPeople bookmarkPeople)
         {
+            
             var ctx = new IMDBContext();
 
             ctx.Add(bookmarkPeople);
@@ -178,7 +182,9 @@ namespace EfEx
             var ctx = new IMDBContext();
             try
             {
-                ctx.BookmarkTitles.Remove(ctx.BookmarkTitles.Find(userId, filmId));
+                //ctx.BookmarkTitles.Remove(ctx.BookmarkTitles.Find(userId, filmId));
+                var dbp = ctx.BookmarkTitles.Where(x => x.UserId == userId && x.FilmId == filmId).FirstOrDefault();
+                ctx.BookmarkTitles.Remove(ctx.BookmarkTitles.Where(x => x.UserId == userId && x.FilmId == filmId).FirstOrDefault());
             }
             catch (Exception)
             { }

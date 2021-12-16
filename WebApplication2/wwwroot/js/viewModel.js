@@ -6,7 +6,9 @@
         { title: "Find Persons", component: "Search-for-persons" },
         { title: "People Bookmarks", component: "list-bookmarkPeople" },
         { title: "Title Bookmarks", component: "list-bookmarkTitle" },
-        { title: "Search History", component: "searchHistory" }
+        { title: "Search History", component: "searchHistory" },
+        { title: "LogIn", component: "logIn" },
+        { title: "Register", component: "register" }
     ];
 
     let currentView = ko.observable(menuItems[0].component);
