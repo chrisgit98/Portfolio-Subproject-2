@@ -1,0 +1,67 @@
+﻿
+/*@import url('http://fonts.cdnfonts.com/css/netflix-font');
+*/
+
+html,
+body {
+    font-family: 'Netflix Font', sans-serif;
+    background: #141E30; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #243B55, #141E30); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.intro {
+    height: 100%;
+}
+/* Default height for small devices */
+#intro-example {
+/*    height: 400px;
+*/    margin-top: 2em;
+      height:auto;
+}
+
+/* Height for devices larger than 992px */
+@media (min-width: 992px) {
+    #intro-example {
+/*        height: 600px;
+*/        color: #e50914;
+        
+    }
+}
+.last-item{
+    margin-bottom:400px;
+}
+#logo {
+    background: -webkit-linear-gradient(#ba8b02, #808080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+/*.mask-custom {
+    background: rgba(24, 24, 16, .2);
+    border-radius: 2em;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    background-clip: padding-box;
+    box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}*/
+/*parallax effect*/
+.parallax {
+    /* Image with an old projector */
+    /*    background-image: url("https://media.istockphoto.com/photos/movie-projector-on-dark-background-picture-id1007557230?k=20&m=1007557230&s=612x612&w=0&h=hWEw8rA6ASt-Z18pNvUKk2GtQZVLj1GHv3HFlNB4p6U=");
+*/
+    /* Set a specific height */
+    min-height: 500px;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: -60px;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+/* Custom.scss
+ Option A: Include all of Bootstrap*/
+.h2{
+    color:navajowhite
+}

@@ -17,8 +17,4 @@
     <ProjectReference Include="..\IMDBContext\IMDB.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\css\" />
-  </ItemGroup>
-
 </Project>

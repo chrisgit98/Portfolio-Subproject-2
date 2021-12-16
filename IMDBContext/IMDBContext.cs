@@ -44,8 +44,8 @@ namespace EfEx
 
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             optionsBuilder.EnableSensitiveDataLogging();
-            optionsBuilder.UseNpgsql("host = localhost; db = Imdb; uid = postgres; pwd = Trade01c3c4.");
-            //optionsBuilder.UseNpgsql("host = rawdata.ruc.dk; db = raw13; uid = raw13; pwd = e0OqApIG.");
+            optionsBuilder.UseNpgsql("host = localhost; db = imdb_small; uid = postgres; pwd = @DAc43712");
+            //optionsBuilder.UseNpgsql("host = rawdata.ruc.dk; db = raw13; uid = raw13; pwd = e0OqApIG");
         }
 
 
