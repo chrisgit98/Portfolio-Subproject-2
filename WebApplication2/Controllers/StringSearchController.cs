@@ -31,7 +31,7 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        //[Authorization]
+        [Authorization]
         [HttpGet("{s}", Name = nameof(StringSearch1))]
 
         public IActionResult StringSearch1(string s, [FromQuery] QueryString queryString)
@@ -39,7 +39,7 @@ namespace WebService.Controllers
             try
             {
                 var user = Request.HttpContext.Items["User"] as User;
-                var stringSearch = _dataService.StringSearch(s);
+                var stringSearch = _dataService.StringSearch(s).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize);
                 var searchHisttory = new SearchHistory(user.UserId, s, DateTime.Now);
                 _dataService.CreateSearchHistory(searchHisttory);
 
@@ -90,11 +90,11 @@ namespace WebService.Controllers
 
         private string GetStringSearchUrl(int page, int pageSize, string orderBy, string s)
         {
-            return "http://localhost:5000/api/StringSearch/" + s +"?page=" + page + "&pageSize=" +pageSize;
-            //return _linkGenerator.GetUriByName(
-            //    HttpContext,
-            //    nameof(StringSearch1),
-            //    new { page, pageSize, orderBy });
+            //return "http://localhost:5000/api/StringSearch/" + s +"?page=" + page + "&pageSize=" +pageSize;
+            return _linkGenerator.GetUriByName(
+                HttpContext,
+                nameof(StringSearch1),
+                new { page, pageSize, orderBy, s });
         }
 
         private static int GetLastPage(int pageSize, int total)
@@ -123,7 +123,7 @@ namespace WebService.Controllers
         {
         
             //var test = _linkGenerator.GetUriByName(HttpContext, nameof(TitleBasicsController.GetMovie), new { stringSearch.Tconst });
-            return "http://localhost:5000/api/titlebasics/" +stringSearch.Tconst;
+            return "http://localhost:5000/api/moviedetails/" +stringSearch.Tconst;
         }
     }
 

@@ -3,12 +3,21 @@
     const nameSearchApiUrl = "api/namesearch/";
 
     let getPersons = (searchInput, callback) => {
+        let params = {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        };
         console.log(searchInput)
-        fetch("api/namesearch/" + searchInput)
-            .then(response => response.json())
-            .then(json => callback(json));
-
-    };
+        fetch("api/namesearch/" + searchInput, params)
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response.json();
+            }).then(json => callback(json));
+    }
 
     let getNameSearchUrl = (url, callback) => {
         fetch(url)

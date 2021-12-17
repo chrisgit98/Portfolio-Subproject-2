@@ -49,7 +49,7 @@ namespace EfEx
 
 
         //Seach Function
-        public IList<NameSearch> NameSearch(int userId, string s);
+        public IList<NameSearch> NameSearch(string s);
         public int NameSearchCount(string s);
         public NameOtherview GetNameOtherview(string personId);
 
@@ -183,8 +183,8 @@ namespace EfEx
             try
             {
                 //ctx.BookmarkTitles.Remove(ctx.BookmarkTitles.Find(userId, filmId));
-                var dbp = ctx.BookmarkTitles.Where(x => x.UserId == userId && x.FilmId == filmId).FirstOrDefault();
-                ctx.BookmarkTitles.Remove(ctx.BookmarkTitles.Where(x => x.UserId == userId && x.FilmId == filmId).FirstOrDefault());
+                var dbp = ctx.BookmarkTitles.FirstOrDefault(x => x.UserId == userId && x.FilmId == filmId);
+                ctx.BookmarkTitles.Remove(dbp);
             }
             catch (Exception)
             { }
@@ -286,13 +286,13 @@ namespace EfEx
             return result.FirstOrDefault();
         }
 
-        public IList<NameSearch> NameSearch(int userId, string s)
+        public IList<NameSearch> NameSearch(string s)
         {
             Console.WriteLine(s);
             
             var ctx = new IMDBContext();
-            if (ctx.Users.FirstOrDefault(x => x.UserId == userId) == null)
-                throw new ArgumentException("User not found");
+            //if (ctx.Users.FirstOrDefault(x => x.UserId == userId) == null)
+            //    throw new ArgumentException("User not found");
             var result = ctx.NameSearches.FromSqlInterpolated($"SELECT * FROM name_search({s})").ToList();
             return result;
         }

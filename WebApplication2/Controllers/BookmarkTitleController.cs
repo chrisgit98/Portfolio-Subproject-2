@@ -57,7 +57,7 @@ namespace WebService.Controllers
             try
             {
                 var user = Request.HttpContext.Items["User"] as User;
-                _dataService.DeleteBookmarkTitle(user.UserId, filmId.Trim());
+                _dataService.DeleteBookmarkTitle(user.UserId, filmId + " ");
 
 
                 return NoContent();
