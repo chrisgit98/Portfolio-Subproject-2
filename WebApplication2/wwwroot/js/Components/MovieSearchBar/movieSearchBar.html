@@ -5,23 +5,30 @@
                 Search here: <input type="search" class="form-control" data-bind="textInput: searchInput" required />
                 <button type="submit" data-bind="click: createSearch" class="btn btn-primary">Search</button>
             </div>
-            <div class="mb-3 align-content-center">
-                <table class="table-dark table-borderless table-hover table-primary  table-responsive-lg">
-                    <thead class="thead-dark">
-                        <tr><th>Tconst</th><th>Title</th></tr>
-                    </thead>
-                    <tbody data-bind="foreach: stringSearch">
-                        <tr>
-                            <td>
-                                <button data-bind="text: tconst, click: $parent.SeeDetails, value: $parent.getMovie">See Details</button>
-                                <span data-bind="text: title"></span>
-                                <!--<button class="btn btn-info btn-sm" data-bind="click: $parent.SeeDetails">See details</button>-->
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="navigation-buttons last-item" >
-                    <button data-bind="click: showPreviousPage, enable: enablePreviousPage">Prev</button>
-                    <button data-bind="click: showNextPage, enable: enableNextPage">Next</button>
+            <div class="row justify-content-center ">
+                <div class="col-auto">
+                    <div class="table-responsive">
+                        <table class="table-dark  table-hover table-responsive-xl">
+                            <!--<thead class="thead-dark">
+            <tr><th>Tconst</th><th>Title</th></tr>
+        </thead>-->
+                            <tbody data-bind="foreach: stringSearch">
+                                <tr>
+                                    <td scope="col">
+                                        <button data-bind="text: tconst, click: $parent.SeeDetails, value: $parent.getMovie">See Details</button>
+                                    </td>
+                                        <td scope="col">
+                                            <span data-bind="text: title"></span>
+                                            </td>
+                                        <!--<button class="btn btn-info btn-sm" data-bind="click: $parent.SeeDetails">See details</button>-->
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="navigation-buttons last-item">
+                        <button data-bind="click: showPreviousPage, enable: enablePreviousPage">Prev</button>
+                        <button data-bind="click: showNextPage, enable: enableNextPage">Next</button>
+                    </div>
+                    </div>
                 </div>
-            </div>
