@@ -21,7 +21,7 @@ namespace EfEx
         public DbSet<OmdbData> OmdbDatas { get; set; }
         //public DbSet<AppUser> AppUser { get; set; }
         public DbSet<SearchHistory> SearchHistories { get; set; }
-        public DbSet<UserRating> UserRating { get; set; }
+        //public DbSet<UserRating> UserRating { get; set; }
         public DbSet<BookmarkPeople> BookmarkPeoples { get; set; }
         public DbSet<BookmarkTitle> BookmarkTitles { get; set; }
         public DbSet<Wi> Wi { get; set; }
@@ -35,7 +35,8 @@ namespace EfEx
         public DbSet<NameSearch> NameSearches { get; set; }
         public DbSet<BestMatchSearch> BestMatchSearches { get; set; }
         public DbSet<NameOtherview> NameOtherviews { get; set; }
-
+        public DbSet<MovieRating> MovieRatings { get; set; }
+        public DbSet<RatingHistory> RatingHistories { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -133,15 +134,6 @@ namespace EfEx
             modelBuilder.Entity<OmdbData>().HasKey(c => new { c.FilmId });
 
 
-
-            //modelBuilder.Entity<AppUser>().ToTable("app_user");
-            //modelBuilder.Entity<AppUser>().Property(x => x.UserId).HasColumnName("u_id");
-            //modelBuilder.Entity<AppUser>().Property(x => x.UserName).HasColumnName("u_name");
-            //modelBuilder.Entity<AppUser>().Property(x => x.Password).HasColumnName("password");
-            //modelBuilder.Entity<AppUser>().Property(x => x.Age).HasColumnName("age");
-            //modelBuilder.Entity<AppUser>().Property(x => x.Region).HasColumnName("region");
-            //modelBuilder.Entity<AppUser>().HasKey(c => new { c.UserId });
-
             modelBuilder.Entity<User>().ToTable("users");
             modelBuilder.Entity<User>().Property(x => x.UserId).HasColumnName("u_id");
             modelBuilder.Entity<User>().Property(x => x.Name).HasColumnName("name");
@@ -156,12 +148,12 @@ namespace EfEx
             modelBuilder.Entity<SearchHistory>().Property(x => x.Date).HasColumnName("time");
             modelBuilder.Entity<SearchHistory>().HasKey(c => new { c.UserId, c.FilmId});
 
-            modelBuilder.Entity<UserRating>().ToTable("user_rating");
-            modelBuilder.Entity<UserRating>().Property(x => x.UserId).HasColumnName("u_id");
-            modelBuilder.Entity<UserRating>().Property(x => x.FilmId).HasColumnName("tconst");
-            modelBuilder.Entity<UserRating>().Property(x => x.Rating).HasColumnName("rating");
-            modelBuilder.Entity<UserRating>().Property(x => x.Comment).HasColumnName("comment");
-            modelBuilder.Entity<UserRating>().HasKey(c => new { c.FilmId, c.UserId });
+            //modelBuilder.Entity<UserRating>().ToTable("user_rating");
+            //modelBuilder.Entity<UserRating>().Property(x => x.UserId).HasColumnName("u_id");
+            //modelBuilder.Entity<UserRating>().Property(x => x.FilmId).HasColumnName("tconst");
+            //modelBuilder.Entity<UserRating>().Property(x => x.Rating).HasColumnName("rating");
+            //modelBuilder.Entity<UserRating>().Property(x => x.Comment).HasColumnName("comment");
+            //modelBuilder.Entity<UserRating>().HasKey(c => new { c.FilmId, c.UserId });
 
             modelBuilder.Entity<BookmarkPeople>().ToTable("bookmarks_people");
             modelBuilder.Entity<BookmarkPeople>().Property(x => x.UserId).HasColumnName("u_id");
@@ -232,6 +224,19 @@ namespace EfEx
             modelBuilder.Entity<NameOtherview>().Property(x => x.BirthYear).HasColumnName("birthyear");
             modelBuilder.Entity<NameOtherview>().Property(x => x.DeathYear).HasColumnName("deathyear");
             modelBuilder.Entity<NameOtherview>().Property(x => x.KnownForTitles).HasColumnName("knownfortitles");
+
+            modelBuilder.Entity<MovieRating>().HasNoKey();
+            modelBuilder.Entity<MovieRating>().Property(x => x.UserId).HasColumnName("u_id");
+            modelBuilder.Entity<MovieRating>().Property(x => x.FilmId).HasColumnName("tconst");
+            modelBuilder.Entity<MovieRating>().Property(x => x.GivenRate).HasColumnName("rating");
+
+
+            modelBuilder.Entity<RatingHistory>().ToTable("rating_history");
+            modelBuilder.Entity<RatingHistory>().Property(x => x.UserId).HasColumnName("u_id");
+            modelBuilder.Entity<RatingHistory>().Property(x => x.FilmId).HasColumnName("tconst");
+            modelBuilder.Entity<RatingHistory>().Property(x => x.Rating).HasColumnName("rating");
+            modelBuilder.Entity<RatingHistory>().Property(x => x.Date).HasColumnName("time");
+            modelBuilder.Entity<RatingHistory>().HasKey(c => new { c.UserId, c.FilmId });
         }
     }
 

@@ -79,15 +79,13 @@ namespace WebService.Controllers
                 var user = Request.HttpContext.Items["User"] as User;
                 model.UserId = user.UserId;
                 var bookmarkTitle = _mapper.Map<BookmarkTitle>(model);
-                Console.WriteLine("here" + bookmarkTitle);
                 _dataService.CreateBookmarkTitle(bookmarkTitle);
 
                 return Created(GetUrl(bookmarkTitle), CreateBookmarkTitleViewModel(bookmarkTitle));
 
             }
-            catch(Exception e)
+            catch(Exception)
             {
-                Console.WriteLine(e);
                 return Unauthorized();
             }
         }

@@ -68,6 +68,10 @@ namespace EfEx
         public IList<BestMatchSearch> BestMatchSearch(string s);
 
         public int BestMatchSearchCount(string s);
+
+        public void RateAMovie(MovieRating data);
+
+        public IList<RatingHistory> GetRatingHistoryByUserId(int userId);
     }
 
 
@@ -324,6 +328,23 @@ namespace EfEx
         {
             var ctx = new IMDBContext();
             return ctx.BestMatchSearches.FromSqlInterpolated($"SELECT * FROM bestmatch({s})").ToList().Count();
+
+        }
+
+        public IList<RatingHistory> GetRatingHistoryByUserId(int userId)
+        {
+            var ctx = new IMDBContext();
+
+            return ctx.RatingHistories.Where(x => x.UserId == userId).ToList();
+
+        }
+
+        public void RateAMovie(MovieRating data)
+        {
+            var ctx = new IMDBContext();
+            ctx.MovieRatings.FromSqlInterpolated(($"SELECT * FROM rate_title({data})"));
+            ctx.Add(data);
+            ctx.SaveChanges();
         }
 
         //Users
