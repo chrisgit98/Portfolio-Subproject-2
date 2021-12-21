@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace WebServiceToken.Middleware
+namespace WebService.Middleware
 {
     public static class JwtAuthMiddlewareExtension
     {

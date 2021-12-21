@@ -143,9 +143,10 @@ namespace EfEx
             //modelBuilder.Entity<AppUser>().HasKey(c => new { c.UserId });
 
             modelBuilder.Entity<User>().ToTable("users");
-            modelBuilder.Entity<User>().Property(x => x.Username).HasColumnName("u_name");
-            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
             modelBuilder.Entity<User>().Property(x => x.UserId).HasColumnName("u_id");
+            modelBuilder.Entity<User>().Property(x => x.Name).HasColumnName("name");
+            modelBuilder.Entity<User>().Property(x => x.Username).HasColumnName("username");
+            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");           
             modelBuilder.Entity<User>().Property(x => x.Salt).HasColumnName("salt");
             modelBuilder.Entity<User>().HasKey(c => new { c.UserId });
 
@@ -183,7 +184,7 @@ namespace EfEx
             modelBuilder.Entity<SimilarMovies>().Property(x => x.Title).HasColumnName("movie");
 
             modelBuilder.Entity<FindingCoPlayers>().HasNoKey();
-            modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Nconst).HasColumnName("nconst");
+            modelBuilder.Entity<FindingCoPlayers>().Property(x => x.PersonId).HasColumnName("nconst");
             modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Primary_Name).HasColumnName("primary_name");
             modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Frequency).HasColumnName("frequency_of_appereance");
 

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EfEx;
-using WebServiceToken.Middleware;
+using WebService.Middleware;
 using AutoMapper;
 
 namespace WebApplication2

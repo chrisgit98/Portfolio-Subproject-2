@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace WebServiceToken.Services
+namespace WebService.Services
 {
     public class PasswordService
     {

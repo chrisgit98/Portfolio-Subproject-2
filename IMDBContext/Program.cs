@@ -29,80 +29,80 @@ namespace EfEx
             //Console.WriteLine(film.FilmId);
 
            // var connectionString = "host=localhost;db=imdb_small;uid=postgres;pwd=@DAc43712";
-            SimilarMovies();
+            //SimilarMovies();
             // UseAdo(connectionString);
-            FindingCoPlayers();
-            StringSearch();
-            StructuredStringSearch();
-            PopularActors();
+            //FindingCoPlayers();
+            //StringSearch();
+            //StructuredStringSearch();
+            //PopularActors();
 
         }
 
-        private static void PopularActors()
-        {
-            Console.WriteLine("Popular Actors");
-            var ctx = new IMDBContext();
-            var result = ctx.PopularActors.FromSqlInterpolated($"SELECT * from ppl_actor('captain phillips')");
+        //private static void PopularActors()
+        //{
+        //    Console.WriteLine("Popular Actors");
+        //    var ctx = new IMDBContext();
+        //    var result = ctx.PopularActors.FromSqlInterpolated($"SELECT * from ppl_actor('captain phillips')");
 
-            foreach (var pplactors in result)
-            {
-                Console.WriteLine($"{pplactors.Name},{pplactors.Popularity}");
-            }
-
-
-        }
-        private static void StructuredStringSearch()
-        {
-            Console.WriteLine("Structured String Search");
-            var ctx = new IMDBContext();
-            var result = ctx.StructuredStringSearch.FromSqlInterpolated($"SELECT * FROM structured_string_search('STAR WARS','VADER' ,'REY', 'ridley')");
-
-            foreach (var structuredstringsearch in result)
-            {
-                Console.WriteLine($"{structuredstringsearch.Title}");
-            }
-        }
+        //    foreach (var pplactors in result)
+        //    {
+        //        Console.WriteLine($"{pplactors.Name},{pplactors.Popularity}");
+        //    }
 
 
-        private static void SimilarMovies()
-        {
-            Console.WriteLine("Similar Movies");
-            var ctx = new IMDBContext();
-            var result = ctx.SimilarMovies.FromSqlInterpolated($"SELECT * FROM SIMILAR_MOVIES ('tt0372784')");
+        //}
+        //private static void StructuredStringSearch()
+        //{
+        //    Console.WriteLine("Structured String Search");
+        //    var ctx = new IMDBContext();
+        //    var result = ctx.StructuredStringSearch.FromSqlInterpolated($"SELECT * FROM structured_string_search('STAR WARS','VADER' ,'REY', 'ridley')");
 
-            foreach (var similarMovies in result)
-            {
-                Console.WriteLine($"{similarMovies.Title}");
-            }
+        //    foreach (var structuredstringsearch in result)
+        //    {
+        //        Console.WriteLine($"{structuredstringsearch.Title}");
+        //    }
+        //}
 
-        }
-        private static void FindingCoPlayers()
-        {
-            Console.WriteLine("This is the Finding CoPlayers Function");
-            var ctx = new IMDBContext();
-            var result = ctx.FindingCoPlayers.FromSqlInterpolated($"SELECT * FROM finding_coplayer('Nicolas Cage')");
+
+        //private static void SimilarMovies()
+        //{
+        //    Console.WriteLine("Similar Movies");
+        //    var ctx = new IMDBContext();
+        //    var result = ctx.SimilarMovies.FromSqlInterpolated($"SELECT * FROM SIMILAR_MOVIES ('tt0372784')");
+
+        //    foreach (var similarMovies in result)
+        //    {
+        //        Console.WriteLine($"{similarMovies.Title}");
+        //    }
+
+        //}
+        //private static void FindingCoPlayers()
+        //{
+        //    Console.WriteLine("This is the Finding CoPlayers Function");
+        //    var ctx = new IMDBContext();
+        //    var result = ctx.FindingCoPlayers.FromSqlInterpolated($"SELECT * FROM finding_coplayer('Nicolas Cage')");
           
             
-            foreach (var findingCoPlayers in result)
-            {
-                Console.WriteLine($"{findingCoPlayers.Primary_Name},{findingCoPlayers.Nconst},{findingCoPlayers.Frequency}");
-            }
+        //    foreach (var findingCoPlayers in result)
+        //    {
+        //        Console.WriteLine($"{findingCoPlayers.Primary_Name},{findingCoPlayers.Nconst},{findingCoPlayers.Frequency}");
+        //    }
 
-        }
+        //}
 
-        private static void StringSearch()
-        {
-            Console.WriteLine("String Search");
+        //private static void StringSearch()
+        //{
+        //    Console.WriteLine("String Search");
 
-            var ctx = new IMDBContext();
-            var result = ctx.StringSearch.FromSqlInterpolated($"SELECT * FROM string_search('star WARS')");
+        //    var ctx = new IMDBContext();
+        //    var result = ctx.StringSearch.FromSqlInterpolated($"SELECT * FROM string_search('star WARS')");
 
-            foreach(var stringSearch in result)
-            {
-                Console.WriteLine($"{stringSearch.Title}");
-            }
+        //    foreach(var stringSearch in result)
+        //    {
+        //        Console.WriteLine($"{stringSearch.Title}");
+        //    }
 
-        }
+        //}
 
 
 

@@ -8,7 +8,8 @@ namespace WebService.ViewModels
     public class CreateFindingCoPlayerViewModel
     {
         public string Url { get; set; }
-        public string Name { get; set; }
+        public string PersonId { get; set; }
+        public string Primary_Name { get; set; }
         public int Frequency { get; set; }
     }
 }

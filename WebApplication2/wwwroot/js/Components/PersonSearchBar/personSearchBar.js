@@ -2,33 +2,8 @@
     return function (params) {
         let nameSearch = ko.observableArray([]);
         let searchInput = ko.observable();
-        let nconst = ko.observable();
         let prev = ko.observable();
         let next = ko.observable();
-
-        //let currentView = params.currentView
-
-        //let createSearch = () => {
-        //    dataservice.getMovies(searchInput(), data => {
-        //        prev(data.prev || undefined);
-        //        next(data.next || undefined);
-        //        stringSearch(data.movies);
-        //    });
-        //}
-
-        //let showPreviousPage = () => {
-        //    console.log(prev());
-        //    createSearch(prev());
-        //}
-
-        //let enablePreviousPage = ko.observable(() => prev() !== undefined);
-
-        //let showNextPage = () => {
-        //    console.log(next());
-        //    createSearch(next());
-        //}
-
-        //let enableNextPage = ko.observable(() => next() !== undefined);
 
         let createSearch = () => {
             ps.getPersons(searchInput(), data => {
@@ -64,8 +39,10 @@
 
         let enableNextPage = ko.observable(() => next() !== undefined);
 
-        let SeeDetails = () => postman.publish("changeView", "personDetails")
-
+        let SeeDetails = (data) => {
+            postman.publish("showperson", data.personId)
+            postman.publish("changeView", "personDetails")
+        }
 
 
         return {
@@ -77,7 +54,6 @@
             showNextPage,
             enableNextPage,
             createSearch,
-            nconst,
             SeeDetails
         };
 

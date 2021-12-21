@@ -10,8 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-
-
+using WebService.Models;
+using WebService.Middleware;
+using WebService.Attributes;
 namespace WebService.Controllers
 {
     [ApiController]
@@ -31,12 +32,14 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-
+        //[Authorization]
         [HttpGet("{s}", Name = nameof(SearchNames))]
 
         public IActionResult SearchNames(string s, [FromQuery] QueryString queryString)
         {
-            var nameSearch = _dataService.NameSearch(s);
+            try {
+                var user = Request.HttpContext.Items["User"] as User;
+                var nameSearch = _dataService.NameSearch(1, s);
             //var searchHisttory = new SearchHistory(12345678, s, DateTime.Now);
             //_dataService.CreateSearchHistory(searchHisttory);
 
@@ -48,7 +51,15 @@ namespace WebService.Controllers
                 return NotFound();
             }
             return Ok(CreateResultModel(queryString, _dataService.NameSearchCount(s), names, s));
+            }
+
+            catch(Exception)
+            {
+                return Unauthorized();
+            }
+
         }
+
 
         private object CreateResultModel(QueryString queryString, int total, IEnumerable<NameSearchViewModel> model, string s)
         {

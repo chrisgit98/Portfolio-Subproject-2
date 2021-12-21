@@ -49,7 +49,7 @@ namespace EfEx
 
 
         //Seach Function
-        public IList<NameSearch> NameSearch(string s);
+        public IList<NameSearch> NameSearch(int userId, string s);
         public int NameSearchCount(string s);
         public NameOtherview GetNameOtherview(string personId);
 
@@ -280,11 +280,13 @@ namespace EfEx
             return result.FirstOrDefault();
         }
 
-        public IList<NameSearch> NameSearch(string s)
+        public IList<NameSearch> NameSearch(int userId, string s)
         {
             Console.WriteLine(s);
-
+            
             var ctx = new IMDBContext();
+            if (ctx.Users.FirstOrDefault(x => x.UserId == userId) == null)
+                throw new ArgumentException("User not found");
             var result = ctx.NameSearches.FromSqlInterpolated($"SELECT * FROM name_search({s})").ToList();
             return result;
         }
@@ -341,6 +343,7 @@ namespace EfEx
             var ctx = new IMDBContext();
             User user = new User();
             user.UserId = ctx.Users.Max(x => x.UserId) + 1;
+            user.Name = name;
             user.Username = username;
             user.Password = password;
             user.Salt = salt;
