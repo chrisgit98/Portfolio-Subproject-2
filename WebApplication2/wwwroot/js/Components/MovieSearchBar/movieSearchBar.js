@@ -13,7 +13,7 @@
 
         let createSearch = () => {
             ms.getMovies(searchInput(), data => {
-                console.log(data);
+                console.log("error" + data);
                 prev(data.prev || undefined);
                 next(data.next || undefined);
                 stringSearch(data.movies);

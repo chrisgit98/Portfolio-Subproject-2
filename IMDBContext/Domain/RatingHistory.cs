@@ -7,12 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EfEx.Domain
 {
-    
-    public class BookmarkTitle
+
+    public class RatingHistory
     {
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public string FilmId { get; set; }
-        public string Title { get; set; }
+        public float? Rating { get; set; }
+        public int? Date { get; set; }
     }
 
 }

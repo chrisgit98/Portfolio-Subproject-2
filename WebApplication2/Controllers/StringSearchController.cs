@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-
+using WebService.Attributes;
 
 namespace WebService.Controllers
 {
@@ -31,23 +31,32 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-
+        [Authorization]
         [HttpGet("{s}", Name = nameof(StringSearch1))]
 
         public IActionResult StringSearch1(string s, [FromQuery] QueryString queryString)
         {
-            var stringSearch = _dataService.StringSearch(s);
-            //var searchHisttory = new SearchHistory(12345678, s, DateTime.Now);
-            //_dataService.CreateSearchHistory(searchHisttory);
-
-            var movies = stringSearch.Select(CreateStringSearchListViewModel);
-
-
-            if (stringSearch == null)
+            try
             {
-                return NotFound();
+                var user = Request.HttpContext.Items["User"] as User;
+                var stringSearch = _dataService.StringSearch(s).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize);
+                var searchHisttory = new SearchHistory(user.UserId, s, DateTime.Now);
+                _dataService.CreateSearchHistory(searchHisttory);
+
+                var movies = stringSearch.Select(CreateStringSearchListViewModel);
+
+
+                if (stringSearch == null)
+                {
+                    return NotFound();
+                }
+                return Ok(CreateResultModel(queryString, _dataService.StringSearchCount(s), movies, s));
+
             }
-            return Ok(CreateResultModel(queryString, _dataService.StringSearchCount(s), movies, s));
+            catch(Exception)
+            {
+                return Unauthorized();
+            }
         }
 
         private object CreateResultModel(QueryString queryString, int total, IEnumerable<StringSearchViewModel> model, string s)
@@ -81,11 +90,11 @@ namespace WebService.Controllers
 
         private string GetStringSearchUrl(int page, int pageSize, string orderBy, string s)
         {
-            return "http://localhost:5000/api/StringSearch/" + s +"?page=" + page + "&pageSize=" +pageSize;
-            //return _linkGenerator.GetUriByName(
-            //    HttpContext,
-            //    nameof(StringSearch1),
-            //    new { page, pageSize, orderBy });
+            //return "http://localhost:5000/api/StringSearch/" + s +"?page=" + page + "&pageSize=" +pageSize;
+            return _linkGenerator.GetUriByName(
+                HttpContext,
+                nameof(StringSearch1),
+                new { page, pageSize, orderBy, s });
         }
 
         private static int GetLastPage(int pageSize, int total)
@@ -114,7 +123,7 @@ namespace WebService.Controllers
         {
         
             //var test = _linkGenerator.GetUriByName(HttpContext, nameof(TitleBasicsController.GetMovie), new { stringSearch.Tconst });
-            return "http://localhost:5000/api/titlebasics/" +stringSearch.Tconst;
+            return "http://localhost:5000/api/moviedetails/" +stringSearch.Tconst;
         }
     }
 

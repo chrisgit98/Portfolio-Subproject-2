@@ -32,18 +32,18 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        //[Authorization]
+        [Authorization]
         [HttpGet("{s}", Name = nameof(SearchNames))]
 
         public IActionResult SearchNames(string s, [FromQuery] QueryString queryString)
         {
             try {
                 var user = Request.HttpContext.Items["User"] as User;
-                var nameSearch = _dataService.NameSearch(1, s);
-            //var searchHisttory = new SearchHistory(12345678, s, DateTime.Now);
-            //_dataService.CreateSearchHistory(searchHisttory);
+                var nameSearch = _dataService.NameSearch(s);
+                var searchHisttory = new SearchHistory(user.UserId, s, DateTime.Now);
+                _dataService.CreateSearchHistory(searchHisttory);
 
-            var names = nameSearch.Select(CreateNameSearchListViewModel);
+                var names = nameSearch.Select(CreateNameSearchListViewModel);
 
 
             if (nameSearch == null)

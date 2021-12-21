@@ -1,17 +1,20 @@
-﻿define(['knockout', 'bookmarkPeopleService', 'postman'], function (ko, bps, postman) {
+﻿define(['knockout', 'bookmarkService', 'postman'], function (ko, bs, postman) {
     return function (params) {
         let bookmarkPeople = ko.observableArray([]);
 
-        let deleteBookmarkPeople = bookmarkPeople => {
-            console.log(bookmarkPeople);
-            bps.deleteBookmarkPeople(bookmarkPeople);
+        let deleteBookmarkPeople = bookmarkPeoples => {
+            console.log(bookmarkPeoples);
+            bookmarkPeople.remove(bookmarkPeoples)
+            bs.deleteBookmarkPeople(bookmarkPeoples);
         }
 
 
-        bps.getBookmarkPeople(data => {
+        bs.getBookmarkPeople(data => {
             console.log(data);
             bookmarkPeople(data);
         });
+
+       
 
         return {
             

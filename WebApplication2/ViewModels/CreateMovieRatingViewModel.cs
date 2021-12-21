@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace WebService.ViewModels
 {
-    public class CreateBookmarkTitleViewModel
+    public class CreateMovieRatingViewModel
     {
         public int UserId { get; set; }
         public string FilmId { get; set; }
-        public string Title { get; set; }
-
+        public float? GivenRate { get; set; }
     }
 }

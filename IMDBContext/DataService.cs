@@ -49,7 +49,7 @@ namespace EfEx
 
 
         //Seach Function
-        public IList<NameSearch> NameSearch(int userId, string s);
+        public IList<NameSearch> NameSearch(string s);
         public int NameSearchCount(string s);
         public NameOtherview GetNameOtherview(string personId);
 
@@ -68,6 +68,10 @@ namespace EfEx
         public IList<BestMatchSearch> BestMatchSearch(string s);
 
         public int BestMatchSearchCount(string s);
+
+        public void RateAMovie(MovieRating data);
+
+        public IList<RatingHistory> GetRatingHistoryByUserId(int userId);
     }
 
 
@@ -95,9 +99,12 @@ namespace EfEx
 
         public IList<BookmarkPeople> GetBookmarkPeopleByUserId(int userId)
         {
-            var ctx = new IMDBContext();
+           
+                var ctx = new IMDBContext();
+                //if (ctx.Users.FirstOrDefault(x => x.UserId == userId) == null)
+                //    throw new ArgumentException("User not found");
 
-            return ctx.BookmarkPeoples.Where(x => x.UserId == userId).ToList();
+                return ctx.BookmarkPeoples.Where(x => x.UserId == userId).ToList();
 
         }
 
@@ -114,6 +121,7 @@ namespace EfEx
 
         public BookmarkPeople CreateBookmarkPeople(BookmarkPeople bookmarkPeople)
         {
+            
             var ctx = new IMDBContext();
 
             ctx.Add(bookmarkPeople);
@@ -178,7 +186,9 @@ namespace EfEx
             var ctx = new IMDBContext();
             try
             {
-                ctx.BookmarkTitles.Remove(ctx.BookmarkTitles.Find(userId, filmId));
+                //ctx.BookmarkTitles.Remove(ctx.BookmarkTitles.Find(userId, filmId));
+                var dbp = ctx.BookmarkTitles.FirstOrDefault(x => x.UserId == userId && x.FilmId == filmId);
+                ctx.BookmarkTitles.Remove(dbp);
             }
             catch (Exception)
             { }
@@ -280,13 +290,13 @@ namespace EfEx
             return result.FirstOrDefault();
         }
 
-        public IList<NameSearch> NameSearch(int userId, string s)
+        public IList<NameSearch> NameSearch(string s)
         {
             Console.WriteLine(s);
             
             var ctx = new IMDBContext();
-            if (ctx.Users.FirstOrDefault(x => x.UserId == userId) == null)
-                throw new ArgumentException("User not found");
+            //if (ctx.Users.FirstOrDefault(x => x.UserId == userId) == null)
+            //    throw new ArgumentException("User not found");
             var result = ctx.NameSearches.FromSqlInterpolated($"SELECT * FROM name_search({s})").ToList();
             return result;
         }
@@ -318,6 +328,23 @@ namespace EfEx
         {
             var ctx = new IMDBContext();
             return ctx.BestMatchSearches.FromSqlInterpolated($"SELECT * FROM bestmatch({s})").ToList().Count();
+
+        }
+
+        public IList<RatingHistory> GetRatingHistoryByUserId(int userId)
+        {
+            var ctx = new IMDBContext();
+
+            return ctx.RatingHistories.Where(x => x.UserId == userId).ToList();
+
+        }
+
+        public void RateAMovie(MovieRating data)
+        {
+            var ctx = new IMDBContext();
+            ctx.MovieRatings.FromSqlInterpolated(($"SELECT * FROM rate_title({data})"));
+            ctx.Add(data);
+            ctx.SaveChanges();
         }
 
         //Users
