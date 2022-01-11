@@ -40,7 +40,7 @@ namespace WebService.Controllers
             {
                 var user = Request.HttpContext.Items["User"] as User;
                 var stringSearch = _dataService.StringSearch(s).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize);
-                var searchHisttory = new SearchHistory(user.UserId, s, DateTime.Now);
+                var searchHisttory = new SearchHistory(user.UserId, s, DateTime.Today.Date);
                 _dataService.CreateSearchHistory(searchHisttory);
 
                 var movies = stringSearch.Select(CreateStringSearchListViewModel);

@@ -5,11 +5,10 @@
 
 <table class="table table-dark">
     <thead class="thead-dark">
-        <tr><th>Url</th><th>FilmId</th><th>Date</th><th></th></tr>
+        <tr><th>Search Input</th><th>Date</th><th></th></tr>
     </thead>
     <tbody data-bind="foreach: searchHistory">
         <tr>
-            <td data-bind="text: url"></td>
             <td data-bind="text: filmId"></td>
             <td data-bind="text: date"></td>
             <td><button class="btn btn-danger btn-sm" data-bind="click: $parent.deleteSearchHistory">Delete</button></td>

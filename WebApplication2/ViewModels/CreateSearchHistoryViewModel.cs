@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EfEx.Domain;
 using EfEx;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebService.ViewModels
 {
@@ -12,6 +13,7 @@ namespace WebService.ViewModels
 	{
 		public string Url { get; set; }
 		public string FilmId { get; set; }
-		public DateTime Date { get; set; }
+		[DataType(DataType.Date)]
+		public DateTime? Date { get; set; }
 	}
 }
