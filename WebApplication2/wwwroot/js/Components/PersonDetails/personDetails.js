@@ -1,7 +1,8 @@
-﻿define(['knockout', 'personservice', 'postman'], function (ko, ps, postman) {
+﻿define(['knockout', 'personservice', 'bookmarkService', 'postman'], function (ko, ps, bs, postman) {
     return function (params) {
-        let nameOtherview = ko.observableArray([]);
+        let nameOtherview = ko.observable();
         let findingCoPlayers = ko.observableArray([]);
+        let status = ko.observable();
 
         let getPerson = (personId) => {
             ps.getSpecificPerson(personId, data => {
@@ -26,10 +27,21 @@
 
         let Back = () => postman.publish("changeView", "Search-for-persons");
 
+        let BookmarkPeople = () => {
+            const bookmarkPeople = { u_id: localStorage.getItem("u_id"), personId: nameOtherview().personId, name: nameOtherview().name };
+            status("Bookmarked")
+
+            bs.createBookmarkPeople(bookmarkPeople, data => {
+                console.log(data);
+            });
+
+        }
+
         return {
             nameOtherview,
             findingCoPlayers,
-            Back          
+            Back,
+            BookmarkPeople
         };
     };
 });

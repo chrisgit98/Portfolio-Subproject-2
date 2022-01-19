@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-
+using WebService.Attributes;
 
 
 namespace WebService.Controllers
@@ -34,6 +34,8 @@ namespace WebService.Controllers
             _linkGenerator = linkGenerator;
             _mapper = mapper;
         }
+
+        [Authorization]
         [HttpGet]
         public IActionResult GetSearchHistory()
         {
@@ -42,15 +44,23 @@ namespace WebService.Controllers
             return Ok(model);
         }
 
+        [Authorization]
         [HttpGet("{userId}", Name = nameof(GetSearchHistoryByUserId))]
         public IActionResult GetSearchHistoryByUserId(int userId)
         {
-            var searchHistory = _dataService.GetSearchHistoryByUserId(userId);
-            if (searchHistory == null)
-            {
-                return NotFound();
+            try {
+                var user = Request.HttpContext.Items["User"] as User;
+                var searchHistory = _dataService.GetSearchHistoryByUserId(user.UserId);
+                if (searchHistory == null)
+                {
+                    return NotFound();
+                }
+                return Ok(searchHistory.Select(CreateSearchHistoryViewModel));
             }
-            return Ok(searchHistory.Select(CreateSearchHistoryViewModel));
+            catch (Exception)
+            {
+                return Unauthorized();
+            }
         }
 
 
@@ -64,12 +74,6 @@ namespace WebService.Controllers
             }
 
             return NoContent();
-        }
-
-        [HttpPost]
-        public void CreateSearchHistory(SearchHistory searchHistory)
-        {
-
         }
 
 

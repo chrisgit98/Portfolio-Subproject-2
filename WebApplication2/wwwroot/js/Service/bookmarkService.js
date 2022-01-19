@@ -2,10 +2,20 @@
 
     /*Bookmark a movie*/
     let getBookmarkTitle = (callback) => {
-        fetch("api/BookmarkTitle")
-            .then(response => response.json())
-            .then(json => callback(json));
-    };
+        let params = {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        };
+        fetch("api/BookmarkTitle/" + localStorage.getItem("u_id"), params)
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response.json();
+            }).then(json => callback(json));
+    }
 
     let deleteBookmarkTitle = bookmarkTitle => {
         let param = {
@@ -46,7 +56,7 @@
                 "Authorization": "Bearer " + localStorage.getItem("token")
             }
         };
-        fetch("api/BookmarkPeople", params)
+        fetch("api/BookmarkPeople/" + localStorage.getItem("u_id"), params)
             .then(response => {
                 if (!response.ok) {
                     throw Error(response.statusText);
@@ -56,9 +66,17 @@
     }
 
     let deleteBookmarkPeople = bookmarkPeople => {
+        let param = {
+            method: "DELETE",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token"),
+
+            }
+        }
         console.log(bookmarkPeople.url);
-        fetch(bookmarkPeople.url + "/" + bookmarkPeople.personId, { method: "DELETE" })
+        fetch("api/BookmarkPeople/" + bookmarkPeople.personId, param)
             .then(response => console.log(response.status))
+    
     };
 
     let createBookmarkPeople = (bookmarkPeople, callback) => {
@@ -66,12 +84,17 @@
             method: "POST",
             body: JSON.stringify(bookmarkPeople),
             headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token"),
                 "Content-Type": "application/json"
             }
         }
         fetch("api/BookmarkPeople", param)
-            .then(response => response.json())
-            .then(json => callback(json));
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response.json();
+            }).then(json => callback(json));
     };
 
 

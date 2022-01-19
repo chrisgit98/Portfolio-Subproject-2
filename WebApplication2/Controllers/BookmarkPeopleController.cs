@@ -50,11 +50,11 @@ namespace WebService.Controllers
 
         [Authorization]
         [HttpGet("{userId}", Name = nameof(GetBookmarkPeopleByUserId))]
-        public IActionResult GetBookmarkPeopleByUserId(int userId)
+        public IActionResult GetBookmarkPeopleByUserId()
         {
             try {
                 var user = Request.HttpContext.Items["User"] as User;
-                var bookmarkPeople = _dataService.GetBookmarkPeopleByUserId(userId);
+                var bookmarkPeople = _dataService.GetBookmarkPeopleByUserId(user.UserId);
                 if (bookmarkPeople == null)
                 {
                     return NotFound();
@@ -71,16 +71,16 @@ namespace WebService.Controllers
         [HttpDelete("{userId}/{personId}")]
         public IActionResult DeleteBookmarkPeople(int userId, string personId)
         {
-           //_dataService.DeleteBookmarkPeople(userId, personId);
+           ;
 
             if (!_dataService.DeleteBookmarkPeople(userId, personId)) return NotFound() ;
             
             return NoContent();
 
         }
+
         [Authorization]
         [HttpPost]
-
         public IActionResult CreateBookmarkPeople(CreateBookmarkPeopleViewModel model)
         {
             try
@@ -106,8 +106,8 @@ namespace WebService.Controllers
         {
             var model = _mapper.Map<BookmarkPeopleViewModel>(bookmarkPeople);
             model.Url = GetUrl(bookmarkPeople);
-            //model.PersonId = bookmarkPeople.PersonId;
-            //model.UserId = bookmarkPeople.UserId;
+            model.PersonId = bookmarkPeople.PersonId;
+            model.UserId = bookmarkPeople.UserId;
             return model;
         }
         private string GetUrl(BookmarkPeople bookmarkPeople)

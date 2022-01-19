@@ -10,6 +10,7 @@
         bookmarkService: "Service/bookmarkService",
         searchHistoryService: "Service/searchHistoryService",
         securityService: "Service/securityService",
+        ratingService: "Service/ratingService",
         postman: "Service/postman"
     }
 });
@@ -52,6 +53,10 @@ require(['knockout'], (ko) => {
     ko.components.register("register", {
         viewModel: { require: "Components/Security/userRegister" },
         template: { require: "text!Components/Security/userRegister.html" }
+    });
+    ko.components.register("ratingHistory", {
+        viewModel: { require: "Components/TitleRating/titleRating" },
+        template: { require: "text!Components/TitleRating/titleRating.html" }
     });
     
 

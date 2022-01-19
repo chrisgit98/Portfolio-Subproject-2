@@ -121,9 +121,9 @@ namespace WebService.Controllers
 
         private string GetStringSearchUrl(StringSearch stringSearch)
         {
-        
-            //var test = _linkGenerator.GetUriByName(HttpContext, nameof(TitleBasicsController.GetMovie), new { stringSearch.Tconst });
-            return "http://localhost:5000/api/moviedetails/" +stringSearch.Tconst;
+
+            //return _linkGenerator.GetUriByName(HttpContext, nameof(TitleOtherviewController.GetMovieDetails), new { stringSearch.Tconst });
+            return "http://localhost:5000/api/moviedetails/" + stringSearch.Tconst;
         }
     }
 

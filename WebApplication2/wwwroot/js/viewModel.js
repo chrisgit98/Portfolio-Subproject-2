@@ -2,12 +2,13 @@
 
 
     let menuItems = [
+        { title: "LogIn", component: "logIn" },
         { title: "Find Movies", component: "Search-for-movies" },
         { title: "Find Persons", component: "Search-for-persons" },
         { title: "People Bookmarks", component: "list-bookmarkPeople" },
         { title: "Title Bookmarks", component: "list-bookmarkTitle" },
         { title: "Search History", component: "searchHistory" },
-        { title: "LogIn", component: "logIn" },
+        { title: "Rating History", component: "ratingHistory" },
         { title: "Register", component: "register" }
     ];
 
