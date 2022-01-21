@@ -65,3 +65,9 @@ body {
 .h2{
     color:navajowhite
 }
+.h1 {
+    margin-top: 10px;
+    background: -webkit-linear-gradient(#ba8b02, #808080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
