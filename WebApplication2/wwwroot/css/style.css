@@ -62,12 +62,15 @@ body {
 }
 /* Custom.scss
  Option A: Include all of Bootstrap*/
-.h2{
-    color:navajowhite
+.h2 {
+    color: navajowhite ;
+    margin-top: 2em;
+    padding-bottom: 2em;
 }
-.h1 {
-    margin-top: 10px;
-    background: -webkit-linear-gradient(#ba8b02, #808080);
+.h1,.h2 {
+    margin-top: 2em;
+    padding-bottom:2em;
+   /* background: -webkit-linear-gradient(#ba8b02, #808080);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;*/
 }
