@@ -45,8 +45,8 @@ namespace EfEx
 
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             optionsBuilder.EnableSensitiveDataLogging();
-            optionsBuilder.UseNpgsql("host = localhost; db = Imdb; uid = postgres; pwd = Trade01c3c4.");
-            //optionsBuilder.UseNpgsql("host = rawdata.ruc.dk; db = raw13; uid = raw13; pwd = e0OqApIG");
+            //optionsBuilder.UseNpgsql("host = localhost; db = Imdb; uid = postgres; pwd = Trade01c3c4.");
+            optionsBuilder.UseNpgsql("host = rawdata.ruc.dk; db = raw13; uid = raw13; pwd = e0OqApIG");
         }
 
 
@@ -215,7 +215,7 @@ namespace EfEx
 
             modelBuilder.Entity<BestMatchSearch>().HasNoKey();
             modelBuilder.Entity<BestMatchSearch>().Property(x => x.FilmId).HasColumnName("tconst");
-            modelBuilder.Entity<BestMatchSearch>().Property(x => x.Ranking).HasColumnName("ranking");
+            modelBuilder.Entity<BestMatchSearch>().Property(x => x.Ranking).HasColumnName("rank");
             modelBuilder.Entity<BestMatchSearch>().Property(x => x.Title).HasColumnName("title");
 
             modelBuilder.Entity<NameOtherview>().HasNoKey();

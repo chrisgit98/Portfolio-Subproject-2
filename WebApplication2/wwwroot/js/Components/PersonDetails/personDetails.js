@@ -41,7 +41,8 @@
             nameOtherview,
             findingCoPlayers,
             Back,
-            BookmarkPeople
+            BookmarkPeople,
+            status
         };
     };
 });

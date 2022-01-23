@@ -320,14 +320,14 @@ namespace EfEx
             Console.WriteLine(s);
 
             var ctx = new IMDBContext();
-            var result = ctx.BestMatchSearches.FromSqlInterpolated($"SELECT * FROM bestmatch({s})").ToList();
+            var result = ctx.BestMatchSearches.FromSqlInterpolated($"SELECT * FROM bestmatchstring({s})").ToList();
             return result;
         }
 
         public int BestMatchSearchCount(string s)
         {
             var ctx = new IMDBContext();
-            return ctx.BestMatchSearches.FromSqlInterpolated($"SELECT * FROM bestmatch({s})").ToList().Count();
+            return ctx.BestMatchSearches.FromSqlInterpolated($"SELECT * FROM bestmatchstring({s})").ToList().Count();
 
         }
 

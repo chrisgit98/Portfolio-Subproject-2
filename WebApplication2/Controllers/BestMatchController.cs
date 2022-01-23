@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-
+using WebService.Attributes;
 
 namespace WebService.Controllers
 {
@@ -36,8 +36,9 @@ namespace WebService.Controllers
 
         public IActionResult BestMatch(string s, [FromQuery] QueryString queryString)
         {
-            var bestMatchSearch = _dataService.BestMatchSearch(s);
-            //var searchHisttory = new SearchHistory(12345678, s, DateTime.Now);
+            var user = Request.HttpContext.Items["User"] as User;
+            var bestMatchSearch = _dataService.BestMatchSearch(s).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize);
+            //var searchHisttory = new SearchHistory(user.UserId, s, DateTime.Now);
             //_dataService.CreateSearchHistory(searchHisttory);
 
             var movies = bestMatchSearch.Select(CreateBestMatchSearchListViewModel);
@@ -47,7 +48,7 @@ namespace WebService.Controllers
             {
                 return NotFound();
             }
-            return Ok(CreateResultModel(queryString, _dataService.NameSearchCount(s), movies, s));
+            return Ok(CreateResultModel(queryString, _dataService.BestMatchSearchCount(s), movies, s));
         }
 
         private object CreateResultModel(QueryString queryString, int total, IEnumerable<BestMatchSearchViewModel> model, string s)
@@ -81,11 +82,11 @@ namespace WebService.Controllers
 
         private string GetBestMatchSearchUrl(int page, int pageSize, string orderBy, string s)
         {
-            return "http://localhost:5000/api/namesearch/" + s + "?page=" + page + "&pageSize=" + pageSize;
-            //return _linkGenerator.GetUriByName(
-            //    HttpContext,
-            //    nameof(StringSearch1),
-            //    new { page, pageSize, orderBy });
+            
+            return _linkGenerator.GetUriByName(
+                HttpContext,
+                nameof(BestMatch),
+                new { page, pageSize, orderBy });
         }
 
         private static int GetLastPage(int pageSize, int total)
@@ -93,7 +94,7 @@ namespace WebService.Controllers
             return (int)Math.Ceiling(total / (double)pageSize) - 1;
         }
 
-        private BestMatchSearchViewModel CreateNameSearchViewModel(BestMatchSearch bestMatchSearch)
+        private BestMatchSearchViewModel CreateBestMatchSearchViewModel(BestMatchSearch bestMatchSearch)
         {
             var model = _mapper.Map<BestMatchSearchViewModel>(bestMatchSearch);
             model.Url = GetBestMatchSearchUrl(bestMatchSearch);
@@ -113,8 +114,8 @@ namespace WebService.Controllers
         private string GetBestMatchSearchUrl(BestMatchSearch bestMatchSearch)
         {
 
-            //var test = _linkGenerator.GetUriByName(HttpContext, nameof(TitleBasicsController.GetMovie), new { stringSearch.Tconst });
-            return "http://localhost:5000/api/titlebasics/" + bestMatchSearch.FilmId;
+            //var test = _linkGenerator.GetUriByName(HttpContext, nameof(TitleBasicsController.GetMovie), new { bestMatchSearch.FilmId });
+            return "http://localhost:5000/api/moviedetails/" + bestMatchSearch.FilmId;
         }
     }
 

@@ -2,10 +2,9 @@
     return function (params) {
         let bookmarkPeople = ko.observableArray([]);
 
-        let deleteBookmarkPeople = bookmarkPeoples => {
-            console.log(bookmarkPeoples);
-            bookmarkPeople.remove(bookmarkPeoples)
-            bs.deleteBookmarkPeople(bookmarkPeoples);
+        let deleteBookmarkPeople = bookmarkPeople => {
+            console.log("name" + bookmarkPeople);
+            bs.deleteBookmarkPeople(bookmarkPeople);
         }
 
 

@@ -67,16 +67,21 @@ namespace WebService.Controllers
             }
         }
 
-
-        [HttpDelete("{userId}/{personId}")]
-        public IActionResult DeleteBookmarkPeople(int userId, string personId)
+        [Authorization]
+        [HttpDelete("{personId}")]
+        public IActionResult DeleteBookmarkPeople( string personId)
         {
-           ;
+            try
+            {
+                var user = Request.HttpContext.Items["User"] as User;
+                _dataService.DeleteBookmarkPeople(user.UserId, personId);
 
-            if (!_dataService.DeleteBookmarkPeople(userId, personId)) return NotFound() ;
-            
-            return NoContent();
-
+                return NoContent();
+            }
+            catch(Exception)
+            {
+                 return Unauthorized();
+            }
         }
 
         [Authorization]
