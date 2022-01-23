@@ -10,7 +10,7 @@
             }
         };
         console.log(searchInput, localStorage.getItem("token"))
-        fetch("api/StringSearch/" + searchInput, params)
+        fetch("api/bestmatch/" + searchInput, params)
             .then(response => {
                 if (!response.ok) {
                     throw Error(response.statusText);
@@ -27,25 +27,25 @@
 
     /*Deatils Page*/
 
-    let getSpecificMovie = (tconst, callback) => {
-        console.log(tconst)
-        fetch("api/moviedetails/" + tconst)
+    let getSpecificMovie = (filmId, callback) => {
+        console.log(filmId)
+        fetch("api/moviedetails/" + filmId)
             .then(response => response.json())
             .then(json => callback(json));
     };
 
     /*SimilarMoviess*/
-    let getSimilarMovies = (tconst, callback) => {
-        console.log(tconst)
-        fetch("api/SimilarMovies/" + tconst)
+    let getSimilarMovies = (filmId, callback) => {
+        console.log(filmId)
+        fetch("api/SimilarMovies/" + filmId)
             .then(response => response.json())
             .then(json => callback(json));
 
     };
 
-    let getPopularActors = (tconst, callback) => {
-        console.log(tconst)
-        fetch("api/PopularActors/" + tconst)
+    let getPopularActors = (filmId, callback) => {
+        console.log(filmId)
+        fetch("api/PopularActors/" + filmId)
             .then(response => response.json())
             .then(json => callback(json));
 

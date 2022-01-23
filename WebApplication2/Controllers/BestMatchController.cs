@@ -31,24 +31,31 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-
+        [Authorization]
         [HttpGet("{s}", Name = nameof(BestMatch))]
 
         public IActionResult BestMatch(string s, [FromQuery] QueryString queryString)
         {
-            var user = Request.HttpContext.Items["User"] as User;
-            var bestMatchSearch = _dataService.BestMatchSearch(s).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize);
-            //var searchHisttory = new SearchHistory(user.UserId, s, DateTime.Now);
-            //_dataService.CreateSearchHistory(searchHisttory);
-
-            var movies = bestMatchSearch.Select(CreateBestMatchSearchListViewModel);
-
-
-            if (bestMatchSearch == null)
+            try
             {
-                return NotFound();
+                var user = Request.HttpContext.Items["User"] as User;
+                var bestMatchSearch = _dataService.BestMatchSearch(s).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize);
+                var searchHisttory = new SearchHistory(user.UserId, s, DateTime.Now);
+                _dataService.CreateSearchHistory(searchHisttory);
+
+                var movies = bestMatchSearch.Select(CreateBestMatchSearchListViewModel);
+
+
+                if (bestMatchSearch == null)
+                {
+                    return NotFound();
+                }
+                return Ok(CreateResultModel(queryString, _dataService.BestMatchSearchCount(s), movies, s));
             }
-            return Ok(CreateResultModel(queryString, _dataService.BestMatchSearchCount(s), movies, s));
+            catch (Exception)
+            {
+                return Unauthorized();
+            }
         }
 
         private object CreateResultModel(QueryString queryString, int total, IEnumerable<BestMatchSearchViewModel> model, string s)
@@ -86,7 +93,7 @@ namespace WebService.Controllers
             return _linkGenerator.GetUriByName(
                 HttpContext,
                 nameof(BestMatch),
-                new { page, pageSize, orderBy });
+                new { page, pageSize, orderBy, s });
         }
 
         private static int GetLastPage(int pageSize, int total)

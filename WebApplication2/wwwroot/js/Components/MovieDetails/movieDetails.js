@@ -7,8 +7,8 @@
         let status = ko.observable();
 
         /*MovieDetails*/
-        let getMovieDetails = (tconst) => {
-            ms.getSpecificMovie(tconst, data => {
+        let getMovieDetails = (filmId) => {
+            ms.getSpecificMovie(filmId, data => {
                 console.log(data);
                 titleOtherview(data);
             });
@@ -16,25 +16,25 @@
 
 
         /*SimilarMoviess*/
-        let getSimilarMovies = (tconst) => {
-            ms.getSimilarMovies(tconst, data => {
+        let getSimilarMovies = (filmId) => {
+            ms.getSimilarMovies(filmId, data => {
                 console.log(data);
                 similarMovies(data);
             });
         }
         /*PopularActors*/
-        let getPopularActors = (tconst) => {
-            ms.getPopularActors(tconst, data => {
+        let getPopularActors = (filmId) => {
+            ms.getPopularActors(filmId, data => {
                 console.log(data);
                 popularActors(data);
             });
         }
 
-        postman.subscribe("showmovie", tconst => {
-            getMovieDetails(tconst)
-            getSimilarMovies(tconst)
-            getPopularActors(tconst)
-            console.log(tconst)
+        postman.subscribe("showmovie", filmId => {
+            getMovieDetails(filmId)
+            getSimilarMovies(filmId)
+            getPopularActors(filmId)
+            console.log(filmId)
         })
 
         let Back = () => postman.publish("changeView", "Search-for-movies");

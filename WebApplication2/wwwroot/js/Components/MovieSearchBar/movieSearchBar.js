@@ -3,9 +3,9 @@
 
         /*Search Page*/
 
-        let stringSearch = ko.observableArray([]);
+        let bestMatchSearch = ko.observableArray([]);
         let searchInput = ko.observable();
-        let tconst = ko.observable();
+        let filmId = ko.observable();
         let prev = ko.observable();
         let next = ko.observable();
 
@@ -16,7 +16,7 @@
                 console.log("error" + data);
                 prev(data.prev || undefined);
                 next(data.next || undefined);
-                stringSearch(data.movies);
+                bestMatchSearch(data.movies);
             });
         }
 
@@ -47,7 +47,7 @@
         let enableNextPage = ko.observable(() => next() !== undefined);
 
         let SeeDetails = (data) => {
-            postman.publish("showmovie", data.tconst)
+            postman.publish("showmovie", data.filmId)
             postman.publish("changeView", "movieDetails")
             
         }
@@ -58,14 +58,14 @@
 
         return {
            
-            stringSearch,
+            bestMatchSearch,
             searchInput,
             showPreviousPage,
             enablePreviousPage,
             showNextPage,
             enableNextPage,
             createSearch,
-            tconst,
+            filmId,
             SeeDetails
         };
 
