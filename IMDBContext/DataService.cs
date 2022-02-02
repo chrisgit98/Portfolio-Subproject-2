@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xunit;
 using EfEx;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 
 namespace EfEx
@@ -22,7 +23,8 @@ namespace EfEx
 
         IList<SearchHistory> GetSearchHistory();
         public IList<SearchHistory> GetSearchHistoryByUserId(int userId);
-        public bool DeleteSearchHistory(int userId, string filmId);
+        public int SearchHistoryCount(int userId);
+        public bool DeleteSearchHistory(int userId);
         public void CreateSearchHistory(SearchHistory searchHistory);
 
         //BookmarksPeople CRUD
@@ -69,7 +71,7 @@ namespace EfEx
 
         public int BestMatchSearchCount(string s);
 
-        public void RateAMovie(MovieRating data);
+        public void RateAMovie(int u_id, string t_id, float u_rating);
 
         public IList<RatingHistory> GetRatingHistoryByUserId(int userId);
     }
@@ -133,14 +135,13 @@ namespace EfEx
         {
             var ctx = new IMDBContext();
             var dbp = ctx.BookmarkPeoples.Find(userId, personId);
-            if (dbp == null) return false;
-            try
+            if (dbp == null)
             {
-                ctx.BookmarkPeoples.Remove(ctx.BookmarkPeoples.Find(userId, personId));
-            }
-            catch (Exception)
-            { }
-            return ctx.SaveChanges() > 0;
+                return false;
+            }           
+            ctx.BookmarkPeoples.Remove(dbp);
+            ctx.SaveChanges();
+            return true;      
         }
 
 
@@ -184,15 +185,15 @@ namespace EfEx
         public bool DeleteBookmarkTitle(int userId, string filmId)
         {
             var ctx = new IMDBContext();
-            try
+
+            var dbp = ctx.BookmarkTitles.Find(userId, filmId);
+            if (dbp == null)
             {
-                //ctx.BookmarkTitles.Remove(ctx.BookmarkTitles.Find(userId, filmId));
-                var dbp = ctx.BookmarkTitles.FirstOrDefault(x => x.UserId == userId && x.FilmId == filmId);
-                ctx.BookmarkTitles.Remove(dbp);
+                return false;
             }
-            catch (Exception)
-            { }
-            return ctx.SaveChanges() > 0;
+            ctx.BookmarkTitles.Remove(dbp);
+            ctx.SaveChanges();
+            return true;
         }
 
 
@@ -211,7 +212,14 @@ namespace EfEx
         {
             var ctx = new IMDBContext();
 
-            return ctx.SearchHistories.Where(x => x.UserId == userId).ToList();
+            var result = ctx.SearchHistories.Where(x => x.UserId == userId).ToList();
+            return result;
+        }
+
+        public int SearchHistoryCount(int userId)
+        {
+            var ctx = new IMDBContext();
+            return ctx.SearchHistories.Where(x => x.UserId == userId).ToList().Count();
         }
 
         public void CreateSearchHistory(SearchHistory searchHistory)
@@ -221,18 +229,23 @@ namespace EfEx
             ctx.SaveChanges();
         }
 
-        public bool DeleteSearchHistory(int userId, string filmId)
+        public bool DeleteSearchHistory(int userId)
         {
             var ctx = new IMDBContext();
-            var dbp = ctx.SearchHistories.Find(userId, filmId);
-            if (dbp == null) return false;
-            try
+            var elementsToBeDeleted = ctx.SearchHistories.Where(x => x.UserId == userId).ToList();
+            foreach (var element in elementsToBeDeleted)
             {
-                ctx.SearchHistories.Remove(ctx.SearchHistories.Find(userId, filmId));
+                ctx.SearchHistories.Remove(element);
             }
-            catch (Exception)
-            { }
-            return ctx.SaveChanges() > 0;
+
+            //var dsh = ctx.SearchHistories.Find(userId);
+            //if (dsh == null)
+            //{
+            //    return false;
+            //}
+            //ctx.SearchHistories.Remove(dsh);
+            ctx.SaveChanges();
+            return true;
         }
 
 
@@ -339,12 +352,16 @@ namespace EfEx
 
         }
 
-        public void RateAMovie(MovieRating data)
+        public void RateAMovie(int usr_id, string t_id, float u_rating)
         {
             var ctx = new IMDBContext();
-            ctx.MovieRatings.FromSqlInterpolated(($"SELECT * FROM rate_title({data})"));
-            ctx.Add(data);
-            ctx.SaveChanges();
+            var conn = (NpgsqlConnection)ctx.Database.GetDbConnection();
+            conn.Open();
+            var cmd = new NpgsqlCommand();
+            cmd.CommandText = $"call rate_title2({usr_id},'{t_id}',{u_rating})";
+            cmd.Connection = conn;
+            cmd.ExecuteNonQuery();
+            //ctx.MovieRatings.FromSqlInterpolated(($"call rate_title2({usr_id},'{t_id}',{u_rating})"));
         }
 
         //Users

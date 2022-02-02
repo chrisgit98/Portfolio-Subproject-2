@@ -29,24 +29,24 @@ namespace WebService.Controllers
             _linkGenerator = linkGenerator;
             _mapper = mapper;
         }
-        [Authorization]
-        [HttpGet]
-        public IActionResult GetBookmarksPeople()
-        {
-            try
-            {
-                var user = Request.HttpContext.Items["User"] as User;
+        //[Authorization]
+        //[HttpGet]
+        //public IActionResult GetBookmarksPeople()
+        //{
+        //    try
+        //    {
+        //        var user = Request.HttpContext.Items["User"] as User;
 
-                var bookmarkPeople = _dataService.GetBookmarkPeopleByUserId(user.UserId);
-                var model = bookmarkPeople.Select(CreateBookmarkPeopleViewModel);
-                return Ok(model);
+        //        var bookmarkPeople = _dataService.GetBookmarkPeopleByUserId(user.UserId);
+        //        var model = bookmarkPeople.Select(CreateBookmarkPeopleViewModel);
+        //        return Ok(model);
 
-            }
-            catch(Exception)
-            {
-                return Unauthorized();
-            }
-        }
+        //    }
+        //    catch(Exception)
+        //    {
+        //        return Unauthorized();
+        //    }
+        //}
 
         [Authorization]
         [HttpGet("{userId}", Name = nameof(GetBookmarkPeopleByUserId))]
@@ -78,9 +78,9 @@ namespace WebService.Controllers
 
                 return NoContent();
             }
-            catch(Exception)
+            catch (Exception)
             {
-                 return Unauthorized();
+                return Unauthorized();
             }
         }
 

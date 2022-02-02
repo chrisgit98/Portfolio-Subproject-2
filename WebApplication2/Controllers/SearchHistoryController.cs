@@ -35,27 +35,28 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [Authorization]
-        [HttpGet]
-        public IActionResult GetSearchHistory()
-        {
-            var searchHistory = _dataService.GetSearchHistory();
-            var model = searchHistory.Select(CreateSearchHistoryViewModel);
-            return Ok(model);
-        }
+        //[Authorization]
+        //[HttpGet]
+        //public IActionResult GetSearchHistory()
+        //{
+        //    var searchHistory = _dataService.GetSearchHistory();
+        //    var model = searchHistory.Select(CreateSearchHistoryViewModel);
+        //    return Ok(model);
+        //}
 
         [Authorization]
-        [HttpGet("{userId}", Name = nameof(GetSearchHistoryByUserId))]
-        public IActionResult GetSearchHistoryByUserId(int userId)
+        [HttpGet( Name = nameof(GetSearchHistoryByUserId))]
+        public IActionResult GetSearchHistoryByUserId([FromQuery] QueryString queryString)
         {
             try {
                 var user = Request.HttpContext.Items["User"] as User;
-                var searchHistory = _dataService.GetSearchHistoryByUserId(user.UserId);
+                var searchHistory = _dataService.GetSearchHistoryByUserId(user.UserId).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize);
+                var searches = searchHistory.Select(CreateSearchHistoryViewModel);
                 if (searchHistory == null)
                 {
                     return NotFound();
                 }
-                return Ok(searchHistory.Select(CreateSearchHistoryViewModel));
+                return Ok((CreateResultModel(queryString, _dataService.SearchHistoryCount(user.UserId), searches)));
             }
             catch (Exception)
             {
@@ -64,33 +65,87 @@ namespace WebService.Controllers
         }
 
 
-
-        [HttpDelete("{userId}/{filmId}")]
-        public IActionResult DeleteSearchHistory(int userId, string filmId)
+        
+        [HttpDelete]
+        public IActionResult DeleteSearchHistory()
         {
-            if (!_dataService.DeleteSearchHistory(userId, filmId))
-            {
-                return NotFound();
-            }
-
-            return NoContent();
+           
+                var user = Request.HttpContext.Items["User"] as User;
+                
+                _dataService.DeleteSearchHistory(user.UserId);
+               
+                return NoContent();
+            
         }
+
+
+        
+
+        private object CreateResultModel(QueryString queryString, int total, IEnumerable<SearchHistoryViewModel> model)
+        {
+            return new
+            {
+                total,
+                prev = CreateNextPageLink(queryString),
+                cur = CreateCurrentPageLink(queryString),
+                next = CreateNextPageLink(queryString, total),
+                searches = model
+            };
+        }
+
+        private string CreateNextPageLink(QueryString queryString, int total)
+        {
+            var lastPage = GetLastPage(queryString.PageSize, total);
+            return queryString.Page >= lastPage ? null : GetBestMatchSearchUrl(queryString.Page + 1, queryString.PageSize, queryString.OrderBy);
+        }
+
+
+        private string CreateCurrentPageLink(QueryString queryString)
+        {
+            return GetBestMatchSearchUrl(queryString.Page, queryString.PageSize, queryString.OrderBy);
+        }
+
+        private string CreateNextPageLink(QueryString queryString)
+        {
+            return queryString.Page <= 0 ? null : GetBestMatchSearchUrl(queryString.Page - 1, queryString.PageSize, queryString.OrderBy);
+        }
+
+        private string GetBestMatchSearchUrl(int page, int pageSize, string orderBy)
+        {
+
+            return _linkGenerator.GetUriByName(
+                HttpContext,
+                nameof(GetSearchHistoryByUserId),
+                new { page, pageSize, orderBy });
+        }
+
+        private static int GetLastPage(int pageSize, int total)
+        {
+            return (int)Math.Ceiling(total / (double)pageSize) - 1;
+        }
+
+        private SearchHistoryViewModel CreateBestMatchSearchViewModel(SearchHistory searchHistory)
+        {
+            var model = _mapper.Map<SearchHistoryViewModel>(searchHistory);
+            model.Url = GetSearchHistoryUrl(searchHistory);
+            return model;
+        }
+
+
 
 
         private SearchHistoryViewModel CreateSearchHistoryViewModel(SearchHistory searchHistory)
         {
             var model = _mapper.Map<SearchHistoryViewModel>(searchHistory);
-            model.Url = GetUrl(searchHistory);          
+            model.Url = GetSearchHistoryUrl(searchHistory);
             return model;
 
-        }   
-        
-        private string GetUrl(SearchHistory searchHistory)
-        {
-            return _linkGenerator.GetUriByName(HttpContext, nameof(GetSearchHistoryByUserId), new { searchHistory.UserId });
         }
 
-
+        private string GetSearchHistoryUrl(SearchHistory searchHistory)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetSearchHistoryByUserId), new { searchHistory.FilmId });
+        }
 
     }
 }

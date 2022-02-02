@@ -9,9 +9,9 @@ namespace WebService.ViewModels
     {
         public string Url { get; set; }
 
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
         public string FilmId { get; set; }
-        public float? Rating { get; set; }
-        public int? Date { get; set; }
+        public double Rating { get; set; }
+        public DateTime Date { get; set; }
     }
 }

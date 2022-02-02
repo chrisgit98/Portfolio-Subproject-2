@@ -81,6 +81,12 @@
             </tr>
         </tbody>
     </table>
+
+    <div class="rating-option">
+       Rate this movie (between 1 and 10) <input type="text" data-bind="textInput: rateinput" />
+        <button type="submit" class="btn btn-info btn-sm" data-bind="click: rateMovie">Rate</button>
+    </div>
+
     <div class="navigation-buttons">
         <button class="btn btn-info btn-sm" data-bind="click: Back">Back</button>
         <button class="btn btn-info btn-sm" data-bind="click: BookamrkMovie">Bookmark this movie</button>

@@ -17,7 +17,7 @@
             }).then(json => callback(json));
     }
 
-    let deleteBookmarkTitle = bookmarkTitle => {
+    let deleteBookmarkTitle = bookmarkTitles => {
         let param = {
             method: "DELETE",
             headers: {
@@ -25,8 +25,7 @@
 
             }
         }
-        console.log(bookmarkTitle.url);
-        fetch("api/BookmarkTitle/" + bookmarkTitle.filmId, param)
+        fetch("api/BookmarkTitle/" + bookmarkTitles.filmId, param)
             .then(response => console.log(response.status))
     };
 
@@ -65,7 +64,7 @@
             }).then(json => callback(json));
     }
 
-    let deleteBookmarkPeople = bookmarkPeople => {
+    let deleteBookmarkPeople = bookmarkPeoples => {
         let param = {
             method: "DELETE",
             headers: {
@@ -73,8 +72,7 @@
 
             }
         }
-        console.log(bookmarkPeople.url);
-        fetch("api/BookmarkPeople/" + bookmarkPeople.personId, param)
+        fetch("api/BookmarkPeople/" + bookmarkPeoples.personId, param)
             .then(response => console.log(response.status))
     
     };

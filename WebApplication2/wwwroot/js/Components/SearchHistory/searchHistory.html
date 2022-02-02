@@ -1,18 +1,19 @@
-﻿<h1>Search History</h1>
-
-<!--<button class="btn btn-primary" data-bind="click: addCategoryView">Add Category</button>-->
-
-
+﻿
+<h1>Search History</h1>
+<td><button class="btn btn-danger btn-sm" data-bind="click: deleteSearchHistory">Clear Search History</button></td>
 <table class="table table-dark">
     <thead class="thead-dark">
-        <tr><th>Search Input</th><th>Date</th><th></th></tr>
+        <tr><th>Title</th><th>Date</th><th></th></tr>
     </thead>
-    <tbody data-bind="foreach: searchHistory">
+    <tbody data-bind="foreach: searchHistories">
         <tr>
             <td data-bind="text: filmId"></td>
             <td data-bind="text: date"></td>
-            <td><button class="btn btn-danger btn-sm" data-bind="click: $parent.deleteSearchHistory">Delete</button></td>
+            <!--<td><button class="btn btn-danger btn-sm" data-bind="click: $parent.deleteSearchHistory">Clear Search History</button></td>-->
         </tr>
     </tbody>
-    
 </table>
+<div class="navigation-buttons last-item">
+    <button data-bind="click: showPreviousPage, enable: enablePreviousPage">Prev</button>
+    <button data-bind="click: showNextPage, enable: enableNextPage">Next</button>
+</div>

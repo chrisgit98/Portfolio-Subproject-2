@@ -20,12 +20,12 @@
                 console.log(data);
                 prev(data.prev || undefined);
                 next(data.next || undefined);
-                nameSearch(data);
+                nameSearch(data.names);
             });
 
         }
 
-        let enablePreviousPage = ko.observable(() => prev() !== undefined);
+        let enablePreviousPage = ko.computed(() => prev() !== undefined);
 
         let showNextPage = () => {
             console.log(next());
@@ -33,11 +33,11 @@
                 console.log(data);
                 prev(data.prev || undefined);
                 next(data.next || undefined);
-                nameSearch(data);
+                nameSearch(data.names);
             });
         }
 
-        let enableNextPage = ko.observable(() => next() !== undefined);
+        let enableNextPage = ko.computed(() => next() !== undefined);
 
         let SeeDetails = (data) => {
             postman.publish("showperson", data.personId)

@@ -31,35 +31,33 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{userId}", Name = nameof(GetRatingHistoryByUserId))]
-        public IActionResult GetRatingHistoryByUserId(int userId)
-        {
-
-            var ratingHistory = _dataService.GetRatingHistoryByUserId(userId);
-            if (ratingHistory == null)
-            {
-                return NotFound();
-            }
-            return Ok(ratingHistory);
-        }
-
         [Authorization]
-        [HttpPost]
-        public IActionResult RateAMovie(MovieRating data)
+        [HttpGet(Name = nameof(GetRatingHistoryByUserId))]
+        public IActionResult GetRatingHistoryByUserId()
         {
-            var user = Request.HttpContext.Items["User"] as User;
-            data.UserId = user.UserId;
-            _dataService.RateAMovie(data);
-            
-            return Ok();
+            try { 
+                var user = Request.HttpContext.Items["User"] as User;
+                var movieRating = _dataService.GetRatingHistoryByUserId(user.UserId);
+                if (movieRating == null)
+                {
+                    return NotFound();
+                }
+                return Ok(movieRating.Select(CreateMovieRatingViewModel));
+
+            }
+            catch (Exception)
+            {
+                return Unauthorized();
+            }
         }
 
-        private MovieRatingViewModel CreateMovieRatingViewModel(MovieRating movieRating)
+        private RatingHistoryViewModel CreateMovieRatingViewModel(RatingHistory ratingHistory)
         {
-            var model = _mapper.Map<MovieRatingViewModel>(movieRating);
-            //model.Url = GetUrl(movieRating);
-            //model.FilmId = movieRating.FilmId;
-            //model.UserId = movieRating.UserId;
+            var model = _mapper.Map<RatingHistoryViewModel>(ratingHistory);
+            model.Url = GetUrl(ratingHistory);
+            model.FilmId = ratingHistory.FilmId;
+            model.UserId = ratingHistory.UserId;
+            model.Rating = ratingHistory.Rating;
             return model;
         }
         private string GetUrl(RatingHistory ratingHistory)

@@ -13,7 +13,7 @@
 
         let createSearch = () => {
             ms.getMovies(searchInput(), data => {
-                console.log("error" + data);
+                console.log( data);
                 prev(data.prev || undefined);
                 next(data.next || undefined);
                 bestMatchSearch(data.movies);
@@ -23,28 +23,28 @@
 
         let showPreviousPage = () => {
             console.log(prev());
-            ms.getStringSearchUrl(prev(), data => {
-                console.log(data);
+            ms.getBestMatchUrl(prev(), data => {
+                console.log(prev());
                 prev(data.prev || undefined);
                 next(data.next || undefined);
-                stringSearch(data);
+                bestMatchSearch(data.movies);
             });
             
         }
 
-        let enablePreviousPage = ko.observable(() => prev() !== undefined);
+        let enablePreviousPage = ko.computed(() => prev() !== undefined);
 
         let showNextPage = () => {
             console.log(next());
-            ms.getStringSearchUrl(next(), data => {
+            ms.getBestMatchUrl(next(), data => {
                 console.log(data);
                 prev(data.prev || undefined);
                 next(data.next || undefined);
-                stringSearch(data);
+                bestMatchSearch(data.movies);
             });
         }
 
-        let enableNextPage = ko.observable(() => next() !== undefined);
+        let enableNextPage = ko.computed(() => next() !== undefined);
 
         let SeeDetails = (data) => {
             postman.publish("showmovie", data.filmId)

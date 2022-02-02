@@ -2,6 +2,7 @@
     return function (params) {
 
         let titleOtherview = ko.observable();
+        let rateinput = ko.observable();
         let similarMovies = ko.observableArray([]);
         let popularActors = ko.observableArray([]);
         let status = ko.observable();
@@ -39,6 +40,20 @@
 
         let Back = () => postman.publish("changeView", "Search-for-movies");
 
+        let rateMovie = () => {
+            const filmId = titleOtherview().filmId;
+            ms.rateATitle(filmId, rateinput(), data => {
+                console.log(data)
+            });
+        }
+
+        //let rateMovie = () => {
+        //    const movierate = { filmId: titleOtherview().filmId, givenRate: rateinput() };
+
+        //    ms.rateATitle(movierate, data => {
+        //        console.log(data)
+        //    });
+        //}
 
         let BookamrkMovie = () => {
             const bookmarkTitle = { u_id: localStorage.getItem("u_id"), filmId: titleOtherview().filmId, title: titleOtherview().title };
@@ -62,7 +77,9 @@
             BookamrkMovie,
             Back,
             status,
-            deleteBookmarkTitle
+            deleteBookmarkTitle,
+            rateMovie,
+            rateinput
         };
     };
 });

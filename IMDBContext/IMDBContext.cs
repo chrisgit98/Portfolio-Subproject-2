@@ -146,7 +146,7 @@ namespace EfEx
             modelBuilder.Entity<SearchHistory>().Property(x => x.UserId).HasColumnName("u_id");
             modelBuilder.Entity<SearchHistory>().Property(x => x.FilmId).HasColumnName("tconst");
             modelBuilder.Entity<SearchHistory>().Property(x => x.Date).HasColumnName("time");
-            modelBuilder.Entity<SearchHistory>().HasKey(c => new { c.UserId, c.FilmId});
+            modelBuilder.Entity<SearchHistory>().HasKey(c => new { c.UserId});
 
             //modelBuilder.Entity<UserRating>().ToTable("user_rating");
             //modelBuilder.Entity<UserRating>().Property(x => x.UserId).HasColumnName("u_id");
@@ -236,7 +236,7 @@ namespace EfEx
             modelBuilder.Entity<RatingHistory>().Property(x => x.FilmId).HasColumnName("tconst");
             modelBuilder.Entity<RatingHistory>().Property(x => x.Rating).HasColumnName("rating");
             modelBuilder.Entity<RatingHistory>().Property(x => x.Date).HasColumnName("time");
-            modelBuilder.Entity<RatingHistory>().HasKey(c => new { c.UserId, c.FilmId });
+            modelBuilder.Entity<RatingHistory>().HasKey(c => new { c.UserId});
         }
     }
 

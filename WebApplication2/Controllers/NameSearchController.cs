@@ -39,7 +39,7 @@ namespace WebService.Controllers
         {
             try {
                 var user = Request.HttpContext.Items["User"] as User;
-                var nameSearch = _dataService.NameSearch(s);
+                var nameSearch = _dataService.NameSearch(s).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize);
                 var searchHisttory = new SearchHistory(user.UserId, s, DateTime.Now);
                 _dataService.CreateSearchHistory(searchHisttory);
 
@@ -92,11 +92,11 @@ namespace WebService.Controllers
 
         private string GetNameSearchUrl(int page, int pageSize, string orderBy, string s)
         {
-            return "http://localhost:5000/api/namesearch/" + s + "?page=" + page + "&pageSize=" + pageSize;
-            //return _linkGenerator.GetUriByName(
-            //    HttpContext,
-            //    nameof(StringSearch1),
-            //    new { page, pageSize, orderBy });
+
+            return _linkGenerator.GetUriByName(
+                HttpContext,
+                nameof(SearchNames),
+                new { page, pageSize, orderBy, s });
         }
 
         private static int GetLastPage(int pageSize, int total)
