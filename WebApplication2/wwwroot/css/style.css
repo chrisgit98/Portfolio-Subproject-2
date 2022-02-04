@@ -1,23 +1,31 @@
 ﻿
-/*@import url('http://fonts.cdnfonts.com/css/netflix-font');
-*/
-
-html,
+/*@import url(//db.onlinewebfonts.com/c/46e6f8cc0502a8cadd4d5559b625c070?family=The+Godfather);*/
+/*@import url(//db.onlinewebfonts.com/c/661bf1532b87a1df22906f51cfe17e93?family=ITCMedeaW01-ExtraBold);*/
+/*@import url(//db.onlinewebfonts.com/c/4cc9d692753925335e7af83ecf6e6815?family=MuseoW01-900);
+@import url(//db.onlinewebfonts.com/c/c1239a6a087136eb09b65699edbf2f07?family=Start);*/
+@font-face{
+    font-family:StarWars;
+    src:url(Starjedi.ttf);
+}
 body {
-    font-family: 'Netflix Font', sans-serif;
-    background: #141E30; /* fallback for old browsers */
+    font-family: Calibri;
+    /*    font-family: Arial, Helvetica, sans-serif;
+*/ background: #141E30; /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #243B55, #141E30); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-/* color:white!important
-*/}
+    /* color:white!important
+*/
+}
+
 .intro {
     height: 100%;
 }
 /* Default height for small devices */
 #intro-example {
-/*    height: 400px;
-*/    margin-top: 2em;
-      height:auto;
+    /*    height: 400px;
+*/ margin-top: 2em;
+    height: auto;
+    color: #e50914;
 }
 
 /* Height for devices larger than 992px */
@@ -36,19 +44,10 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-/*.mask-custom {
-    background: rgba(24, 24, 16, .2);
-    border-radius: 2em;
-    backdrop-filter: blur(15px);
-    border: 2px solid rgba(255, 255, 255, 0.05);
-    background-clip: padding-box;
-    box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
-}*/
+
 /*parallax effect*/
 .parallax {
-    /* Image with an old projector */
-    /*    background-image: url("https://media.istockphoto.com/photos/movie-projector-on-dark-background-picture-id1007557230?k=20&m=1007557230&s=612x612&w=0&h=hWEw8rA6ASt-Z18pNvUKk2GtQZVLj1GHv3HFlNB4p6U=");
-*/
+  
     /* Set a specific height */
     min-height: 500px;
     /* Create the parallax scrolling effect */
@@ -60,17 +59,167 @@ body {
     margin-left: -10px;
     margin-right: -10px;
 }
-/* Custom.scss
- Option A: Include all of Bootstrap*/
-.h2 {
-    color: navajowhite ;
-    margin-top: 2em;
-    padding-bottom: 2em;
-}
-.h1,.h2 {
-    margin-top: 2em;
-    padding-bottom:2em;
-   /* background: -webkit-linear-gradient(#ba8b02, #808080);
+
+
+h1, h2,th,thead {
+    margin-top: 1em;
+    padding-bottom: 1em;
+    /*    color:brown;
+*/
+    background: -webkit-linear-gradient(#ba8b02, #808080);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;*/
+    -webkit-text-fill-color: transparent;
+    font-family: StarWars;
 }
+
+
+
+
+
+
+/*footer and stuff*/
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+
+.table, .table tbody, .table tr, table td {
+    vertical-align: top;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+.prevNextButton {
+    margin: 8px;
+    padding: 5px;
+    border-radius: 0.25rem;
+}
+
+.searchButton {
+    margin: 8px;
+    padding: 2px;
+    border-radius: 0.25rem;
+}
+
+
+
+
+/*end of footer and stuff*/
+
+
+
+/*popups*/
+
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+    .popup button {
+        background: none;
+        color: #ffa260;
+        border: 2px solid;
+        padding: .65em 1.2em;
+        margin-bottom: 1em;
+        font-size: 1em;
+        transition: all 0.2s;
+        background-color: #151b29;
+    }
+
+        .popup button:hover {
+            border-color: #f1f15c;
+            color: white;
+            box-shadow: 0 0.5em 0.5em -0.4em #f1f15c;
+            transform: translateY(0.25em);
+            cursor: pointer;
+        }
+
+    /* The actual popup */
+    .popup .popuptext {
+        visibility: hidden;
+        width: 160px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -80px;
+    }
+
+        /* Popup arrow */
+        .popup .popuptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+    /* Toggle this class - hide and show the popup */
+    .popup .show {
+        visibility: visible;
+        -webkit-animation: fadeIn 1s;
+        animation: fadeIn 1s;
+    }
+
+
+    .popup .hide {
+        visibility: hidden;
+        -webkit-animation: fadeOut 1s;
+        animation: fadeOut 1s;
+    }

@@ -4,40 +4,49 @@
     <h1 data-bind="text: title"></h1>
     <hr>
 
-    </div>
-    <table class="table-borderless">
-        <!--<thead class="thead-dark">-->
-            <!--<tr>
-                <th>Title</th>
-                <th>TitleType</th>
-                <th>Released</th>
-                <th>Ended</th>
-                <th>Lenght(in minutes)</th>
-                <th>Poster</th>
-                <th>Plot</th>
-                <th>Awards</th>
-                <th>Rating</th>
-                <th>Genre</th>
-            </tr>-->
+</div>
 
-            <!--<tr>
-                <th>Title</th>
-                <th>TitleType</th>
-                <th>Released</th>
-                <th>Ended</th>
-                <th>Lenght(in minutes)</th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach: titleOtherview">
-            <tr>
-                <td data-bind="text: title"></td>
-                <td data-bind="text: titleType"></td>
-                <td data-bind="text: startYear"></td>
-                <td data-bind="text: endYear"></td>
-                <td data-bind="text: length"></td>
-            </tr>
-        </tbody>-->
-        <thead>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4" data-bind="foreach: titleOtherview">
+            <img data-bind="attr:{src: poster}" />
+        </div>
+        <div class="col-sm-7">
+            <table data-bind="foreach: titleOtherview">
+                <tr>
+                    <th>Plot</th>
+                    <td data-bind="text: plot"></td>
+                </tr>
+                <tr>
+                    <th>Awards</th>
+                    <td data-bind="text: awards"></td>
+                </tr>
+                <tr>
+                    <th>Genre</th> 
+                    <td data-bind="text: genre"></td>
+                </tr>
+                <tr>
+                    <th>Rating</th>
+                    <td data-bind="text rating"></td>
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<!-- OLD LAYOYT -->
+<!--<table class="table-borderless">
+ 
+    <thead>
             <tr>
                 <th>Poster</th>
                 <th>Plot</th>
@@ -70,25 +79,58 @@
             </tr>
         </tbody>
     </table>
-    <table class="popular-actors">
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2> Actors</h2>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+           <div class="col-sm-4" data-bind="foreach: popularActors">
+            <p data-bind="text:name"></p>
+
+             </div>
+
+
+         </div>
+
+        <div class="row">
+            <table class="table-borderless">
+            <tbody data-bind="foreach: popularActors">
+                <tr>
+                    <td data-bind="text: name"></td>
+
+
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>-->
+    <!-- END OF OLD LAYOYT -->
+    <!--<table class="popular-actors">
         <thead>
             <tr><th>Actors</th></tr>
         </thead>
         <tbody data-bind="foreach: popularActors">
             <tr>
-                <td data-bind="text: name"></td>
-                <!--<td data-bind="text: popularity"></td>-->
-            </tr>
+                <td data-bind="text: name"></td>-->
+    <!--<td data-bind="text: popularity"></td>-->
+    <!--</tr>
         </tbody>
-    </table>
+    </table>-->
 
     <div class="rating-option">
-       Rate this movie (between 1 and 10) <input type="text" data-bind="textInput: rateinput" />
+        Rate this movie (between 1 and 10) <input type="text" data-bind="textInput: rateinput" />
         <button type="submit" class="btn btn-info btn-sm" data-bind="click: rateMovie">Rate</button>
     </div>
 
+
     <div class="navigation-buttons">
-        <button class="btn btn-info btn-sm" data-bind="click: Back">Back</button>
-        <button class="btn btn-info btn-sm" data-bind="click: BookamrkMovie">Bookmark this movie</button>
+        <button class="navigation-buttons" data-bind="click: Back">Back</button>
+        <button class="navigation-buttons" data-bind="click: BookamrkMovie">Bookmark this movie</button>
         <div data-bind="text: status"></div>
     </div>
