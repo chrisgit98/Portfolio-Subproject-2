@@ -47,17 +47,18 @@ body {
 
 /*parallax effect*/
 .parallax {
-  
     /* Set a specific height */
-    min-height: 500px;
+    min-height: 250px;
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-image: url(https://media.istockphoto.com/photos/row-of-empty-red-cinema-seats-picture-id1175987609?k=20&m=1175987609&s=612x612&w=0&h=MyLiIQfuyCghNnFSrAQSrlpOQtFpBxTVCmuAV6q8Cqs=);
     margin-top: -60px;
     margin-left: -10px;
     margin-right: -10px;
+    margin-bottom: 10px;
 }
 
 
