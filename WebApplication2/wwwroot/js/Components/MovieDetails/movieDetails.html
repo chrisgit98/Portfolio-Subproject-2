@@ -1,5 +1,4 @@
-﻿<!--<h1>Movie Details</h1>-->
-<div data-bind="foreach: titleOtherview">
+﻿<div data-bind="foreach: titleOtherview">
     <hr />
     <h1 data-bind="text: title"></h1>
     <hr>
@@ -36,118 +35,34 @@
     </div>
 
     <div class="row">
-        <div class="col-sm">
+        <div class="col">
             <h2>Actors</h2>
-            <table>
-                <tbody data-bind="foreach: popularActors">
-                    <tr>
-                        <td data-bind="text: name"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="col-sm">
-            <h2>Similar Movies</h2>
-            <table>
-                <!--<thead>
-                    <tr><th>Similar Movies/TvSeries</th></tr>
-                </thead>-->
-                <tbody data-bind="foreach: similarMovies">
-                    <tr>
-                        <td data-bind="text: title"></td>
-
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
+    <div class="row col-sm">
+        <div class="list-group list-group-horizontal col" data-bind="foreach: popularActors">
+            <h5 class="col" data-bind="text:name"> </h5>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>Similar Movies</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="list-group list-group-horizontal col" data-bind="foreach: similarMovies">
+            <!--<ul class="list-group list-group-horizontal" data-bind="foreach: similarMovies">
+                <li class="col" data-bind="text:title"></li>
+            </ul>-->
+            <h5 class="col" data-bind="text:title"> </h5>
+        </div>
+    </div>
+
 
 </div>
 
 
-
-
-
-<!-- OLD LAYOYT -->
-<!--<table class="table-borderless">
- 
-    <thead>
-            <tr>
-                <th>Poster</th>
-                <th>Plot</th>
-                <th>Awards</th>
-                <th>Rating</th>
-                <th>Genre</th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach: titleOtherview">
-            <tr>
-                <td><img data-bind="attr:{src: poster}" /></td>
-                <td data-bind="text: plot"></td>
-                <td data-bind="text: awards"></td>
-                <td data-bind="text: rating"></td>
-                <td data-bind="text: genre"></td>
-
-            </tr>
-        </tbody>
-    </table>
-
-    <div data-bind="text: $parent.tconst"></div>
-    <table class="similar-movies">
-        <thead>
-            <tr><th>Similar Movies/TvSeries</th></tr>
-        </thead>
-        <tbody data-bind="foreach: similarMovies">
-            <tr>
-                <td data-bind="text: title"></td>
-
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2> Actors</h2>
-
-            </div>
-        </div>
-
-
-        <div class="row">
-           <div class="col-sm-4" data-bind="foreach: popularActors">
-            <p data-bind="text:name"></p>
-
-             </div>
-
-
-         </div>
-
-        <div class="row">
-            <table class="table-borderless">
-            <tbody data-bind="foreach: popularActors">
-                <tr>
-                    <td data-bind="text: name"></td>
-
-
-                </tr>
-            </tbody>
-            </table>
-        </div>
-    </div>-->
-    <!-- END OF OLD LAYOYT -->
-    <!--<table class="popular-actors">
-        <thead>
-            <tr><th>Actors</th></tr>
-        </thead>
-        <tbody data-bind="foreach: popularActors">
-            <tr>
-                <td data-bind="text: name"></td>-->
-    <!--<td data-bind="text: popularity"></td>-->
-    <!--</tr>
-        </tbody>
-    </table>-->
 <hr>
     <div class="rating-option">
         Rate this movie (between 1 and 10) <input type="text" data-bind="textInput: rateinput" />
