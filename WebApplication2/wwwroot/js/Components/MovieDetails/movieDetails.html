@@ -39,8 +39,8 @@
             <h2>Actors</h2>
         </div>
     </div>
-    <div class="row col-sm">
-        <div class="list-group list-group-horizontal col" data-bind="foreach: popularActors">
+    <div class="row">
+        <div class="list-group list-group-horizontal col flex-sm-row flex-column" data-bind="foreach: popularActors">
             <h5 class="col" data-bind="text:name"> </h5>
 
         </div>
@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="list-group list-group-horizontal col" data-bind="foreach: similarMovies">
+        <div class="list-group list-group-horizontal col flex-sm-row flex-column" data-bind="foreach: similarMovies">
             <!--<ul class="list-group list-group-horizontal" data-bind="foreach: similarMovies">
                 <li class="col" data-bind="text:title"></li>
             </ul>-->
