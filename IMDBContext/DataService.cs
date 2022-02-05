@@ -21,7 +21,7 @@ namespace EfEx
     {
         public TitleBasics GetMovie(string filmId);
 
-        IList<SearchHistory> GetSearchHistory();
+        //IList<SearchHistory> GetSearchHistory();
         public IList<SearchHistory> GetSearchHistoryByUserId(int userId);
         public int SearchHistoryCount(int userId);
         public bool DeleteSearchHistory(int userId);
@@ -200,13 +200,13 @@ namespace EfEx
 
         //Search History
 
-        public IList<SearchHistory> GetSearchHistory()
-        {
-            var ctx = new IMDBContext();
-            var result = ctx.SearchHistories.AsEnumerable();
-            return result.ToList();
+        //public IList<SearchHistory> GetSearchHistory()
+        //{
+        //    var ctx = new IMDBContext();
+        //    var result = ctx.SearchHistories.AsEnumerable();
+        //    return result.ToList();
 
-        }
+        //}
 
         public IList<SearchHistory> GetSearchHistoryByUserId(int userId)
         {
