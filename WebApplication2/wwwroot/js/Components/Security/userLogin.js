@@ -1,4 +1,4 @@
-﻿define(['knockout', 'securityService'], (ko, ss) => {
+﻿define(['knockout', 'securityService','postman'], (ko, ss,postman) => {
     return function (params) {
         let username = ko.observable();
         let password = ko.observable();
@@ -17,13 +17,15 @@
                 localStorage.setItem("username", data.username);
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("u_id", JSON.parse(atob(data.token.split('.')[1])).u_id);
+                postman.publish("changeView","Search-for-movies")
             });
 
         };
 
-        let cancel = () => {
-            // TODO
-        }
+        let goreg = () => postman.publish("changeView", "register");
+            
+
+        
 
 
 
@@ -31,7 +33,7 @@
             username,
             password,
             login,
-            cancel
+            goreg
         };
     };
 });

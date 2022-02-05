@@ -18,9 +18,7 @@
 
         };
 
-        let cancel = () => {
-            // TODO
-        }
+        let cancel = () => postman.publish("changeview", "logIn");
 
 
 
