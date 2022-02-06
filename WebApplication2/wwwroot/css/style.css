@@ -1,5 +1,7 @@
 ﻿@charset "UTF-8";
 @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css");
+@import url("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css");
+
 @font-face{
     font-family:StarWars;
     src:url(Starjedi.ttf);
@@ -233,4 +235,61 @@ body {
 
     .star-rating .fa-star {
         color: yellow;
+    }
+/*star-rating-system font-awesome*/
+@charset "UTF-8";
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css");
+/* Basic styles */
+.row {
+    text-align: center;
+}
+
+.rate {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+input {
+    display: none;
+}
+
+label {
+    float: right;
+    font-size: 0;
+    color: #d9d9d9;
+}
+
+    label:before {
+        content: "";
+        font-family: FontAwesome;
+        font-size: 40px;
+    }
+
+    label:hover,
+    label:hover ~ label {
+        color: #fcd000;
+        transition: 0.2s;
+    }
+
+input:checked ~ label {
+    color: #ccac00;
+}
+
+    input:checked ~ label:hover,
+    input:checked ~ label:hover ~ label {
+        color: #fcd000;
+        transition: 0.2s;
+    }
+
+/* Half-star*/
+.star-half {
+    position: relative;
+}
+
+    .star-half:before {
+        position: absolute;
+        content: "";
+        padding-right: 0;
     }
