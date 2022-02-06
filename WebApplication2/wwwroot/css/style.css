@@ -1,8 +1,4 @@
 ﻿
-/*@import url(//db.onlinewebfonts.com/c/46e6f8cc0502a8cadd4d5559b625c070?family=The+Godfather);*/
-/*@import url(//db.onlinewebfonts.com/c/661bf1532b87a1df22906f51cfe17e93?family=ITCMedeaW01-ExtraBold);*/
-/*@import url(//db.onlinewebfonts.com/c/4cc9d692753925335e7af83ecf6e6815?family=MuseoW01-900);
-@import url(//db.onlinewebfonts.com/c/c1239a6a087136eb09b65699edbf2f07?family=Start);*/
 @font-face{
     font-family:StarWars;
     src:url(Starjedi.ttf);
@@ -14,7 +10,8 @@ body {
     background: -webkit-linear-gradient(to right, #243B55, #141E30); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     /* color:white!important
-*/
+
+*/ 
 }
 
 .intro {
@@ -36,8 +33,9 @@ body {
         
     }
 }
-.last-item{
-    margin-bottom:400px;
+.navigation-buttons{
+    margin-bottom: 400px;
+    /*last-item*/
 }
 #logo {
     background: -webkit-linear-gradient(#ba8b02, #808080);
@@ -112,10 +110,10 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
-}
+/*html {
+    position: relative;*/
+/*    min-height: 100%;
+*//*}*/
 
 
 .table, .table tbody, .table tr, table td {

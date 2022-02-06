@@ -4,10 +4,11 @@
     <title>IMDB 2.O</title>
     <link href="js/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet" />
+    <link href="js/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
     <link rel="icon" href="https://img.icons8.com/cotton/50/000000/documentary.png" type="image/png" sizes="16x16">
 </head>
-
 <body class="text-light container-fluid">
+
 
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
         <div id="logo"> <a class="navbar-brand" href="#">IMDB <span style="font-size:x-small"> 2.0</span> </a> </div>
@@ -26,21 +27,22 @@
 
         </div>
     </nav>
-    <div class=" p-5 text-center bg-image parallax">
-        <div data-bind="component: {name: currentView, params: { currentView }}"></div>
-        <script data-main="js/main.js" src="js/lib/require.js/require.min.js"></script>
+    <div class="parallax">
+        <div class=" p-5 text-center bg-image parallax">
+            <div data-bind="component: {name: currentView, params: { currentView }}"></div>
+            <script data-main="js/main.js" src="js/lib/require.js/require.min.js"></script>
+        </div>
+
+
+
+
+
+
     </div>
-    
-
-
-    <div class="footer-copyright text-center py-3">
+    <div class="footer-copyright text-center py-3 last-item">
         © 2022 Copyright:
         RAW13
     </div>
-
-    <!--<footer class="footer" style="color:white">
-    </footer>-->
-    <!-- p-5 text-center bg-image  -->
-
 </body>
+
 </html>
