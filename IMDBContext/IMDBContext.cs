@@ -89,9 +89,9 @@ namespace EfEx
             modelBuilder.Entity<Category>().Property(x => x.JobTitle).HasColumnName("job_title");
 
 
-            modelBuilder.Entity<KnownForTitles>().ToTable("knowfortitles");
-            modelBuilder.Entity<KnownForTitles>().Property(x => x.PersonId).HasColumnName("category_name");
-            modelBuilder.Entity<KnownForTitles>().Property(x => x.FilmId).HasColumnName("job_title");
+            modelBuilder.Entity<KnownForTitles>().ToTable("knownfortitles");
+            modelBuilder.Entity<KnownForTitles>().Property(x => x.PersonId).HasColumnName("nconst");
+            modelBuilder.Entity<KnownForTitles>().Property(x => x.FilmId).HasColumnName("tconst");
             modelBuilder.Entity<KnownForTitles>().HasKey(c => new { c.FilmId, c.PersonId });
 
             modelBuilder.Entity<TitleBasics>().ToTable("title_basics");
