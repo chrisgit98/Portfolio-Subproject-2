@@ -31,17 +31,28 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{s}")]
-
-
-        public IActionResult FindingCoPlayers(string s)
+        [HttpGet("{personId}")]
+        public IActionResult FindingCoPlayers(string personId)
         {
-            var findingCoPlayers = _dataService.FindingCoPlayers(s);
+            var findingCoPlayers = _dataService.FindingCoPlayers(personId);
             if (findingCoPlayers == null)
             {
                 return NotFound();
             }
-            return Ok(findingCoPlayers);
+            var coPlayers = findingCoPlayers.Select(CreateFindingCoPlayersViewModel);
+            return Ok(coPlayers);
+        }
+
+        private FindingCoPlayerViewModel CreateFindingCoPlayersViewModel(FindingCoPlayers findingCoPlayers)
+        {
+            var model = _mapper.Map<FindingCoPlayerViewModel>(findingCoPlayers);
+            model.Url = GetUrl(findingCoPlayers);
+            return model;
+        }
+
+        private string GetUrl(FindingCoPlayers findingCoPlayers)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(FindingCoPlayers), new {findingCoPlayers.PersonId});
         }
     }
 }

@@ -31,17 +31,30 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{s}", Name = nameof(GetMovieDetails))]
-        public IActionResult GetMovieDetails(string s)
+        [HttpGet("{filmId}", Name = nameof(GetMovieDetails))]
+        public IActionResult GetMovieDetails(string filmId)
         {
-            var titleOtherview = _dataService.GetTitleOtherview(s);
+            var titleOtherview = _dataService.GetTitleOtherview(filmId);
 
             if (titleOtherview == null)
             {
                 return NotFound();
             }
 
-            return Ok(titleOtherview);
+            var model = CreateTitleOtherviewViewModel(titleOtherview);
+            return Ok(model);
+        }
+
+        private TitleOtherViewViewModel CreateTitleOtherviewViewModel(TitleOtherview titleOtherview)
+        {
+            var model = _mapper.Map<TitleOtherViewViewModel>(titleOtherview);
+            model.Url = GetUrl(titleOtherview);
+            return model;
+        }
+
+        private string GetUrl(TitleOtherview titleOtherview)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetMovieDetails), new { titleOtherview.FilmId });
         }
 
     }

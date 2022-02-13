@@ -31,12 +31,12 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{s}", Name = nameof(SimilarMovies))]
+        [HttpGet("{filmId}", Name = nameof(SimilarMovies))]
 
 
-        public IActionResult SimilarMovies(string s)
+        public IActionResult SimilarMovies(string filmId)
         {
-            var similarMovies = _dataService.SimilarMovies(s);
+            var similarMovies = _dataService.SimilarMovies(filmId);
             if (similarMovies == null)
             {
                 return NotFound();

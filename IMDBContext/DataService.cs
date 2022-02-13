@@ -38,9 +38,10 @@ namespace EfEx
 
         //BookmarkTitle CRUD
         public IList<BookmarkTitle> GetBookmarksTitle();
-        public BookmarkTitle GetBookmarkTitleByUserId(int userId, string filmId);
+        public BookmarkTitle GetBookmarkTitleByFilmId(string filmId);
         public BookmarkTitle CreateBookmarkTitle(BookmarkTitle bookmarkTitle);
         public IList<BookmarkTitle> GetBookmarkTitleByUserId(int userId);
+        public BookmarkTitle GetBookmarkTitleByUserIdAndFilmId(int userId, string filmId);
         public bool DeleteBookmarkTitle(int userId, string filmId);
 
         //User Crud
@@ -57,15 +58,15 @@ namespace EfEx
 
         public IList<StringSearch> StringSearch(string s);
         public int StringSearchCount(string s);
-        public IList<FindingCoPlayers> FindingCoPlayers(string s);
+        public IList<FindingCoPlayers> FindingCoPlayers(string personId);
 
-        public IList<SimilarMovies> SimilarMovies(string s);
+        public IList<SimilarMovies> SimilarMovies(string filmId);
 
-        public IList<PopularActors> PopularActors(string s);
+        public IList<PopularActors> PopularActors(string filmId);
 
         public IList<StructuredStringSearch> StructuredStringSearches(string s, string s1, string s2, string s3);
 
-        public TitleOtherview GetTitleOtherview(string s);
+        public TitleOtherview GetTitleOtherview(string filmId);
 
         public IList<BestMatchSearch> BestMatchSearch(string s);
 
@@ -163,12 +164,20 @@ namespace EfEx
 
         }
 
-
-        public BookmarkTitle GetBookmarkTitleByUserId(int userId, string filmId)
+        public BookmarkTitle GetBookmarkTitleByUserIdAndFilmId(int userId, string filmId)
         {
             var ctx = new IMDBContext();
 
-            BookmarkTitle result = ctx.BookmarkTitles.FirstOrDefault(x => x.UserId == userId && x.FilmId == filmId);
+            BookmarkTitle result = ctx.BookmarkTitles.FirstOrDefault(x =>x.UserId == userId && x.FilmId == filmId);
+
+            return result;
+        }
+
+        public BookmarkTitle GetBookmarkTitleByFilmId(string filmId)
+        {
+            var ctx = new IMDBContext();
+
+            BookmarkTitle result = ctx.BookmarkTitles.FirstOrDefault(x => x.FilmId == filmId);
 
             return result;
         }
@@ -275,31 +284,31 @@ namespace EfEx
             var result = ctx.StructuredStringSearch.FromSqlInterpolated($"SELECT * FROM structured_string_search({s},{s1} ,{s2}, {s3}) ").ToList();
             return result;
         }
-        public IList<PopularActors> PopularActors(string s)
+        public IList<PopularActors> PopularActors(string filmId)
         {
             var ctx = new IMDBContext();
-            var result = ctx.PopularActors.FromSqlInterpolated($"SELECT * FROM ppl_actor({s})").ToList();
+            var result = ctx.PopularActors.FromSqlInterpolated($"SELECT * FROM ppl_actor({filmId})").ToList();
             return result;
         }
 
-        public IList<SimilarMovies> SimilarMovies(string s)
+        public IList<SimilarMovies> SimilarMovies(string filmId)
         {
             var ctx = new IMDBContext();
-            var result = ctx.SimilarMovies.FromSqlInterpolated($"SELECT * FROM similar_movies({s})").ToList();
+            var result = ctx.SimilarMovies.FromSqlInterpolated($"SELECT * FROM similar_movies({filmId})").ToList();
             return result;
         }
 
-        public IList<FindingCoPlayers> FindingCoPlayers(string s)
+        public IList<FindingCoPlayers> FindingCoPlayers(string personId)
         {
             var ctx = new IMDBContext();
-            var result = ctx.FindingCoPlayers.FromSqlInterpolated($"SELECT * FROM finding_coplayer({s})").ToList();
+            var result = ctx.FindingCoPlayers.FromSqlInterpolated($"SELECT * FROM finding_coplayer({personId})").ToList();
             return result;
         }
 
-        public  TitleOtherview GetTitleOtherview(string s)
+        public  TitleOtherview GetTitleOtherview(string filmId)
         {
             var ctx = new IMDBContext();
-            var result  = ctx.TitleOtherviews.FromSqlInterpolated($"SELECT * FROM title_otherview({s})");
+            var result  = ctx.TitleOtherviews.FromSqlInterpolated($"SELECT * FROM title_otherview({filmId})");
             return result.FirstOrDefault();
         }
 

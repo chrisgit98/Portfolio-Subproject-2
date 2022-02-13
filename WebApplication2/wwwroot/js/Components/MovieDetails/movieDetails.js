@@ -42,6 +42,7 @@
 
         let rateMovie = () => {
             const filmId = titleOtherview().filmId;
+            console.log(rateinput);
             ms.rateATitle(filmId, rateinput(), data => {
                 console.log(data)
             });

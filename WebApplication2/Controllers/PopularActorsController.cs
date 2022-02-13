@@ -31,17 +31,29 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{s}")]
+        [HttpGet("{filmId}")]
 
 
-        public IActionResult PopularActors(string s)
+        public IActionResult PopularActors(string filmId)
         {
-            var popularActors = _dataService.PopularActors(s);
+            var popularActors = _dataService.PopularActors(filmId);
             if (popularActors == null)
             {
                 return NotFound();
             }
-            return Ok(popularActors);
+            return Ok(popularActors.Select(CreatePopularsActorsViewModel));
+        }
+
+        private PopularActorsViewModel CreatePopularsActorsViewModel(PopularActors popularActors)
+        {
+            var model = _mapper.Map<PopularActorsViewModel>(popularActors);
+            model.Url = GetUrl(popularActors);
+            return model;
+        }
+
+        private string GetUrl(PopularActors popularActors)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(PopularActors), new { popularActors.Name});
         }
     }
 }

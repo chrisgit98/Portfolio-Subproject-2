@@ -30,22 +30,34 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [Authorization]
-        [HttpGet]
-        public IActionResult GetBookmarksTitle()
-        {
-            try
-            {
-                var user = Request.HttpContext.Items["User"] as User;
-                var bookmarkTitle = _dataService.GetBookmarksTitle();
-                var model = bookmarkTitle.Select(CreateBookmarkTitleViewModel);
-                return Ok(model);
+        //[Authorization]
+        //[HttpGet]
+        //public IActionResult GetBookmarksTitle()
+        //{
+        //    try
+        //    {
+        //        var user = Request.HttpContext.Items["User"] as User;
+        //        var bookmarkTitle = _dataService.GetBookmarksTitle();
+        //        var model = bookmarkTitle.Select(CreateBookmarkTitleViewModel);
+        //        return Ok(model);
 
-            }
-            catch (Exception)
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Unauthorized();
+        //    }
+        //}
+
+
+        [HttpGet("{filmId}", Name = nameof(GetBookmarkTitleByFilmId))]
+        public IActionResult GetBookmarkTitleByFilmId(string filmId)
+        {
+            var bookmarkTitle = _dataService.GetBookmarkTitleByFilmId(filmId);
+            if (bookmarkTitle == null)
             {
-                return Unauthorized();
+                return NotFound();
             }
+            return Ok(bookmarkTitle);
         }
 
         [Authorization]
