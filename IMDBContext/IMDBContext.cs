@@ -10,8 +10,6 @@ namespace EfEx
         public DbSet<NameBasics> NameBasics { get; set; }
         public DbSet<Actors> Actors { get; set; }
         public DbSet<Staff> Staff { get; set; }
-        public DbSet<Professions> Professions { get; set; }
-        public DbSet<Category> Category { get; set; }
         public DbSet<KnownForTitles> KnownForTitles { get; set; }
         public DbSet<TitleBasics> TitleBasics { get; set; }
         public DbSet<TitleEpisode> TitleEpisode { get; set; }
@@ -19,9 +17,7 @@ namespace EfEx
         public DbSet<Genre> Genre { get; set; }
         public DbSet<TitleRating> TitleRating { get; set; }
         public DbSet<OmdbData> OmdbDatas { get; set; }
-        //public DbSet<AppUser> AppUser { get; set; }
         public DbSet<SearchHistory> SearchHistories { get; set; }
-        //public DbSet<UserRating> UserRating { get; set; }
         public DbSet<BookmarkPeople> BookmarkPeoples { get; set; }
         public DbSet<BookmarkTitle> BookmarkTitles { get; set; }
         public DbSet<Wi> Wi { get; set; }
@@ -45,7 +41,6 @@ namespace EfEx
 
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             optionsBuilder.EnableSensitiveDataLogging();
-            //optionsBuilder.UseNpgsql("host = localhost; db = Imdb; uid = postgres; pwd = Trade01c3c4.");
             optionsBuilder.UseNpgsql("host = rawdata.ruc.dk; db = raw13; uid = raw13; pwd = e0OqApIG");
         }
 
@@ -79,15 +74,7 @@ namespace EfEx
             modelBuilder.Entity<Staff>().HasKey(c => new { c.PersonId, c.FilmId });
 
 
-            modelBuilder.Entity<Professions>().ToTable("professions");
-            modelBuilder.Entity<Professions>().Property(x => x.PersonId).HasColumnName("nconst");
-            modelBuilder.Entity<Professions>().Property(x => x.Profession).HasColumnName("profession");
-            modelBuilder.Entity<Professions>().HasKey(c => new { c.PersonId });
-
-            modelBuilder.Entity<Category>().ToTable("category");
-            modelBuilder.Entity<Category>().Property(x => x.CategoryName).HasColumnName("category_name");
-            modelBuilder.Entity<Category>().Property(x => x.JobTitle).HasColumnName("job_title");
-
+          
 
             modelBuilder.Entity<KnownForTitles>().ToTable("knownfortitles");
             modelBuilder.Entity<KnownForTitles>().Property(x => x.PersonId).HasColumnName("nconst");
@@ -148,12 +135,7 @@ namespace EfEx
             modelBuilder.Entity<SearchHistory>().Property(x => x.Date).HasColumnName("time");
             modelBuilder.Entity<SearchHistory>().HasKey(c => new { c.UserId});
 
-            //modelBuilder.Entity<UserRating>().ToTable("user_rating");
-            //modelBuilder.Entity<UserRating>().Property(x => x.UserId).HasColumnName("u_id");
-            //modelBuilder.Entity<UserRating>().Property(x => x.FilmId).HasColumnName("tconst");
-            //modelBuilder.Entity<UserRating>().Property(x => x.Rating).HasColumnName("rating");
-            //modelBuilder.Entity<UserRating>().Property(x => x.Comment).HasColumnName("comment");
-            //modelBuilder.Entity<UserRating>().HasKey(c => new { c.FilmId, c.UserId });
+           
 
             modelBuilder.Entity<BookmarkPeople>().ToTable("bookmarks_people");
             modelBuilder.Entity<BookmarkPeople>().Property(x => x.UserId).HasColumnName("u_id");

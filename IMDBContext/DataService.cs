@@ -19,7 +19,6 @@ namespace EfEx
 
         //SearchHistory CRUD
     {
-        public TitleBasics GetMovie(string filmId);
 
         //IList<SearchHistory> GetSearchHistory();
         public IList<SearchHistory> GetSearchHistoryByUserId(int userId);
@@ -30,7 +29,6 @@ namespace EfEx
         //BookmarksPeople CRUD
         IList<BookmarkPeople> GetBookmarksPeople();
         public BookmarkPeople GetBookmarkPeopleByUserId(int userId,string personID);
-        //public bool CreateBookmarkPeople(BookmarkPeople bookmarkPeople);
         public BookmarkPeople CreateBookmarkPeople(BookmarkPeople bookmarkPeople);
         public IList<BookmarkPeople> GetBookmarkPeopleByUserId(int userId);
         public bool DeleteBookmarkPeople(int userId, string personId);
@@ -81,11 +79,7 @@ namespace EfEx
     public class DataService : IDataService
     {
 
-        public TitleBasics GetMovie(string filmId)
-        {
-            var ctx = new IMDBContext();
-            return ctx.TitleBasics.FirstOrDefault(x => x.FilmId == filmId);
-        }
+      
 
 
 
@@ -104,9 +98,7 @@ namespace EfEx
         {
            
                 var ctx = new IMDBContext();
-                //if (ctx.Users.FirstOrDefault(x => x.UserId == userId) == null)
-                //    throw new ArgumentException("User not found");
-
+               
                 return ctx.BookmarkPeoples.Where(x => x.UserId == userId).ToList();
 
         }
@@ -209,13 +201,7 @@ namespace EfEx
 
         //Search History
 
-        //public IList<SearchHistory> GetSearchHistory()
-        //{
-        //    var ctx = new IMDBContext();
-        //    var result = ctx.SearchHistories.AsEnumerable();
-        //    return result.ToList();
-
-        //}
+       
 
         public IList<SearchHistory> GetSearchHistoryByUserId(int userId)
         {
@@ -247,12 +233,7 @@ namespace EfEx
                 ctx.SearchHistories.Remove(element);
             }
 
-            //var dsh = ctx.SearchHistories.Find(userId);
-            //if (dsh == null)
-            //{
-            //    return false;
-            //}
-            //ctx.SearchHistories.Remove(dsh);
+           
             ctx.SaveChanges();
             return true;
         }
@@ -316,9 +297,7 @@ namespace EfEx
         {
             Console.WriteLine(s);
             
-            var ctx = new IMDBContext();
-            //if (ctx.Users.FirstOrDefault(x => x.UserId == userId) == null)
-            //    throw new ArgumentException("User not found");
+            var ctx = new IMDBContext();            
             var result = ctx.NameSearches.FromSqlInterpolated($"SELECT * FROM name_search({s})").ToList();
             return result;
         }
@@ -370,7 +349,6 @@ namespace EfEx
             cmd.CommandText = $"call rate_title2({usr_id},'{t_id}',{u_rating})";
             cmd.Connection = conn;
             cmd.ExecuteNonQuery();
-            //ctx.MovieRatings.FromSqlInterpolated(($"call rate_title2({usr_id},'{t_id}',{u_rating})"));
         }
 
         //Users
