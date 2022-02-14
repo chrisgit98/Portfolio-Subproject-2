@@ -8,7 +8,7 @@ using EfEx.Domain;
 
 namespace WebService.ViewModels.Profiles
 {
-            public class FindingCoPlayerProfile : Profile
+        public class FindingCoPlayerProfile : Profile
         {
             public FindingCoPlayerProfile()
             {

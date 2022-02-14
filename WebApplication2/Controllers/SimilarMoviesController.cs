@@ -31,17 +31,28 @@ namespace WebService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{s}")]
+        [HttpGet("{filmId}", Name = nameof(SimilarMovies))]
 
 
-        public IActionResult SimilarMovies(string s)
+        public IActionResult SimilarMovies(string filmId)
         {
-            var similarMovies = _dataService.SimilarMovies(s);
+            var similarMovies = _dataService.SimilarMovies(filmId);
             if (similarMovies == null)
             {
                 return NotFound();
             }
-            return Ok(similarMovies);
+            return Ok(similarMovies.Select(CreateSimilarMoviesViewModel));
+        }
+
+        private SimilarMoviesViewModel CreateSimilarMoviesViewModel(SimilarMovies similarMovies)
+        {
+            var model = _mapper.Map<SimilarMoviesViewModel>(similarMovies);
+            model.Url = GetUrl(similarMovies); ;
+            return model;
+        }
+        private string GetUrl(SimilarMovies similarMovies)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(SimilarMovies), new { similarMovies.Title });
         }
     }
 }

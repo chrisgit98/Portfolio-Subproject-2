@@ -12,7 +12,8 @@ namespace EfEx.Domain
     {
         public int UserId { get; set; }
         public string PersonId { get; set; }
-   
+        public string Name { get; set; }
+
 
     }
 

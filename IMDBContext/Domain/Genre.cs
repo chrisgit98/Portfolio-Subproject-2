@@ -14,8 +14,6 @@ namespace EfEx.Domain
     {
         public char FilmId { get; set; }
         public string GenreName { get; set; }
-
-
     }
 
 }

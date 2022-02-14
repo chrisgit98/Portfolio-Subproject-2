@@ -9,13 +9,13 @@ using EfEx;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using WebServiceToken.Models;
-using WebServiceToken.Services;
+using WebService.Models;
+using WebService.Services;
 
-namespace WebServiceToken.Controllers
+namespace WebService.Controllers
 {
     [ApiController]
-    [Route("api/v3/users")]
+    [Route("api/users")]
     public class UsersController : ControllerBase
     {
         private readonly IDataService _dataService;
@@ -86,7 +86,7 @@ namespace WebServiceToken.Controllers
             var tokenDescription = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim("u_id", user.UserId.ToString()) }),
-                Expires = DateTime.Now.AddSeconds(45),
+                Expires = DateTime.Now.AddMinutes(45),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)

@@ -1,0 +1,119 @@
+﻿<div data-bind="foreach: titleOtherview">
+    <hr />
+    <h1 data-bind="text: title"></h1>
+    <hr>
+
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4" data-bind="foreach: titleOtherview">
+            <img data-bind="attr:{src: poster}" />
+        </div>
+        <div class="col-sm-7">
+            <table data-bind="foreach: titleOtherview">
+                <tr>
+                    <th>Plot</th>
+                    <td data-bind="text: plot"></td>
+                </tr>
+                <tr>
+                    <th>Awards</th>
+                    <td data-bind="text: awards"></td>
+                </tr>
+                <tr>
+                    <th>Genre</th>
+                    <td data-bind="text: genre"></td>
+                </tr>
+                <tr>
+                    <th>Minutes</th>
+                    <td data-bind="text:lenght"></td>
+                </tr>
+                <tr>
+                    <th>Rating</th>
+                    <td data-bind="text: rating"></td>
+
+                </tr>
+            </table>
+            <div class=" row justify-content-center">
+                <div class="col-sm-3">
+                    Rate this movie (between 1 and 10) <input type="text" class="form-control" data-bind="textInput: rateinput" />
+                    <button type="submit" class="btn btn-info btn-sm" data-bind="click: rateMovie">Rate</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <h2>Actors</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="list-group list-group-horizontal col flex-sm-row flex-column" data-bind="foreach: popularActors">
+            <h5 class="col" data-bind="text:name"> </h5>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>Similar Movies</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="list-group list-group-horizontal col flex-sm-row flex-column" data-bind="foreach: similarMovies">
+
+            <h5 class="col" data-bind="text:title"> </h5>
+        </div>
+    </div>
+
+
+
+</div>
+<div class="container">
+   
+</div>
+<hr>
+
+<!-- old rating system -->
+<div class="rating-option">
+    Rate this movie (between 1 and 10) <input type="text" class="form-control" data-bind="textInput: rateinput" />
+    <button type="submit" class="btn btn-info btn-sm" data-bind="click: rateMovie">Rate</button>
+</div>
+<!-- kinda good rating system -->
+<!--<div class="row">
+    <div class="col">
+        <input type="range" data-bind="value: setRating, valueUpdate: 'input'" min="1" max="10" />-->
+<!--<input type="number" data-bind="value: setRating" min="1" max="10" />-->
+<!--<button type="submit" class="btn btn-info btn-sm" data-bind="click: rateMovie">Rate</button>
+    </div>
+</div>-->
+<!-- adding star system-->
+<!--<div class="row">
+    <div class="col-lg-12">
+        <div class="star-rating">
+            <span class="fa fa-star-o" data-rating="1"></span>
+            <span class="fa fa-star-o" data-rating="2"></span>
+            <span class="fa fa-star-o" data-rating="3"></span>
+            <span class="fa fa-star-o" data-rating="4"></span>
+            <span class="fa fa-star-o" data-rating="6"></span>
+            <span class="fa fa-star-o" data-rating="7"></span>
+            <span class="fa fa-star-o" data-rating="8"></span>
+            <span class="fa fa-star-o" data-rating="9"></span>
+            <span class="fa fa-star-o" data-rating="10"></span>
+
+            <input type="hidden" name="whatever1" class="rating-value" value="1">
+        </div>
+    </div>
+</div>-->
+
+
+
+<div class="navigation-buttons">
+    <button class="navigation-buttons" data-bind="click: Back">Back</button>
+    <button class="navigation-buttons" data-bind="click: BookamrkMovie">Bookmark this movie</button>
+    <div data-bind="text: status"></div>
+</div>
+

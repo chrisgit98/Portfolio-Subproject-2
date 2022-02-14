@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace EfEx.Domain
 {
-    public class SimilarMovies
+    public class SimilarMovies 
     {
         public string Title { get; set; }
     }
+
+
 }

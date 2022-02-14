@@ -18,10 +18,10 @@ namespace EfEx
         public DbSet<TvSeries> TvSeries { get; set; }
         public DbSet<Genre> Genre { get; set; }
         public DbSet<TitleRating> TitleRating { get; set; }
-        public DbSet<OmdbData> OmdbData { get; set; }
-        public DbSet<AppUser> AppUser { get; set; }
+        public DbSet<OmdbData> OmdbDatas { get; set; }
+        //public DbSet<AppUser> AppUser { get; set; }
         public DbSet<SearchHistory> SearchHistories { get; set; }
-        public DbSet<UserRating> UserRating { get; set; }
+        //public DbSet<UserRating> UserRating { get; set; }
         public DbSet<BookmarkPeople> BookmarkPeoples { get; set; }
         public DbSet<BookmarkTitle> BookmarkTitles { get; set; }
         public DbSet<Wi> Wi { get; set; }
@@ -30,10 +30,13 @@ namespace EfEx
         public DbSet<FindingCoPlayers> FindingCoPlayers { get; set; }
         public DbSet<StringSearch>StringSearch { get; set; }
         public DbSet<StructuredStringSearch>StructuredStringSearch { get; set; }
-        
-        public DbSet<PopularActors>PopularActors { get; set; } 
-
-
+        public DbSet<TitleOtherview> TitleOtherviews { get; set; }
+        public DbSet<PopularActors>PopularActors { get; set; }
+        public DbSet<NameSearch> NameSearches { get; set; }
+        public DbSet<BestMatchSearch> BestMatchSearches { get; set; }
+        public DbSet<NameOtherview> NameOtherviews { get; set; }
+        public DbSet<MovieRating> MovieRatings { get; set; }
+        public DbSet<RatingHistory> RatingHistories { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -42,8 +45,8 @@ namespace EfEx
 
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             optionsBuilder.EnableSensitiveDataLogging();
-            optionsBuilder.UseNpgsql("host = localhost; db = imdb; uid = postgres; pwd = Trade01c3c4.");
-
+            //optionsBuilder.UseNpgsql("host = localhost; db = Imdb; uid = postgres; pwd = Trade01c3c4.");
+            optionsBuilder.UseNpgsql("host = rawdata.ruc.dk; db = raw13; uid = raw13; pwd = e0OqApIG");
         }
 
 
@@ -86,9 +89,9 @@ namespace EfEx
             modelBuilder.Entity<Category>().Property(x => x.JobTitle).HasColumnName("job_title");
 
 
-            modelBuilder.Entity<KnownForTitles>().ToTable("knowfortitles");
-            modelBuilder.Entity<KnownForTitles>().Property(x => x.PersonId).HasColumnName("category_name");
-            modelBuilder.Entity<KnownForTitles>().Property(x => x.FilmId).HasColumnName("job_title");
+            modelBuilder.Entity<KnownForTitles>().ToTable("knownfortitles");
+            modelBuilder.Entity<KnownForTitles>().Property(x => x.PersonId).HasColumnName("nconst");
+            modelBuilder.Entity<KnownForTitles>().Property(x => x.FilmId).HasColumnName("tconst");
             modelBuilder.Entity<KnownForTitles>().HasKey(c => new { c.FilmId, c.PersonId });
 
             modelBuilder.Entity<TitleBasics>().ToTable("title_basics");
@@ -131,19 +134,11 @@ namespace EfEx
             modelBuilder.Entity<OmdbData>().HasKey(c => new { c.FilmId });
 
 
-
-            //modelBuilder.Entity<AppUser>().ToTable("app_user");
-            //modelBuilder.Entity<AppUser>().Property(x => x.UserId).HasColumnName("u_id");
-            //modelBuilder.Entity<AppUser>().Property(x => x.UserName).HasColumnName("u_name");
-            //modelBuilder.Entity<AppUser>().Property(x => x.Password).HasColumnName("password");
-            //modelBuilder.Entity<AppUser>().Property(x => x.Age).HasColumnName("age");
-            //modelBuilder.Entity<AppUser>().Property(x => x.Region).HasColumnName("region");
-            //modelBuilder.Entity<AppUser>().HasKey(c => new { c.UserId });
-
             modelBuilder.Entity<User>().ToTable("users");
-            modelBuilder.Entity<User>().Property(x => x.Username).HasColumnName("u_name");
-            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
             modelBuilder.Entity<User>().Property(x => x.UserId).HasColumnName("u_id");
+            modelBuilder.Entity<User>().Property(x => x.Name).HasColumnName("name");
+            modelBuilder.Entity<User>().Property(x => x.Username).HasColumnName("username");
+            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");           
             modelBuilder.Entity<User>().Property(x => x.Salt).HasColumnName("salt");
             modelBuilder.Entity<User>().HasKey(c => new { c.UserId });
 
@@ -151,24 +146,26 @@ namespace EfEx
             modelBuilder.Entity<SearchHistory>().Property(x => x.UserId).HasColumnName("u_id");
             modelBuilder.Entity<SearchHistory>().Property(x => x.FilmId).HasColumnName("tconst");
             modelBuilder.Entity<SearchHistory>().Property(x => x.Date).HasColumnName("time");
-            modelBuilder.Entity<SearchHistory>().HasKey(c => new { c.FilmId, c.UserId });
+            modelBuilder.Entity<SearchHistory>().HasKey(c => new { c.UserId});
 
-            modelBuilder.Entity<UserRating>().ToTable("user_rating");
-            modelBuilder.Entity<UserRating>().Property(x => x.UserId).HasColumnName("u_id");
-            modelBuilder.Entity<UserRating>().Property(x => x.FilmId).HasColumnName("tconst");
-            modelBuilder.Entity<UserRating>().Property(x => x.Rating).HasColumnName("rating");
-            modelBuilder.Entity<UserRating>().Property(x => x.Comment).HasColumnName("comment");
-            modelBuilder.Entity<UserRating>().HasKey(c => new { c.FilmId, c.UserId });
+            //modelBuilder.Entity<UserRating>().ToTable("user_rating");
+            //modelBuilder.Entity<UserRating>().Property(x => x.UserId).HasColumnName("u_id");
+            //modelBuilder.Entity<UserRating>().Property(x => x.FilmId).HasColumnName("tconst");
+            //modelBuilder.Entity<UserRating>().Property(x => x.Rating).HasColumnName("rating");
+            //modelBuilder.Entity<UserRating>().Property(x => x.Comment).HasColumnName("comment");
+            //modelBuilder.Entity<UserRating>().HasKey(c => new { c.FilmId, c.UserId });
 
             modelBuilder.Entity<BookmarkPeople>().ToTable("bookmarks_people");
             modelBuilder.Entity<BookmarkPeople>().Property(x => x.UserId).HasColumnName("u_id");
             modelBuilder.Entity<BookmarkPeople>().Property(x => x.PersonId).HasColumnName("nconst");
-            modelBuilder.Entity<BookmarkPeople>().HasKey(c => new { c.PersonId, c.UserId });
+            modelBuilder.Entity<BookmarkPeople>().Property(x => x.Name).HasColumnName("name");
+            modelBuilder.Entity<BookmarkPeople>().HasKey(c => new { c.UserId, c.PersonId });
 
-            modelBuilder.Entity<BookmarkTitle>().ToTable("bookmark_title");
+            modelBuilder.Entity<BookmarkTitle>().ToTable("bookmarks_titles");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.UserId).HasColumnName("u_id");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.FilmId).HasColumnName("tconst");
-            modelBuilder.Entity<BookmarkTitle>().HasKey(c => new { c.FilmId, c.UserId });
+            modelBuilder.Entity<BookmarkTitle>().Property(x => x.Title).HasColumnName("title");
+            modelBuilder.Entity<BookmarkTitle>().HasKey(c => new { c.UserId, c.FilmId });
 
             modelBuilder.Entity<Wi>().ToTable("wi");
             modelBuilder.Entity<Wi>().Property(x => x.FilmId).HasColumnName("tconst");
@@ -181,7 +178,7 @@ namespace EfEx
             modelBuilder.Entity<SimilarMovies>().Property(x => x.Title).HasColumnName("movie");
 
             modelBuilder.Entity<FindingCoPlayers>().HasNoKey();
-            modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Nconst).HasColumnName("nconst");
+            modelBuilder.Entity<FindingCoPlayers>().Property(x => x.PersonId).HasColumnName("nconst");
             modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Primary_Name).HasColumnName("primary_name");
             modelBuilder.Entity<FindingCoPlayers>().Property(x => x.Frequency).HasColumnName("frequency_of_appereance");
 
@@ -198,6 +195,48 @@ namespace EfEx
             modelBuilder.Entity<PopularActors>().Property(x => x.Name).HasColumnName("starring");
             modelBuilder.Entity<PopularActors>().Property(x => x.Popularity).HasColumnName("popularity_num");
 
+            modelBuilder.Entity<TitleOtherview>().HasNoKey();
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.FilmId).HasColumnName("tconst");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Title).HasColumnName("originaltitle");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.TitleType).HasColumnName("titletype");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.StartYear).HasColumnName("startyear");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.EndYear).HasColumnName("endyear");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Lenght).HasColumnName("runtimeminutes");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Poster).HasColumnName("poster");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Plot).HasColumnName("plot");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Awards).HasColumnName("awards");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Rating).HasColumnName("averagerating");
+            modelBuilder.Entity<TitleOtherview>().Property(x => x.Genre).HasColumnName("genre_name");
+
+            modelBuilder.Entity<NameSearch>().HasNoKey();
+            modelBuilder.Entity<NameSearch>().Property(x => x.PersonId).HasColumnName("nconst");
+            modelBuilder.Entity<NameSearch>().Property(x => x.Name).HasColumnName("nameactor");
+            modelBuilder.Entity<NameSearch>().Property(x => x.Rate).HasColumnName("rate");
+
+            modelBuilder.Entity<BestMatchSearch>().HasNoKey();
+            modelBuilder.Entity<BestMatchSearch>().Property(x => x.FilmId).HasColumnName("tconst");
+            modelBuilder.Entity<BestMatchSearch>().Property(x => x.Ranking).HasColumnName("rank");
+            modelBuilder.Entity<BestMatchSearch>().Property(x => x.Title).HasColumnName("title");
+
+            modelBuilder.Entity<NameOtherview>().HasNoKey();
+            modelBuilder.Entity<NameOtherview>().Property(x => x.PersonId).HasColumnName("nconst");
+            modelBuilder.Entity<NameOtherview>().Property(x => x.Name).HasColumnName("nameactor");
+            modelBuilder.Entity<NameOtherview>().Property(x => x.BirthYear).HasColumnName("birthyear");
+            modelBuilder.Entity<NameOtherview>().Property(x => x.DeathYear).HasColumnName("deathyear");
+            modelBuilder.Entity<NameOtherview>().Property(x => x.KnownForTitles).HasColumnName("knownfortitles");
+
+            modelBuilder.Entity<MovieRating>().HasNoKey();
+            modelBuilder.Entity<MovieRating>().Property(x => x.UserId).HasColumnName("u_id");
+            modelBuilder.Entity<MovieRating>().Property(x => x.FilmId).HasColumnName("tconst");
+            modelBuilder.Entity<MovieRating>().Property(x => x.GivenRate).HasColumnName("rating");
+
+
+            modelBuilder.Entity<RatingHistory>().ToTable("rating_history");
+            modelBuilder.Entity<RatingHistory>().Property(x => x.UserId).HasColumnName("u_id");
+            modelBuilder.Entity<RatingHistory>().Property(x => x.FilmId).HasColumnName("tconst");
+            modelBuilder.Entity<RatingHistory>().Property(x => x.Rating).HasColumnName("rating");
+            modelBuilder.Entity<RatingHistory>().Property(x => x.Date).HasColumnName("time");
+            modelBuilder.Entity<RatingHistory>().HasKey(c => new { c.UserId});
         }
     }
 

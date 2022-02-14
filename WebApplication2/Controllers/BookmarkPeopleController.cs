@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-
+using WebService.Attributes;
 
 
 namespace WebService.Controllers
@@ -29,43 +29,85 @@ namespace WebService.Controllers
             _linkGenerator = linkGenerator;
             _mapper = mapper;
         }
+        //[Authorization]
+        //[HttpGet]
+        //public IActionResult GetBookmarksPeople()
+        //{
+        //    try
+        //    {
+        //        var user = Request.HttpContext.Items["User"] as User;
+
+        //        var bookmarkPeople = _dataService.GetBookmarkPeopleByUserId(user.UserId);
+        //        var model = bookmarkPeople.Select(CreateBookmarkPeopleViewModel);
+        //        return Ok(model);
+
+        //    }
+        //    catch(Exception)
+        //    {
+        //        return Unauthorized();
+        //    }
+        //}
+
+        [Authorization]
         [HttpGet("{userId}", Name = nameof(GetBookmarkPeopleByUserId))]
-        public IActionResult GetBookmarkPeopleByUserId(int userId)
+        public IActionResult GetBookmarkPeopleByUserId()
         {
-           
-            var bookmarkPeople = _dataService.GetBookmarkPeopleByUserId(userId);
-            if (bookmarkPeople == null)
-            {
-                return NotFound();
+            try {
+                var user = Request.HttpContext.Items["User"] as User;
+                var bookmarkPeople = _dataService.GetBookmarkPeopleByUserId(user.UserId);
+                if (bookmarkPeople == null)
+                {
+                    return NotFound();
+                }
+                return Ok(bookmarkPeople.Select(CreateBookmarkPeopleViewModel));
             }
-            return Ok(bookmarkPeople.Select(GetBookmarkPeopleViewModel));
+            catch(Exception)
+            {
+                return Unauthorized();
+            }
         }
 
-
-        [HttpDelete("{userId}/{personId}")]
-        public IActionResult DeleteBookmarkPeople(int userId, string personId)
+        [Authorization]
+        [HttpDelete("{personId}")]
+        public IActionResult DeleteBookmarkPeople( string personId)
         {
-           _dataService.DeleteBookmarkPeople(userId, personId);
-            
-            
-            return NoContent();
+            try
+            {
+                var user = Request.HttpContext.Items["User"] as User;
+                _dataService.DeleteBookmarkPeople(user.UserId, personId);
 
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                return Unauthorized();
+            }
         }
 
-        [HttpPost("{post}")]
-
-        public IActionResult CreateBookmarkPeople(BookmarkPeopleViewModel model)
+        [Authorization]
+        [HttpPost]
+        public IActionResult CreateBookmarkPeople(CreateBookmarkPeopleViewModel model)
         {
-            var bookmarkPeople = _mapper.Map<BookmarkPeople>(model);
+            try
+            {
+                var user = Request.HttpContext.Items["User"] as User;
+                model.UserId = user.UserId;
+                var bookmarkPeople = _mapper.Map<BookmarkPeople>(model);
 
-            _dataService.CreateBookmarkPeople(bookmarkPeople);
+                _dataService.CreateBookmarkPeople(bookmarkPeople);
 
-            return Created(GetUrl(bookmarkPeople), GetBookmarkPeopleViewModel(bookmarkPeople));
+                return Created(GetUrl(bookmarkPeople), CreateBookmarkPeopleViewModel(bookmarkPeople));
+
+            }
+            catch(Exception)
+            {
+                return Unauthorized();
+            }
         }
 
 
 
-        private BookmarkPeopleViewModel GetBookmarkPeopleViewModel(BookmarkPeople bookmarkPeople)
+        private BookmarkPeopleViewModel CreateBookmarkPeopleViewModel(BookmarkPeople bookmarkPeople)
         {
             var model = _mapper.Map<BookmarkPeopleViewModel>(bookmarkPeople);
             model.Url = GetUrl(bookmarkPeople);
@@ -75,7 +117,7 @@ namespace WebService.Controllers
         }
         private string GetUrl(BookmarkPeople bookmarkPeople)
         {
-            return _linkGenerator.GetUriByName(HttpContext, nameof(BookmarkPeople), new { bookmarkPeople.PersonId });
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetBookmarkPeopleByUserId),  new {  bookmarkPeople.UserId } );
         }
     }
 

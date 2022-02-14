@@ -1,0 +1,45 @@
+﻿<div data-bind="foreach: nameOtherview">
+    <h1 data-bind="text: name"></h1>
+</div>
+<div class="container">
+    <div class="row">
+        <h2 class="col">Personal Details</h2>
+    </div>
+    <div class="row">
+        <table  class="col" data-bind="foreach: nameOtherview">
+            <tr>
+                <th>Name </th>
+                <td data-bind="text: name"></td>
+            </tr>
+            <tr>
+                <th>BirthYear </th>
+                <td data-bind="text: birthYear"></td>
+
+            </tr>
+                <tr>  <th>DeathYear </th>
+                      <td data-bind="text: deathYear"></td></tr>
+                <tr>
+                    <th>Known for titles </th>
+                    <td data-bind="text: knownForTitles"></td>
+                </tr>                                  
+        </table>
+    </div>
+    <div class="row">
+        <h2 class="col">Frequent CoPlayers</h2>
+     </div>
+    <div class="row">
+        <div class="list-group list-group-horizontal col flex-sm-row flex-column" data-bind="foreach: findingCoPlayers">
+          
+            <h5 class="col" data-bind="text: primary_Name"> </h5>
+        </div>
+    </div>
+
+  
+</div>
+
+
+<div class="navigation-buttons">
+    <button class="btn btn-info btn-sm" data-bind="click: Back">Back</button>
+    <button class="btn btn-info btn-sm" data-bind="click: BookmarkPeople">Bookmark this person</button>
+    <div data-bind="text: status"></div>
+</div>
