@@ -53,14 +53,14 @@
 
     };
 
-    /*KnownForTitles*/
-    let getKnownForTitles = (personId, callback) => {
-        console.log(personId)
-        fetch("api/kn/" + personId)
-            .then(response => response.json())
-            .then(json => callback(json));
+    ///*KnownForTitles*/
+    //let getKnownForTitles = (personId, callback) => {
+    //    console.log(personId)
+    //    fetch("api/kn/" + personId)
+    //        .then(response => response.json())
+    //        .then(json => callback(json));
 
-    };
+    //};
 
     return {
         /*nameSearchApiUrl,*/

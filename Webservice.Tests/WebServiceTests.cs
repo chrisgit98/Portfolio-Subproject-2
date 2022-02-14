@@ -20,6 +20,8 @@ namespace Webservice.Tests
         private readonly Mock<IMapper> _mapperMock;
         private readonly Mock<LinkGenerator> _linkGeneratorMock;
 
+        private const string BookmarkTitleAPi = "http://localhost:5000/api/BookmarkTitle";
+
          public BookmarkTitleControllerTests()
          {
              _dataServiceMock = new Mock<IDataService>();
@@ -43,7 +45,24 @@ namespace Webservice.Tests
         }
 
 
+        [Fact]
+        public void GetBookmarkTitle_InvalidFilmId_ReturnsNotFoundStatus()
+        {
+            var ctrl = new BookmarkTitleController(_dataServiceMock.Object, null, null);
 
+            var result = ctrl.GetBookmarkTitleByFilmId("0");
+
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        //[Fact]
+        //public void GetBookmarkTitle_WithExpectedData_ReturnsCorrectBookmarTitle()
+        //{
+        //    var bookmarkTitle = $"{BookmarkTitleAPi}/17/tt2014357";
+        //    Assert.Equal(17, bookmarkTitle.userId);
+        //    Assert.Equal("tt2014357", bookmarkTitle.filmId);
+        //    Assert.Equal("The Altar Men", bookmarkTitle.title);
+        //}
 
         [Fact]
         public void CreateBookmarkTitle_ValidNewBookmarkTitle_DataServiceCreateBookmarkTitleMustBeCalledOnce()
