@@ -14,7 +14,6 @@ namespace WebService.ViewModels.Profiles
         public PopularActorsProfile()
         {
             CreateMap<PopularActors, PopularActorsViewModel>();
-            CreateMap<CreatePopularActorsViewModel, PopularActors>();
         }
 
     }
