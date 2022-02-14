@@ -13,7 +13,6 @@ namespace WebService.ViewModels.Profiles
             public FindingCoPlayerProfile()
             {
                 CreateMap<FindingCoPlayers, FindingCoPlayerViewModel>();
-                CreateMap<CreateFindingCoPlayerViewModel, FindingCoPlayers>();
             }
         }
     
