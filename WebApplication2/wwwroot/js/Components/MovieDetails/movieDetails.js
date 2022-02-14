@@ -6,6 +6,7 @@
         let similarMovies = ko.observableArray([]);
         let popularActors = ko.observableArray([]);
         let status = ko.observable();
+        let status2 = ko.observable();
 
         /*MovieDetails*/
         let getMovieDetails = (filmId) => {
@@ -43,6 +44,7 @@
         let rateMovie = () => {
             const filmId = titleOtherview().filmId;
             console.log(rateinput);
+            status2("Rated")
             ms.rateATitle(filmId, rateinput(), data => {
                 console.log(data)
             });
@@ -80,7 +82,8 @@
             status,
             deleteBookmarkTitle,
             rateMovie,
-            rateinput
+            rateinput,
+            status2
         };
     };
 });

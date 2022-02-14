@@ -49,16 +49,16 @@ namespace WebService.Controllers
         //}
 
 
-        [HttpGet("{filmId}", Name = nameof(GetBookmarkTitleByFilmId))]
-        public IActionResult GetBookmarkTitleByFilmId(string filmId)
-        {
-            var bookmarkTitle = _dataService.GetBookmarkTitleByFilmId(filmId);
-            if (bookmarkTitle == null)
-            {
-                return NotFound();
-            }
-            return Ok(bookmarkTitle);
-        }
+        //[HttpGet("{filmId}", Name = nameof(GetBookmarkTitleByFilmId))]
+        //public IActionResult GetBookmarkTitleByFilmId(string filmId)
+        //{
+        //    var bookmarkTitle = _dataService.GetBookmarkTitleByFilmId(filmId);
+        //    if (bookmarkTitle == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(bookmarkTitle);
+        //}
 
         [Authorization]
         [HttpGet("{userId}", Name = nameof(GetBookmarkTitleByUserId))]

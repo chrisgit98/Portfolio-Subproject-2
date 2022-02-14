@@ -38,6 +38,7 @@
                 <div class="col-sm-3">
                     Rate this movie (between 1 and 10) <input type="text" class="form-control" data-bind="textInput: rateinput" />
                     <button type="submit" class="btn btn-info btn-sm" data-bind="click: rateMovie">Rate</button>
+                    <div data-bind="text: status2"></div>
                 </div>
             </div>
 
@@ -74,8 +75,8 @@
 </div>
 
 <div class="navigation-buttons">
-    <button class="navigation-buttons" data-bind="click: Back">Back</button>
-    <button class="navigation-buttons" data-bind="click: BookamrkMovie">Bookmark this movie</button>
+    <button class="btn btn-info btn-sm" data-bind="click: Back">Back</button>
+    <button class="btn btn-info btn-sm" data-bind="click: BookamrkMovie">Bookmark this movie</button>
     <div data-bind="text: status"></div>
 </div>
 
