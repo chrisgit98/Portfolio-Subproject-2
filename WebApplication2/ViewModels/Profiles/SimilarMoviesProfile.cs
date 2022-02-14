@@ -14,7 +14,6 @@ namespace WebService.ViewModels.Profiles
         public SimilarMoviesProfile()
         {
             CreateMap<SimilarMovies,SimilarMoviesViewModel>();
-            CreateMap<CreateSimilarMoviesViewModel, SimilarMovies>();
         }
     }
 }

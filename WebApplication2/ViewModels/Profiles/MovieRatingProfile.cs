@@ -13,7 +13,6 @@ namespace WebService.ViewModels.Profiles
         public MovieRatingProfile()
         {
             CreateMap<MovieRating, MovieRatingViewModel>();
-            CreateMap<CreateMovieRatingViewModel, BookmarkPeople>();
         }
     }
 }

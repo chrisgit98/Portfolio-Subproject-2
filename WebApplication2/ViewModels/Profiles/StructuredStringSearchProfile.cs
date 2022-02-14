@@ -14,7 +14,6 @@ namespace WebService.ViewModels.Profiles
         public StructuredStringSearchProfile()
         {
             CreateMap<StructuredStringSearch, StructuresStringSearchViewModel>();
-            CreateMap<CreateStructuredStringViewModel, StructuredStringSearch>();
         }
 
     }

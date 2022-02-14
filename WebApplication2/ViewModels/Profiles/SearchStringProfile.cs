@@ -13,7 +13,7 @@ namespace WebService.ViewModels.Profiles
         public SearchStringProfile()
         {
             CreateMap<StringSearch, StringSearchViewModel>();
-            CreateMap<CreateSearchStringViewModel, StringSearch>();
+            
         }
     }
 }
